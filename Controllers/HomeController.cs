@@ -9,8 +9,16 @@ namespace CARS.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {
-            return View();
+        {   
+            if (Session["UserId"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogIn", "LogIn");
+            }
+            
         }
 
         public ActionResult About()
