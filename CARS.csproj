@@ -133,13 +133,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IEntity.cs" />
-    <Compile Include="Migrations\201910261836009_edo.cs" />
-    <Compile Include="Migrations\201910261836009_edo.designer.cs">
-      <DependentUpon>201910261836009_edo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910262010147_ed2.cs" />
-    <Compile Include="Migrations\201910262010147_ed2.designer.cs">
-      <DependentUpon>201910262010147_ed2.cs</DependentUpon>
+    <Compile Include="Migrations\201911022204540_a.cs" />
+    <Compile Include="Migrations\201911022204540_a.designer.cs">
+      <DependentUpon>201911022204540_a.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
@@ -214,11 +210,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910261836009_edo.resx">
-      <DependentUpon>201910261836009_edo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910262010147_ed2.resx">
-      <DependentUpon>201910262010147_ed2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911022204540_a.resx">
+      <DependentUpon>201911022204540_a.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -4,6 +4,7 @@
     {
 
         #region Propiedades
+        public long Id { get; set; }
         public Servicio Servicio { get; set; }
         public Incidencia Incidencia { get; set; }
         #endregion

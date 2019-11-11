@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class edo : DbMigration
+    public partial class a : DbMigration
     {
         public override void Up()
         {
@@ -26,6 +26,8 @@
                     {
                         Id = c.Long(nullable: false, identity: true),
                         Estado = c.Int(nullable: false),
+                        FechaInicio = c.DateTime(nullable: false),
+                        FechaFin = c.DateTime(nullable: false),
                         Usuario_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
@@ -79,7 +81,7 @@
                         Matricula = c.String(),
                         Kilometros = c.Double(nullable: false),
                         FechaDeCompra = c.DateTime(nullable: false),
-                        numeroUnidad = c.Int(nullable: false),
+                        NumeroUnidad = c.Int(nullable: false),
                         Marca = c.String(),
                         Modelo = c.String(),
                         Anio = c.Int(nullable: false),
@@ -122,10 +124,26 @@
                     })
                 .PrimaryKey(t => t.Id);
             
+            CreateTable(
+                "dbo.ServicioIncidencias",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Incidencia_Id = c.Long(),
+                        Servicio_Id = c.Long(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Incidencias", t => t.Incidencia_Id)
+                .ForeignKey("dbo.Servicios", t => t.Servicio_Id)
+                .Index(t => t.Incidencia_Id)
+                .Index(t => t.Servicio_Id);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.ServicioIncidencias", "Servicio_Id", "dbo.Servicios");
+            DropForeignKey("dbo.ServicioIncidencias", "Incidencia_Id", "dbo.Incidencias");
             DropForeignKey("dbo.Incidencias", "Usuario_Id", "dbo.Usuarios");
             DropForeignKey("dbo.Servicios", "Incidencia_Id", "dbo.Incidencias");
             DropForeignKey("dbo.Servicios", "Vehiculo_Id", "dbo.Vehiculoes");
@@ -133,6 +151,8 @@
             DropForeignKey("dbo.Usuarios", "Vehiculo_Id", "dbo.Vehiculoes");
             DropForeignKey("dbo.Servicios", "Taller_Id", "dbo.Tallers");
             DropForeignKey("dbo.Facturas", "Servicio_Id", "dbo.Servicios");
+            DropIndex("dbo.ServicioIncidencias", new[] { "Servicio_Id" });
+            DropIndex("dbo.ServicioIncidencias", new[] { "Incidencia_Id" });
             DropIndex("dbo.Usuarios", new[] { "Vehiculo_Id" });
             DropIndex("dbo.Vehiculoes", new[] { "Localidad_Id" });
             DropIndex("dbo.Servicios", new[] { "Incidencia_Id" });
@@ -140,6 +160,7 @@
             DropIndex("dbo.Servicios", new[] { "Taller_Id" });
             DropIndex("dbo.Incidencias", new[] { "Usuario_Id" });
             DropIndex("dbo.Facturas", new[] { "Servicio_Id" });
+            DropTable("dbo.ServicioIncidencias");
             DropTable("dbo.Localidads");
             DropTable("dbo.Usuarios");
             DropTable("dbo.Vehiculoes");
