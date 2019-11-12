@@ -8,7 +8,7 @@ namespace CARS.Models
     public class Incidencia: IEntity
     {
         
-        #region Propertys
+        #region Properties
         public long Id { get; set; }
         public List<Servicio> Servicios { get; set; }
         public Usuario Usuario { get; set; }
@@ -18,7 +18,7 @@ namespace CARS.Models
         #endregion
 
 
-        #region Construnctor
+        #region Constructor
         public Incidencia(List<Servicio> servicios, Usuario usuario)
         {
             Servicios = servicios;

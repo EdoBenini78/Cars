@@ -6,7 +6,7 @@ namespace CARS.Models
 {
     public class Servicio: IEntity
     {
-        #region Propertys
+        #region Properties
         public long Id { get; set; }
         public Vehiculo Vehiculo { get; set; }
         public Taller Taller { get; set; }

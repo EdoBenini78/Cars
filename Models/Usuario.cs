@@ -5,7 +5,7 @@ namespace CARS
 {
     public class Usuario: IEntity
     {
-        #region Propertys
+        #region Properties
         public long Id { get; set; }
         public string Mail { get; set; }
         public string Contrasenia { get; set; }

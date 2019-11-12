@@ -5,7 +5,7 @@ namespace CARS.Models
 {
     public class Taller: IEntity
     {
-        #region Propertys
+        #region Properties
         public long Id { get; set; }
         public string Nombre { get; set; }
         public long Rut { get; set; }

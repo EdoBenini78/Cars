@@ -1,0 +1,68 @@
+﻿@*SOLICITUD DE SERVICIO PARA USUARIO DE VEHÍCULO*@
+
+@{
+    ViewBag.Title = "AgregarIncidencia";
+}
+
+<h2>SOLICITUD DE SERVICIO</h2>
+
+@{ var listItems = new List<SelectListItem>
+    {
+       new SelectListItem {Text = "Preventivo", Value = "preventivo"},
+       new SelectListItem {Text = "Correctivo", Value = "correctivo"}
+    };
+   }
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" action="">
+            <div class="form-group">
+                <label for="tipo" class="col-md-2 control-label">Tipo</label>
+                <div class="col-md-10">
+             
+                    <input type="text" required name="tipo" class="form-control" />
+                    
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="fecha" class="col-md-2 control-label">Fecha sugerida</label>
+                <div class="col-md-10">
+                    <input type="datetime" required name="fecha" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="km" class="col-md-2 control-label">Kilometraje</label>
+                <div class="col-md-10">
+                    <input type="number" required name="km" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ubicacion" class="col-md-2 control-label">Ubicación</label>
+                <div class="col-md-10">
+                    <input type="text" required name="ubicacion" class="form-control" />
+                </div>
+            </div>
+
+          
+            <div class="form-group">
+                <label for="comentarios" class="col-md-2 control-label">Comentarios adicionales</label>
+                <div class="col-md-10">
+                    <input type="text" name="comentarios" class="form-control" />
+                </div>
+            </div>
+
+                       
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-danger">CANCELAR</button>
+                    <button type="submit" class="btn btn-success">SOLICITAR</button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>

@@ -5,7 +5,7 @@ namespace CARS.Models
 {
     public class Factura: IEntity
     {
-        #region Propertys
+        #region Properties
         public long Id { get; set; }
         [Required]
         public double Monto { get; set; }

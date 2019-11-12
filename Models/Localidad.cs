@@ -5,7 +5,7 @@ namespace CARS.Models
     public class Localidad: IEntity
     {
         
-        #region Propertys
+        #region Properties
         public long Id { get; set; }
         public string Departamento { get; set; }
         public string Ciudad { get; set; }

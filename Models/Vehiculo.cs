@@ -6,7 +6,7 @@ namespace CARS.Models
 {
     public class Vehiculo: IEntity
     {
-        #region Propertys
+        #region Properties
         public long Id { get; set; }
         public string Matricula { get; set; }
         public double Kilometros{ get; set; }

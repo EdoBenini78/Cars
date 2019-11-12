@@ -22,3 +22,14 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+
+/*AGREGADO A MANO*/
+.navbar-inverse{
+    background-color: #0000FF !important;
+}
+
+.navbar-brand {
+    background-color: #0000FF !important;
+}
