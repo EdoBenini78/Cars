@@ -130,6 +130,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidenciaController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
+    <Compile Include="Controllers\UsuarioVehiculoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,6 +196,7 @@
     <Content Include="Views\LogIn\LogIn.cshtml" />
     <Content Include="Views\Incidencia\AgregarIncidencia.cshtml" />
     <Content Include="Views\Incidencia\ListaIncidencias.cshtml" />
+    <Content Include="Views\UsuarioVehiculo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

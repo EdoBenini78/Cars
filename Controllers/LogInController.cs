@@ -17,7 +17,7 @@ namespace CARS.Controllers
         public RedirectToRouteResult ValidarLogIn(string email, string pass)
         {
             Session["UserId"] = email;
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "UsuarioVehiculo");
         }
     }
 }
