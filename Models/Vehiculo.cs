@@ -1,6 +1,8 @@
 ﻿using CARS.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace CARS.Models
 {
@@ -10,10 +12,13 @@ namespace CARS.Models
         public long Id { get; set; }
         public string Matricula { get; set; }
         public double Kilometros{ get; set; }
+        [DisplayName("Fecha de compra"), DataType(DataType.Date)]
         public DateTime FechaDeCompra { get; set; }
+        [DisplayName("Número de Unidad")]
         public int NumeroUnidad { get; set; }
         public string Marca { get; set; }
         public string Modelo { get; set; }
+        [DisplayName("Año")]
         public int Anio { get; set; }
         public string Motor { get; set; }
         public string Chasis { get; set; }
@@ -27,7 +32,7 @@ namespace CARS.Models
         #endregion
 
         #region Constructor
-        public Vehiculo(string matricula, double kilometros, DateTime fechaDeCompra, int numeroUnidad, string marca, string modelo, int anio, string motor, string chasis, long padron, TipoTraccion traccion, string combustible, Localidad localidad, DateTime fechaDeIngreso, List<Usuario> choferes)
+        public Vehiculo(string matricula, double kilometros, DateTime fechaDeCompra, int numeroUnidad, string marca, string modelo, int anio, string motor, string chasis, long padron, TipoTraccion traccion, string combustible, Localidad localidad, DateTime fechaIngreso, List<Usuario> choferes)
         {
             Matricula = matricula;
             Kilometros = kilometros;
@@ -43,7 +48,7 @@ namespace CARS.Models
             Combustible = combustible;
             Localidad = localidad;
             Activo = true;
-            FechaIngreso = fechaDeIngreso;
+            FechaIngreso = fechaIngreso;
             Choferes = choferes;
         }
 

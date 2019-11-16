@@ -130,6 +130,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidenciaController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
+    <Compile Include="Controllers\TalleresController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\VehiculosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -137,6 +140,10 @@
     <Compile Include="Migrations\201911022204540_a.cs" />
     <Compile Include="Migrations\201911022204540_a.designer.cs">
       <DependentUpon>201911022204540_a.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911161809326_atributos usuario.cs" />
+    <Compile Include="Migrations\201911161809326_atributos usuario.designer.cs">
+      <DependentUpon>201911161809326_atributos usuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
@@ -195,6 +202,21 @@
     <Content Include="Views\LogIn\LogIn.cshtml" />
     <Content Include="Views\Incidencia\AgregarIncidencia.cshtml" />
     <Content Include="Views\Incidencia\ListaIncidencias.cshtml" />
+    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Usuarios\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Vehiculos\Create.cshtml" />
+    <Content Include="Views\Vehiculos\Delete.cshtml" />
+    <Content Include="Views\Vehiculos\Details.cshtml" />
+    <Content Include="Views\Vehiculos\Edit.cshtml" />
+    <Content Include="Views\Vehiculos\Index.cshtml" />
+    <Content Include="Views\Talleres\Create.cshtml" />
+    <Content Include="Views\Talleres\Delete.cshtml" />
+    <Content Include="Views\Talleres\Details.cshtml" />
+    <Content Include="Views\Talleres\Edit.cshtml" />
+    <Content Include="Views\Talleres\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -215,6 +237,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201911022204540_a.resx">
       <DependentUpon>201911022204540_a.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911161809326_atributos usuario.resx">
+      <DependentUpon>201911161809326_atributos usuario.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,130 @@
+﻿@model CARS.Models.Vehiculo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Ver detalles</h2>
+
+<div>
+    <h4>Vehiculo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Matricula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Matricula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kilometros)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kilometros)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaDeCompra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaDeCompra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroUnidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroUnidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Marca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Anio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Anio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Motor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Motor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Chasis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Chasis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Padron)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Padron)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Traccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Traccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Combustible)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Combustible)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Activo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Activo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaIngreso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaIngreso)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Volver", "Index")
+</p>
