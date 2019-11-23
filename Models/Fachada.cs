@@ -57,6 +57,12 @@ namespace CARS.Models
             return pVehiculo;
         }
 
+        public Vehiculo GetVehiculoByChofer(string aUserId)
+        {
+            Vehiculo pVehiculo = db.DbVehiculoChofer.Where(vc => vc.Chofer.Id == long.Parse(aUserId)).FirstOrDefault().Vehiculo;
+            return pVehiculo;
+        }
+
         public bool UpdateVehiculo(Vehiculo aVehiculo)
         {
             Vehiculo pVehiculo = GetVehiculoByDbId(aVehiculo.Id);
@@ -75,7 +81,7 @@ namespace CARS.Models
             Vehiculo pVehiculo = GetVehiculoByDbId(aVehiculo.Id);
             if (aVehiculo != null && aChofer != null)
             {
-                aVehiculo.Choferes.Add(pChofer);
+                //aVehiculo.Choferes.Add(pChofer);
                 db.SaveChanges();
                 return true;
             }
@@ -166,7 +172,6 @@ namespace CARS.Models
             }
             return false;
         }
-
 
         #endregion
 

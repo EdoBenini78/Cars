@@ -15,22 +15,35 @@ namespace CARS.Models
         public EstadoIncidencia Estado { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
+        public DateTime FechaSugerida { get; set; }
+        public string Descripcion { get; set; }
+        public string DireccionSugerida { get; set; }
+        public long Kilometraje { get; set; }
+        public Vehiculo Vehiculo { get; set; }
         #endregion
 
 
         #region Constructor
-        public Incidencia(List<Servicio> servicios, Usuario usuario)
-        {
-            Servicios = servicios;
-            Usuario = usuario;
-            Estado = EstadoIncidencia.EnCurso;
-            FechaInicio = DateTime.Now;
-        }
-
         public Incidencia()
         {
             Servicios = new List<Servicio>();
         }
+
+        public Incidencia(List<Servicio> servicios, Usuario usuario, EstadoIncidencia estado, DateTime fechaInicio, DateTime fechaFin, DateTime fechaSugerida, string descripcion, string direccionSugerida, long kilometraje, Vehiculo vehiculo)
+        {
+            Servicios = servicios;
+            Usuario = usuario;
+            Estado = estado;
+            FechaInicio = fechaInicio;
+            FechaFin = fechaFin;
+            FechaSugerida = fechaSugerida;
+            Descripcion = descripcion;
+            DireccionSugerida = direccionSugerida;
+            Kilometraje = kilometraje;
+            Vehiculo = vehiculo;
+        }
+
+
         #endregion
     }
 }

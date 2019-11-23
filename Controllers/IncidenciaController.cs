@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CARS.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,11 @@ namespace CARS.Controllers
 {
     public class IncidenciaController : Controller
     {
+        Fachada fachada = new Fachada();
         // GET: Incidencia
         public ActionResult Index()
         {
+            ViewBag.Vehiculo = fachada.GetVehiculoByChofer(Session["UserId"].ToString());
             return View();
         }
 
@@ -18,6 +21,7 @@ namespace CARS.Controllers
         //Método para crear incidencia del usuario del vehículo
         public ActionResult AgregarIncidencia()
         {
+            //fachada.AgregarIncidencia();
             return View();
         }
 

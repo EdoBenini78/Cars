@@ -28,7 +28,7 @@ namespace CARS.Models
         public Localidad Localidad { get; set; }
         public bool Activo { get; set; }
         public DateTime FechaIngreso { get; set; }
-        public List<Usuario> Choferes { get; set; }
+        //public List<Usuario> Choferes { get; set; }
         #endregion
 
         #region Constructor
@@ -49,12 +49,12 @@ namespace CARS.Models
             Localidad = localidad;
             Activo = true;
             FechaIngreso = fechaIngreso;
-            Choferes = choferes;
+            //Choferes = choferes;
         }
 
         public Vehiculo()
         {
-            Choferes = new List<Usuario>();
+            //Choferes = new List<Usuario>();
         }
         #endregion
     }

@@ -13,8 +13,8 @@ namespace CARS.Models
         public Taller Taller { get; set; }
         public TipoServicio Tipo{ get; set; }
         public DateTime FechaSugerida { get; set; }
-        
-        [DisplayName("Fecha de entrada")]public DateTime FechaEntrada { get; set; }
+        [DisplayName("Fecha de entrada")]
+        public DateTime FechaEntrada { get; set; }
         public DateTime FechaSalida { get; set; }
         public TipoEstado Estado{ get; set; }
         public List<Factura> Facturas { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CARS.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,7 @@ namespace CARS.Controllers
     public class LogInController : Controller
     {
         // GET: LogIn
+        Fachada fachada = new Fachada();
         public ActionResult LogIn()
         {
             return View();
@@ -16,8 +18,14 @@ namespace CARS.Controllers
         [HttpPost]
         public RedirectToRouteResult ValidarLogIn(string email, string pass)
         {
-            Session["UserId"] = email;
-            return RedirectToAction("Index", "Home");
+            Usuario pUsuario = fachada.ValidarLogIn(pass, email);
+            if (pUsuario != null)
+            {
+                Session["Tipo"] = pUsuario.Tipo;
+                Session["UserId"] = pUsuario.Id;
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("LogIn", "LogIn"); ;
         }
     }
 }

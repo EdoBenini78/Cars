@@ -137,13 +137,25 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IEntity.cs" />
-    <Compile Include="Migrations\201911022204540_a.cs" />
-    <Compile Include="Migrations\201911022204540_a.designer.cs">
-      <DependentUpon>201911022204540_a.cs</DependentUpon>
+    <Compile Include="Migrations\201911232029261_edo.cs" />
+    <Compile Include="Migrations\201911232029261_edo.designer.cs">
+      <DependentUpon>201911232029261_edo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201911161809326_atributos usuario.cs" />
-    <Compile Include="Migrations\201911161809326_atributos usuario.designer.cs">
-      <DependentUpon>201911161809326_atributos usuario.cs</DependentUpon>
+    <Compile Include="Migrations\201911232044090_test.cs" />
+    <Compile Include="Migrations\201911232044090_test.designer.cs">
+      <DependentUpon>201911232044090_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911232050272_EE.cs" />
+    <Compile Include="Migrations\201911232050272_EE.designer.cs">
+      <DependentUpon>201911232050272_EE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911232107291_aa.cs" />
+    <Compile Include="Migrations\201911232107291_aa.designer.cs">
+      <DependentUpon>201911232107291_aa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911232113209_ss.cs" />
+    <Compile Include="Migrations\201911232113209_ss.designer.cs">
+      <DependentUpon>201911232113209_ss.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
@@ -161,6 +173,7 @@
     <Compile Include="Models\TipoUsuario.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Vehiculo.cs" />
+    <Compile Include="Models\VehiculoChofer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -235,11 +248,20 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201911022204540_a.resx">
-      <DependentUpon>201911022204540_a.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911232029261_edo.resx">
+      <DependentUpon>201911232029261_edo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911161809326_atributos usuario.resx">
-      <DependentUpon>201911161809326_atributos usuario.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201911232044090_test.resx">
+      <DependentUpon>201911232044090_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911232050272_EE.resx">
+      <DependentUpon>201911232050272_EE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911232107291_aa.resx">
+      <DependentUpon>201911232107291_aa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911232113209_ss.resx">
+      <DependentUpon>201911232113209_ss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

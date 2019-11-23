@@ -7,13 +7,13 @@ namespace CARS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0-preview1-19506-01")]
-    public sealed partial class atributosusuario : IMigrationMetadata
+    public sealed partial class test : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(atributosusuario));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(test));
         
         string IMigrationMetadata.Id
         {
-            get { return "201911161809326_atributos usuario"; }
+            get { return "201911232044090_test"; }
         }
         
         string IMigrationMetadata.Source
