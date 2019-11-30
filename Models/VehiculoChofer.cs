@@ -12,6 +12,7 @@ namespace CARS.Models
         public long Id { get; set; }
         public Usuario Chofer { get; set; }
         public Vehiculo Vehiculo { get; set; }
+        public bool Activo { get; set; }
         #endregion
 
         #region Contructor

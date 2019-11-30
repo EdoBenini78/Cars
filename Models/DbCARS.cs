@@ -12,7 +12,7 @@ namespace CARS.Models
         public DbSet<Vehiculo> DbVehiculos{ get; set; }
         public DbSet<Localidad> DbLocalidades { get; set; }
         public DbSet<Taller> DbTalleres { get; set; }
-        public DbSet<Incidencia> DbInsidencias{ get; set; }
+        public DbSet<Incidencia> DbIncidencias{ get; set; }
         public DbSet<Servicio> DbServicios{ get; set; }
         public DbSet<Factura> DbFacturas{ get; set; }
         public DbSet<ServicioIncidencia> DbServicioDeIncidencia { get; set; }

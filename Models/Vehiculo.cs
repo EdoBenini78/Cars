@@ -27,6 +27,7 @@ namespace CARS.Models
         public string Combustible { get; set; }
         public Localidad Localidad { get; set; }
         public bool Activo { get; set; }
+        [DisplayName("Fecha de Ingreso"), DataType(DataType.Date)]
         public DateTime FechaIngreso { get; set; }
         //public List<Usuario> Choferes { get; set; }
         #endregion

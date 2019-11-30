@@ -2,21 +2,24 @@
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System;
+using System.ComponentModel;
 
 namespace CARS.Models
 {
     public class Incidencia: IEntity
     {
-        
         #region Properties
         public long Id { get; set; }
-        public List<Servicio> Servicios { get; set; }
         public Usuario Usuario { get; set; }
         public EstadoIncidencia Estado { get; set; }
+        [DisplayName("Fecha de Inicio"), DataType(DataType.Date)]
         public DateTime FechaInicio { get; set; }
-        public DateTime FechaFin { get; set; }
+        [DisplayName("Fecha de Fin"), DataType(DataType.Date)]
+        public DateTime? FechaFin { get; set; }
+        [DisplayName("Fecha de Sugerida"), DataType(DataType.Date)]
         public DateTime FechaSugerida { get; set; }
         public string Descripcion { get; set; }
+        [DisplayName("Direccion Sugerida")]
         public string DireccionSugerida { get; set; }
         public long Kilometraje { get; set; }
         public Vehiculo Vehiculo { get; set; }
@@ -26,12 +29,12 @@ namespace CARS.Models
         #region Constructor
         public Incidencia()
         {
-            Servicios = new List<Servicio>();
+            FechaInicio = DateTime.Now;
+            Estado = EstadoIncidencia.Procesando;
         }
 
-        public Incidencia(List<Servicio> servicios, Usuario usuario, EstadoIncidencia estado, DateTime fechaInicio, DateTime fechaFin, DateTime fechaSugerida, string descripcion, string direccionSugerida, long kilometraje, Vehiculo vehiculo)
+        public Incidencia(Usuario usuario, EstadoIncidencia estado, DateTime fechaInicio, DateTime fechaFin, DateTime fechaSugerida, string descripcion, string direccionSugerida, long kilometraje, Vehiculo vehiculo)
         {
-            Servicios = servicios;
             Usuario = usuario;
             Estado = estado;
             FechaInicio = fechaInicio;
@@ -43,6 +46,17 @@ namespace CARS.Models
             Vehiculo = vehiculo;
         }
 
+        public Incidencia(DateTime fechaSugerida, long pKm, string pDireccion, Vehiculo aVehiculo, string pComentario, Usuario aUsuario)
+        {
+            FechaSugerida = fechaSugerida;
+            Kilometraje = pKm;
+            DireccionSugerida = pDireccion;
+            Vehiculo = aVehiculo;
+            Descripcion = pComentario;
+            FechaInicio = DateTime.Today;
+            Estado = EstadoIncidencia.Procesando;
+            Usuario = aUsuario;
+        }
 
         #endregion
     }

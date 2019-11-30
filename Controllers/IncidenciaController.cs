@@ -11,22 +11,35 @@ namespace CARS.Controllers
     {
         Fachada fachada = new Fachada();
         // GET: Incidencia
-        public ActionResult Index()
-        {
-            ViewBag.Vehiculo = fachada.GetVehiculoByChofer(Session["UserId"].ToString());
-            return View();
-        }
-
-        
-        //Método para crear incidencia del usuario del vehículo
         public ActionResult AgregarIncidencia()
         {
-            //fachada.AgregarIncidencia();
-            return View();
+            if (Session["UserId"] != null)
+            {
+                ViewBag.Vehiculo = fachada.GetVehiculoByChofer(long.Parse(Session["UserId"].ToString()));
+                return View();
+            }
+            return RedirectToAction("LogIn", "LogIn");        
+        }
+
+        //Método para crear incidencia del usuario del vehículo
+
+        public ActionResult InsertIncidencia(string fecha, string km, string dir,string matricula, string com)
+        {
+            Vehiculo aVehiculo = fachada.GetVehiculoByMatricula(matricula);
+            if (aVehiculo != null)
+            {
+                fachada.AgregarIncidencia(DateTime.Parse(fecha), long.Parse(km), dir, matricula, com, long.Parse(Session["UserId"].ToString()));
+            }
+            else
+            {
+                return RedirectToAction("AgregarIncidencia", "Incidencia");
+            }            
+            return RedirectToAction("Index","Home");
         }
 
         public ActionResult ListaIncidencias()
         {
+            ViewBag.ListaIncidencia = fachada.ListarIncidencia(long.Parse(Session["UserId"].ToString()));
             return View();
         }
 

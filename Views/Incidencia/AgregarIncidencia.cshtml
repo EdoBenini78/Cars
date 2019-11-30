@@ -1,62 +1,59 @@
 ﻿@*SOLICITUD DE SERVICIO PARA USUARIO DE VEHÍCULO*@
-@model CARS.Models.Incidencia
-@{
-    ViewBag.Title = "AgregarIncidencia";
-}
+
+
 
 <h2>SOLICITUD DE INCIDENCIA</h2>
 
 <div class="row">
     <div class="col-md-12">
-        <form method="post" action="">
+        <form method="post" action="InsertIncidencia">
 
             <div class="form-group">
                 <label for="fecha" class="col-md-2 control-label">Fecha sugerida</label>
                 <div class="col-md-10">
-                    <input type="datetime" required name="fecha" class="form-control" />
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EnumDropDownListFor(model => model.Estado, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+                    <input type="date" required="required" name="fecha" class="form-control" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="km" class="col-md-2 control-label">Kilometraje</label>
                 <div class="col-md-10">
-                    <input type="number" required name="km" class="form-control" />
+                    <input type="number" required="required" name="km" class="form-control" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="ubicacion" class="col-md-2 control-label">Ubicación</label>
+                <label for="ubicacion" class="col-md-2 control-label">Direccion</label>
                 <div class="col-md-10">
-                    <input type="text" required name="ubicacion" class="form-control" />
+                    <input type="text" required="required" name="dir" class="form-control" />
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="vehiculo" class="col-md-2 control-label">Vehiculo</label>
                 <div class="col-md-10">
-                    <input type="text" required name="vehiculo" class="form-control" placeholder="@ViewBag.Vehiculo"/>
+                    @if (ViewBag.Vehiculo != null)
+                    {
+                        <input type="text" required="required" name="matricula" class="form-control" value="@ViewBag.Vehiculo.Matricula" placeholder="@ViewBag.Vehiculo.Matricula" />
+                    }
+                    else
+                    {
+                        <input type="text" required="required" name="matricula" class="form-control"  placeholder="Ingresar Matricula" />
+                    }
+
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <label for="comentarios" class="col-md-2 control-label">Comentarios adicionales</label>
                 <div class="col-md-10">
-                    <input type="text" name="comentarios" class="form-control" />
+                    <input type="text" required="required" name="com" class="form-control" />
                 </div>
             </div>
 
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-danger">CANCELAR</button>
+                    <button type="button" class="btn btn-danger">CANCELAR</button>
                     <button type="submit" class="btn btn-success">SOLICITAR</button>
                 </div>
             </div>
@@ -65,3 +62,4 @@
         </form>
     </div>
 </div>
+

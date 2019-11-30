@@ -33,6 +33,7 @@ namespace CARS.Models
             return false;
         }
 
+
         public bool VerificarMailExistente(string aMail)
         {
             Usuario pUsuario = db.DbUsuarios.Where(us => us.Mail == aMail).FirstOrDefault();
@@ -57,10 +58,20 @@ namespace CARS.Models
             return pVehiculo;
         }
 
-        public Vehiculo GetVehiculoByChofer(string aUserId)
+        public Vehiculo GetVehiculoByMatricula(string matricula)
         {
-            Vehiculo pVehiculo = db.DbVehiculoChofer.Where(vc => vc.Chofer.Id == long.Parse(aUserId)).FirstOrDefault().Vehiculo;
+            Vehiculo pVehiculo = db.DbVehiculos.Where(v => v.Matricula == matricula).FirstOrDefault();
             return pVehiculo;
+        }
+
+        public Vehiculo GetVehiculoByChofer(long aUserId)
+        {
+            VehiculoChofer pVehiculoChofer = db.DbVehiculoChofer.Include("Vehiculo").Where(vc => vc.Chofer.Id == aUserId).FirstOrDefault();
+            if (pVehiculoChofer != null)
+            {
+                return pVehiculoChofer.Vehiculo;
+            }
+            return null;
         }
 
         public bool UpdateVehiculo(Vehiculo aVehiculo)
@@ -159,18 +170,39 @@ namespace CARS.Models
         #region Incidencia
         public Incidencia GetIncidenciaByDbId(long id)
         {
-            Incidencia aIncidencia = db.DbInsidencias.Find(id);
+            Incidencia aIncidencia = db.DbIncidencias.Find(id);
             return aIncidencia;
         }
 
-        public bool AgregarIncidencia(Incidencia aIncidencia)
+        internal dynamic GetListaIncidencias(long aUserId)
         {
-            db.DbInsidencias.Add(aIncidencia);
+            Usuario us = GetUsuarioBYDbId(aUserId);
+            List<Incidencia> incidencias = db.DbIncidencias.Where(i => i.Estado == EstadoIncidencia.Procesando && i.Usuario.Id == us.Id).ToList();
+            return incidencias;
+        }
+
+        public bool AgregarIncidencia(DateTime fechaSugerida, long pKm, string pDireccion, string pMatricula, string pComentario, long pUsuario)
+        {
+            Vehiculo aVehiculo = db.DbVehiculos.Where(v => v.Matricula == pMatricula).FirstOrDefault();
+            Usuario aUsuario = db.DbUsuarios.Find(pUsuario);
+            Incidencia aIncidencia = new Incidencia(fechaSugerida, pKm, pDireccion, aVehiculo, pComentario, aUsuario);
+            db.DbIncidencias.Add(aIncidencia);
             if (db.SaveChanges() > 0)
             {
                 return true;
             }
             return false;
+        }
+
+        internal dynamic ListarIncidencia(long pUserId)
+        {
+            List<Incidencia> incidencias = db.DbIncidencias.Where(i => i.Usuario.Id == pUserId).ToList();
+            return incidencias;
+        }
+
+        internal void AgregarIncidencia()
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

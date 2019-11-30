@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CARS.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,11 +9,12 @@ namespace CARS.Controllers
 {
     public class HomeController : Controller
     {
+        Fachada fachada = new Fachada();
         public ActionResult Index()
         {   
             if (Session["UserId"] != null)
             {
-                return View();
+                return View(fachada.GetListaIncidencias(long.Parse(Session["UserId"].ToString())));
             }
             else
             {

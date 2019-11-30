@@ -4,7 +4,7 @@
     {
         Finalizada = 1,
         Cancelada = 2,
-        EnCurso = 3
+        Procesando = 3
 
     }
 }

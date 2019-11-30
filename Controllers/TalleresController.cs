@@ -46,7 +46,7 @@ namespace CARS.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Rut,NombreContacto,Telefono,Activo,FechaIngreso,X,Y,Direccion")] Taller taller)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Rut,NombreContacto,Telefono,X,Y,Direccion")] Taller taller)
         {
             if (ModelState.IsValid)
             {
