@@ -23,7 +23,7 @@ namespace CARS
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-nuevo.css",
                       "~/Content/site.css"));
         }
     }

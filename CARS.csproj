@@ -137,49 +137,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IEntity.cs" />
-    <Compile Include="Migrations\201911232029261_edo.cs" />
-    <Compile Include="Migrations\201911232029261_edo.designer.cs">
-      <DependentUpon>201911232029261_edo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911232044090_test.cs" />
-    <Compile Include="Migrations\201911232044090_test.designer.cs">
-      <DependentUpon>201911232044090_test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911232050272_EE.cs" />
-    <Compile Include="Migrations\201911232050272_EE.designer.cs">
-      <DependentUpon>201911232050272_EE.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911232107291_aa.cs" />
-    <Compile Include="Migrations\201911232107291_aa.designer.cs">
-      <DependentUpon>201911232107291_aa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911232113209_ss.cs" />
-    <Compile Include="Migrations\201911232113209_ss.designer.cs">
-      <DependentUpon>201911232113209_ss.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911301749288_edo2.cs" />
-    <Compile Include="Migrations\201911301749288_edo2.designer.cs">
-      <DependentUpon>201911301749288_edo2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911302051384_edo4.cs" />
-    <Compile Include="Migrations\201911302051384_edo4.designer.cs">
-      <DependentUpon>201911302051384_edo4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911302105241_edo6.cs" />
-    <Compile Include="Migrations\201911302105241_edo6.designer.cs">
-      <DependentUpon>201911302105241_edo6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911302113180_edo7.cs" />
-    <Compile Include="Migrations\201911302113180_edo7.designer.cs">
-      <DependentUpon>201911302113180_edo7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911302114372_edo8.cs" />
-    <Compile Include="Migrations\201911302114372_edo8.designer.cs">
-      <DependentUpon>201911302114372_edo8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911302118133_edo9.cs" />
-    <Compile Include="Migrations\201911302118133_edo9.designer.cs">
-      <DependentUpon>201911302118133_edo9.cs</DependentUpon>
+    <Compile Include="Migrations\201912032107196_kari.cs" />
+    <Compile Include="Migrations\201912032107196_kari.designer.cs">
+      <DependentUpon>201912032107196_kari.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
@@ -201,6 +161,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-nuevo.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -273,38 +234,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201911232029261_edo.resx">
-      <DependentUpon>201911232029261_edo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911232044090_test.resx">
-      <DependentUpon>201911232044090_test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911232050272_EE.resx">
-      <DependentUpon>201911232050272_EE.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911232107291_aa.resx">
-      <DependentUpon>201911232107291_aa.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911232113209_ss.resx">
-      <DependentUpon>201911232113209_ss.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911301749288_edo2.resx">
-      <DependentUpon>201911301749288_edo2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911302051384_edo4.resx">
-      <DependentUpon>201911302051384_edo4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911302105241_edo6.resx">
-      <DependentUpon>201911302105241_edo6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911302113180_edo7.resx">
-      <DependentUpon>201911302113180_edo7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911302114372_edo8.resx">
-      <DependentUpon>201911302114372_edo8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911302118133_edo9.resx">
-      <DependentUpon>201911302118133_edo9.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912032107196_kari.resx">
+      <DependentUpon>201912032107196_kari.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

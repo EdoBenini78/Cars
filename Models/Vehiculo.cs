@@ -10,21 +10,21 @@ namespace CARS.Models
     {
         #region Properties
         public long Id { get; set; }
-        public string Matricula { get; set; }
-        public double Kilometros{ get; set; }
-        [DisplayName("Fecha de compra"), DataType(DataType.Date)]
+        [Required]public string Matricula { get; set; }
+        [Required] public double Kilometros{ get; set; }
+        [DisplayName("Fecha de compra"), DataType(DataType.Date),Required]
         public DateTime FechaDeCompra { get; set; }
         [DisplayName("Número de Unidad")]
-        public int NumeroUnidad { get; set; }
-        public string Marca { get; set; }
-        public string Modelo { get; set; }
-        [DisplayName("Año")]
+        [Required] public int NumeroUnidad { get; set; }
+        [Required] public string Marca { get; set; }
+        [Required] public string Modelo { get; set; }
+        [DisplayName("Año"),Required]
         public int Anio { get; set; }
-        public string Motor { get; set; }
-        public string Chasis { get; set; }
-        public long Padron { get; set; }
-        public TipoTraccion Traccion{ get; set; }
-        public string Combustible { get; set; }
+        [Required] public string Motor { get; set; }
+        [Required] public string Chasis { get; set; }
+        [Required] public long Padron { get; set; }
+        [Required] public TipoTraccion Traccion{ get; set; }
+        [Required] public string Combustible { get; set; }
         public Localidad Localidad { get; set; }
         public bool Activo { get; set; }
         [DisplayName("Fecha de Ingreso"), DataType(DataType.Date)]

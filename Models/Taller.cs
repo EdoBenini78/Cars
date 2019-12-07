@@ -9,17 +9,17 @@ namespace CARS.Models
     {
         #region Properties
         public long Id { get; set; }
-        public string Nombre { get; set; }
-        public long Rut { get; set; }
-        [DisplayName("Nombre Contacto")]
+        [Required] public string Nombre { get; set; }
+        [Required] public long Rut { get; set; }
+        [DisplayName("Nombre Contacto"), Required]
         public string NombreContacto { get; set; }
-        public int Telefono{ get; set; }
+        [Required] public int Telefono{ get; set; }
         public bool Activo { get; set; }
         [DisplayName("Fecha de Ingreso"), DataType(DataType.Date)]
         public DateTime FechaIngreso { get; set; }
         public long X { get; set; }
         public long Y { get; set; }
-        public string Direccion { get; set; }
+        [Required] public string Direccion { get; set; }
         #endregion
 
         #region Constructor

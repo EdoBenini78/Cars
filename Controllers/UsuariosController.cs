@@ -55,9 +55,7 @@ namespace CARS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-
-
+                       
             return View(usuario);
         }
 

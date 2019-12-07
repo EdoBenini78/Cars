@@ -9,24 +9,26 @@ namespace CARS
     {
         #region Properties
         public long Id { get; set; }
-        public string Mail { get; set; }
+        
+        [Required]public string Mail { get; set; }
 
-        [DisplayName("Contraseña"),DataType(DataType.Password)]
+       [DisplayName("Contraseña"),DataType(DataType.Password), Required]
         public string Contrasenia { get; set; }
         public bool Activo { get; set; }
         [DisplayName("Fecha de Ingreso")]
         public DateTime FechaIngreso { get; set; }
-        public TipoUsuario Tipo { get; set; }
-        public string Nombre { get; set; }
+        [Required] public TipoUsuario Tipo { get; set; }
+        [Required] public string Nombre { get; set; }
 
-        public string Apellido { get; set; }
+        [Required] public string Apellido { get; set; }
 
-        public string Telefono { get; set; }
+        [Required] public string Telefono { get; set; }
         #endregion
 
         #region Constructor
         public Usuario(string mail, string contrasenia, string nombre, string apellido, string telefono, DateTime fechaIngreso, TipoUsuario tipo)
         {
+          
             Mail = mail;
             Contrasenia = contrasenia;
             Nombre = nombre;
