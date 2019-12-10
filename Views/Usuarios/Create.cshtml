@@ -4,28 +4,29 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Crear nuevo usuario</h2>
+<h3>Crear usuario</h3>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Usuario</h4>
+        @*<h4>Usuario</h4>*@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Mail, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Mail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Mail, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese su e-mail" } })
                 @Html.ValidationMessageFor(model => model.Mail, "", new { @class = "text-danger" })
+                
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Contrasenia, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Contrasenia, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Contrasenia, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese su contraseña" } })
                 @Html.ValidationMessageFor(model => model.Contrasenia, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,7 +52,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", placeholder = "Nombre completo" } })
                 @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -59,7 +60,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control", placeholder = "Apellidos" } })
                 @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -67,14 +68,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control", placeholder = "Teléfono o celular" } })
                 @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Confirmar" class="btn btn-default" />
+                <input type="submit" value="Confirmar" class="btn btn-outline-primary" />
             </div>
         </div>
     </div>

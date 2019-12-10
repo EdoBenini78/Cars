@@ -4,20 +4,20 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Ingresar Vehículo</h2>
+<h3>Ingresar Vehículo</h3>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>Vehiculo</h4>
+    @*<h4>Vehiculo</h4>*@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(model => model.Matricula, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Matricula, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Matricula, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese matrícula del vehículo" } })
             @Html.ValidationMessageFor(model => model.Matricula, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -25,7 +25,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Kilometros, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Kilometros, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Kilometros, new { htmlAttributes = new { @class = "form-control", placeholder="Kilometraje actual" } })
             @Html.ValidationMessageFor(model => model.Kilometros, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -41,7 +41,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.NumeroUnidad, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.NumeroUnidad, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.NumeroUnidad, new { htmlAttributes = new { @class = "form-control", placeholder = "Ingrese número de unidad" } })
             @Html.ValidationMessageFor(model => model.NumeroUnidad, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -49,7 +49,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", placeholder = "Marca del vehículo" } })
             @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -57,7 +57,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Modelo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control", placeholder = "Modelo del vehículo" } })
             @Html.ValidationMessageFor(model => model.Modelo, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -65,7 +65,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Anio, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Anio, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Anio, new { htmlAttributes = new { @class = "form-control", placeholder = "Año del vehículo" } })
             @Html.ValidationMessageFor(model => model.Anio, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -73,7 +73,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Motor, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Motor, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Motor, new { htmlAttributes = new { @class = "form-control", placeholder = "Número de motor" } })
             @Html.ValidationMessageFor(model => model.Motor, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -81,7 +81,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Chasis, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Chasis, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Chasis, new { htmlAttributes = new { @class = "form-control", placeholder = "Número de chasis" } })
             @Html.ValidationMessageFor(model => model.Chasis, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -89,7 +89,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Padron, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Padron, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Padron, new { htmlAttributes = new { @class = "form-control", placeholder = "Número de padrón" } })
             @Html.ValidationMessageFor(model => model.Padron, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -97,7 +97,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Traccion, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EnumDropDownListFor(model => model.Traccion, htmlAttributes: new { @class = "form-control" })
+            @Html.EnumDropDownListFor(model => model.Traccion, htmlAttributes: new { @class = "form-control", placeholder = "Manual o automático" })
             @Html.ValidationMessageFor(model => model.Traccion, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -130,7 +130,7 @@
     
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Confirmar" class="btn btn-default" />
+            <input type="submit" value="Confirmar" class="btn btn-outline-primary" />
         </div>
     </div>
 </div>
