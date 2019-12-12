@@ -135,7 +135,8 @@ namespace CARS.Controllers
         [HttpPost]
         public ActionResult AsignarChofer(string chofer, string IdVehiculo)
         {
-            fachada.AgregarChoferaVehiculo(fachada.GetUsuarioBYDbId(long.Parse(chofer)),fachada.GetVehiculoByDbId(long.Parse(IdVehiculo)));           
+            fachada.AgregarChoferaVehiculo(fachada.GetUsuarioBYDbId(long.Parse(chofer)),fachada.GetVehiculoByDbId(long.Parse(IdVehiculo)));
+           
             return RedirectToAction("Index","Vehiculos");
         }
     }
