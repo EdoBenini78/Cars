@@ -1,0 +1,46 @@
+﻿@{
+    Layout = Layout;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Asignar Chofer</title>
+    <form method="post" action="/Vehiculos/AsignarChofer"> 
+
+        <div class="form-horizontal">
+            <h4>Usuario</h4>
+            <hr />
+            <div class="form-group">
+                <label>Seleccionar Chofer</label>
+                <select name="chofer">
+                    @foreach (var item in ViewBag.ListaChoferes)
+                    {
+                        <option value="@item.Id">@item.Nombre @item.Apellido</option>
+                    }
+                </select>
+
+                <input value="@ViewBag.Vehiculo" name="IdVehiculo" hidden="hidden" />
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @*<a href="@Url.Action("AsignarChofer","Vehiculos",null)>*@
+                        <input type="submit" value="Asignar" class="btn btn-default" />
+                    @*</a>*@
+                </div>
+            </div>
+        </div>
+    </form>
+    <div>
+        @Html.ActionLink("Volver", "Index")
+    </div>
+</head>
+<body>
+    <div> 
+    </div>
+</body>
+</html>

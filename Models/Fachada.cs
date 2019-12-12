@@ -58,6 +58,20 @@ namespace CARS.Models
             return pVehiculo;
         }
 
+        public List<Usuario> GetListaChoferesParaVehiculo(long idVehiculo)
+        {
+            List<Usuario> usuarios = db.DbUsuarios.Where(u => u.Tipo == TipoUsuario.Chofer && u.Activo == true).ToList();
+            List<VehiculoChofer> choferes = db.DbVehiculoChofer.Where(v => v.Activo == true).ToList();
+            foreach (var item in choferes)
+            {
+                if (item.Vehiculo.Id == idVehiculo)
+                {
+                    usuarios.Remove(item.Chofer);
+                }
+            }
+            return usuarios;
+        }
+
         public Vehiculo GetVehiculoByMatricula(string matricula)
         {
             Vehiculo pVehiculo = db.DbVehiculos.Where(v => v.Matricula == matricula).FirstOrDefault();
@@ -92,7 +106,8 @@ namespace CARS.Models
             Vehiculo pVehiculo = GetVehiculoByDbId(aVehiculo.Id);
             if (aVehiculo != null && aChofer != null)
             {
-                //aVehiculo.Choferes.Add(pChofer);
+                VehiculoChofer vehiculoChofer = new VehiculoChofer(pChofer, pVehiculo);
+                db.DbVehiculoChofer.Add(vehiculoChofer);
                 db.SaveChanges();
                 return true;
             }

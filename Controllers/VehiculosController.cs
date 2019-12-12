@@ -13,6 +13,7 @@ namespace CARS.Controllers
     public class VehiculosController : Controller
     {
         private DbCARS db = new DbCARS();
+        private Fachada fachada = new Fachada();
 
         // GET: Vehiculos
         public ActionResult Index()
@@ -122,6 +123,21 @@ namespace CARS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult AgregarChoferView(int Id)
+        {
+            ViewBag.Vehiculo = Id;
+            ViewBag.ListaChoferes = fachada.GetListaChoferesParaVehiculo(Id);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AsignarChofer(string chofer, string IdVehiculo)
+        {
+            fachada.AgregarChoferaVehiculo(fachada.GetUsuarioBYDbId(long.Parse(chofer)),fachada.GetVehiculoByDbId(long.Parse(IdVehiculo)));
+            
+            return RedirectToAction("Index","Index");
         }
     }
 }

@@ -51,6 +51,7 @@ namespace CARS.Controllers
         {
             if (ModelState.IsValid)
             {
+                usuario.FechaIngreso = DateTime.Now;
                 db.DbUsuarios.Add(usuario);
                 db.SaveChanges();
                 return RedirectToAction("Index");

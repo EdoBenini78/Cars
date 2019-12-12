@@ -141,6 +141,10 @@
     <Compile Include="Migrations\201912072028185_edo.designer.cs">
       <DependentUpon>201912072028185_edo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912102352521_edo2.cs" />
+    <Compile Include="Migrations\201912102352521_edo2.designer.cs">
+      <DependentUpon>201912102352521_edo2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
     <Compile Include="Models\EstadoIncidencia.cs" />
@@ -218,6 +222,7 @@
     <Content Include="Views\Talleres\Edit.cshtml" />
     <Content Include="Views\Talleres\Index.cshtml" />
     <Content Include="Views\Incidencia\View.cshtml" />
+    <Content Include="Views\Vehiculos\AgregarChoferView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -238,6 +243,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201912072028185_edo.resx">
       <DependentUpon>201912072028185_edo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912102352521_edo2.resx">
+      <DependentUpon>201912102352521_edo2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
