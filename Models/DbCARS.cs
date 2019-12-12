@@ -17,5 +17,10 @@ namespace CARS.Models
         public DbSet<Factura> DbFacturas{ get; set; }
         public DbSet<ServicioIncidencia> DbServicioDeIncidencia { get; set; }
         public DbSet <VehiculoChofer> DbVehiculoChofer{ get; set; }
+
+        public DbCARS() : base("dollarWeb")
+        {
+
+        }
     }
 }
