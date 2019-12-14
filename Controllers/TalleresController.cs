@@ -17,7 +17,12 @@ namespace CARS.Controllers
         // GET: Talleres
         public ActionResult Index()
         {
-            return View(db.DbTalleres.ToList());
+            if (Session["UserId"] != null)
+            {
+                return View(db.DbTalleres.ToList());
+            }
+            return RedirectToAction("LogIn", "LogIn");
+            
         }
 
         // GET: Talleres/Details/5

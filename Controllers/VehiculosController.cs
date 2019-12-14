@@ -18,7 +18,13 @@ namespace CARS.Controllers
         // GET: Vehiculos
         public ActionResult Index()
         {
-            return View(db.DbVehiculos.ToList());
+            if (Session["UserId"] != null)
+            {
+                return View(db.DbVehiculos.ToList());
+            }
+            return RedirectToAction("LogIn", "LogIn");
+
+            
         }
 
         // GET: Vehiculos/Details/5

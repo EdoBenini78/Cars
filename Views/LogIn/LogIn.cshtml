@@ -15,6 +15,7 @@
                 @Html.LabelFor(m => m.Mail, new { @class = "col-md-2 control-label" })
                 <div class="col-md-10">
                     <input type="email" required name="email" class="form-control" placeholder="Ingrese su e-mail" />
+
                 </div>
             </div>
             <div class="form-group">
@@ -26,15 +27,15 @@
             </div>
 
             @* <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <div class="checkbox">
-                    <input type="checkbox" name="recordar" />
-                    <label for="recordar">Recordar usuario</label>
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <input type="checkbox" name="recordar" />
+                        <label for="recordar">Recordar usuario</label>
 
+                    </div>
                 </div>
-            </div>
-        </div>*@
-          
+            </div>*@
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <button type="button" class="btn btn-secondary">Olvidé mi contraseña</button>
@@ -43,6 +44,11 @@
             </div>
 
         </form>
+
+
+        <h3><strong>@TempData["Message"]</strong></h3>
+
+
     </div>
 </div>
 

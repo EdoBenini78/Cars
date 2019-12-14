@@ -13,6 +13,8 @@ namespace CARS.Controllers
         Fachada fachada = new Fachada();
         public ActionResult LogIn()
         {
+            Session["Tipo"] = null;
+            Session["UserId"] = null;
             return View();
         }
         [HttpPost]
@@ -25,7 +27,8 @@ namespace CARS.Controllers
                 Session["UserId"] = pUsuario.Id;
                 return RedirectToAction("Index", "Home");
             }
-          
+
+            TempData["Message"] = "This is my Error";
             return RedirectToAction("LogIn", "LogIn"); 
             
         }

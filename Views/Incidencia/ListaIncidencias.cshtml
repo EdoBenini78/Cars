@@ -21,7 +21,7 @@
 </ul>
 
 <div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade show active" id="pendientes">
+    <div class="tab-pane fade show active" id="pendientes" <span class="badge">5</span>>
         <table class="table">
             <tr>
                 <th>
@@ -50,18 +50,29 @@
                         @Html.DisplayFor(modelItem => item.Vehiculo)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        <div class="btn-group">
+                            <a href="#" class="btn btn-default">Opciones</a>
+                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Agregar Servicio</a></li>
+                                <li><a href="#">Modificar</a></li>
+                                <li><a href="#">Ver detalles</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Cancelar</a></li>
+                            </ul>
+                        </div>
+                        @* @Html.ActionLink("AgregarServicio", "AgregarServicio", new { id = item.Id }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Cancelar", "Delete", new { id = item.Id }) *@
                     </td>
+                    
                 </tr>
             }
 
         </table>
-
-
-
     </div>
+
     <div class="tab-pane fade" id="finalizadas">
         <table class="table">
             <tr>
@@ -92,8 +103,8 @@
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) 
+                       
                     </td>
                 </tr>
             }
