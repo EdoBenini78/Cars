@@ -137,9 +137,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\IEntity.cs" />
-    <Compile Include="Migrations\201912141847130_prueba.cs" />
-    <Compile Include="Migrations\201912141847130_prueba.designer.cs">
-      <DependentUpon>201912141847130_prueba.cs</DependentUpon>
+    <Compile Include="Migrations\201912151851073_kari.cs" />
+    <Compile Include="Migrations\201912151851073_kari.designer.cs">
+      <DependentUpon>201912151851073_kari.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
@@ -237,8 +237,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201912141847130_prueba.resx">
-      <DependentUpon>201912141847130_prueba.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912151851073_kari.resx">
+      <DependentUpon>201912151851073_kari.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
