@@ -14,13 +14,13 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 
-                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarResponsive" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
 
-                </button>
+                    </button>
                 <a class="navbar-brand" href="~/Home/Index">C.A.R.S.</a>
             </div>
 
@@ -34,21 +34,21 @@
                     <a class="nav-link" href="~/Home/Index">Inicio<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="~/Usuarios/Index">Usuarios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="~/Vehiculos/Index">Vehiculos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="~/Talleres/Index">Talleres</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="~/Incidencia/AgregarIncidencia">Agregar Incidencia</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Reportes</a>
                 </li>
-            
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Configuración <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="~/Usuarios/Index">Usuarios</a></li>
+                        <li><a href="~/Vehiculos/Index">Vehículos</a></li>
+                        <li><a href="~/Talleres/Index">Talleres</a></li>
+                        
+                    </ul>
+                </li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="~/LogIn/LogIn">Cerrar Sesión</a></li>

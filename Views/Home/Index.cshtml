@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<CARS.Models.Incidencia>
 
+
 @{
     ViewBag.Title = "C.A.R.S.";
 }
@@ -17,19 +18,14 @@
 
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade active in" id="pendientes">
-                @using (Html.BeginForm("BuscarIncidencia", "Incidencia", FormMethod.Post))
-                {
-                    <fieldset>
-                        <p>
-                            Buscar: @Html.TextBox("SearchString")
+                
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Buscar">
+                    </div>
+                    <button type="submit" class="btn btn-default">Buscar</button>
+                </form>
 
-                            @*Ingrese filtro de búsqueda: @Html.DropDownList("FiltrosBusqueda")*@
-
-                            <input type="submit" class="btn-outline-primary" value="Buscar" />
-                        </p>
-
-                    </fieldset>
-                }
                 <div class="row">
                     <table class="table">
                         <tr>
