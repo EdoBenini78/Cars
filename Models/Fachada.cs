@@ -189,10 +189,27 @@ namespace CARS.Models
             return aIncidencia;
         }
 
-        internal dynamic GetListaIncidencias(long aUserId)
+        internal dynamic GetListaIncidenciasChofer(long aUserId, string estado)
         {
-            Usuario us = GetUsuarioBYDbId(aUserId);
-            List<Incidencia> incidencias = db.DbIncidencias.Where(i => i.Estado == EstadoIncidencia.Procesando && i.Usuario.Id == us.Id).ToList();
+            EstadoIncidencia estadoIncidencia =(EstadoIncidencia) Enum.Parse(typeof(EstadoIncidencia),estado,true);
+            Vehiculo vehiculoChofer = GetVehiculoByChofer(aUserId);
+            List<Incidencia> incidencias = null;
+            if (vehiculoChofer != null)
+            {
+                incidencias = db.DbIncidencias.Where(i => i.Estado == estadoIncidencia && i.Vehiculo.Id == vehiculoChofer.Id).ToList();
+
+            }
+            else
+            {
+                //mandar error
+            }
+            return incidencias;
+        }
+
+        internal dynamic GetListaIncidencias(string estado)
+        {
+            EstadoIncidencia estadoIncidencia = (EstadoIncidencia)Enum.Parse(typeof(EstadoIncidencia), estado, true);
+            List<Incidencia> incidencias = db.DbIncidencias.Where(i => i.Estado == estadoIncidencia).ToList();
             return incidencias;
         }
 

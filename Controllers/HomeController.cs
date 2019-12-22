@@ -14,13 +14,39 @@ namespace CARS.Controllers
         {   
             if (Session["UserId"] != null)
             {
-                return View(fachada.GetListaIncidencias(long.Parse(Session["UserId"].ToString())));
+                Usuario usuario = fachada.GetUsuarioBYDbId(long.Parse(Session["UserId"].ToString()));
+                if (usuario.Tipo == TipoUsuario.Chofer)
+                {
+                    return View(fachada.GetListaIncidenciasChofer(long.Parse(Session["UserId"].ToString()),"Pendiente"));
+                }
+                return View(fachada.GetListaIncidencias("Pendiente"));
+                //return la partialView con un select tab
             }
             else
             {
+                //mensaje de error
                 return RedirectToAction("LogIn", "LogIn");
             }
             
+        }
+
+        public ActionResult MostrarListaIncidencia()
+        {
+            if (Session["UserId"] != null)
+            {
+                Usuario usuario = fachada.GetUsuarioBYDbId(long.Parse(Session["UserId"].ToString()));
+                if (usuario.Tipo == TipoUsuario.Chofer)
+                {
+                    return View(fachada.GetListaIncidenciasChofer(long.Parse(Session["UserId"].ToString()), ""));
+                }
+                return View(fachada.GetListaIncidencias(""));
+                //return la partialView con un select tab
+            }
+            else
+            {
+                //mensaje de error
+                return RedirectToAction("LogIn", "LogIn");
+            }
         }
 
         public ActionResult About()
