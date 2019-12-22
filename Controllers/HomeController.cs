@@ -30,16 +30,17 @@ namespace CARS.Controllers
             
         }
 
-        public ActionResult MostrarListaIncidencia()
+        public ActionResult MostrarListaIncidencia(string id)
         {
             if (Session["UserId"] != null)
             {
                 Usuario usuario = fachada.GetUsuarioBYDbId(long.Parse(Session["UserId"].ToString()));
+                EstadoIncidencia estadoIncidencia = (EstadoIncidencia)Enum.ToObject(typeof(EstadoIncidencia), int.Parse(id));
                 if (usuario.Tipo == TipoUsuario.Chofer)
                 {
-                    return View(fachada.GetListaIncidenciasChofer(long.Parse(Session["UserId"].ToString()), ""));
+                    return View(fachada.GetListaIncidenciasChofer(long.Parse(Session["UserId"].ToString()), estadoIncidencia));
                 }
-                return View(fachada.GetListaIncidencias(""));
+                return View(fachada.GetListaIncidencias(estadoIncidencia));
                 //return la partialView con un select tab
             }
             else

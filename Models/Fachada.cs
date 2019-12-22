@@ -189,14 +189,13 @@ namespace CARS.Models
             return aIncidencia;
         }
 
-        internal dynamic GetListaIncidenciasChofer(long aUserId, string estado)
+        internal dynamic GetListaIncidenciasChofer(long aUserId, EstadoIncidencia estado)
         {
-            EstadoIncidencia estadoIncidencia =(EstadoIncidencia) Enum.Parse(typeof(EstadoIncidencia),estado,true);
             Vehiculo vehiculoChofer = GetVehiculoByChofer(aUserId);
             List<Incidencia> incidencias = null;
             if (vehiculoChofer != null)
             {
-                incidencias = db.DbIncidencias.Where(i => i.Estado == estadoIncidencia && i.Vehiculo.Id == vehiculoChofer.Id).ToList();
+                incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.Vehiculo.Id == vehiculoChofer.Id).ToList();
 
             }
             else
@@ -206,10 +205,9 @@ namespace CARS.Models
             return incidencias;
         }
 
-        internal dynamic GetListaIncidencias(string estado)
+        internal dynamic GetListaIncidencias(EstadoIncidencia estado)
         {
-            EstadoIncidencia estadoIncidencia = (EstadoIncidencia)Enum.Parse(typeof(EstadoIncidencia), estado, true);
-            List<Incidencia> incidencias = db.DbIncidencias.Where(i => i.Estado == estadoIncidencia).ToList();
+            List<Incidencia> incidencias = db.DbIncidencias.Where(i => i.Estado == estado).ToList();
             return incidencias;
         }
 
