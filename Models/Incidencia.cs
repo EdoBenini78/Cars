@@ -54,7 +54,7 @@ namespace CARS.Models
             Vehiculo = aVehiculo;
             Descripcion = pComentario;
             FechaInicio = DateTime.Today;
-            Estado = EstadoIncidencia.Procesando;
+            Estado = EstadoIncidencia.Pendiente;
             Usuario = aUsuario;
         }
 

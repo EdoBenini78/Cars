@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace CARS.Models
 {
@@ -12,10 +13,12 @@ namespace CARS.Models
         public Vehiculo Vehiculo { get; set; }
         public Taller Taller { get; set; }
         public TipoServicio Tipo{ get; set; }
+        [DisplayName("Fecha de Agenda"), DataType(DataType.DateTime)]
         public DateTime FechaSugerida { get; set; }
-        [DisplayName("Fecha de entrada")]
-        public DateTime FechaEntrada { get; set; }
-        public DateTime FechaSalida { get; set; }
+        [DisplayName("Fecha de Entrada"), DataType(DataType.DateTime)]
+        public DateTime? FechaEntrada { get; set; }
+        [DisplayName("Fecha de Salida"), DataType(DataType.DateTime)]
+        public DateTime? FechaSalida { get; set; }
         public TipoEstado Estado{ get; set; }
         public List<Factura> Facturas { get; set; }
         #endregion

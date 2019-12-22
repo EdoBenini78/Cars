@@ -1,8 +1,5 @@
 ﻿@model IEnumerable<CARS.Models.Incidencia>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -53,9 +50,16 @@
             @Html.DisplayFor(modelItem => item.Kilometraje)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Configuración <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>@Html.ActionLink("Editar", "Edit", new { id = item.Id })</li>
+                    <li>@Html.ActionLink("Detalles", "Details", new { id = item.Id })</li>
+                    <li>@Html.ActionLink("Delete", "Delete", new { id = item.Id })</li>
+                    <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
+                </ul>
+            </li>
+           
         </td>
     </tr>
 }

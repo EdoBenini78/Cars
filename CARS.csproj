@@ -130,6 +130,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidenciaController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
+    <Compile Include="Controllers\ServiciosController.cs" />
     <Compile Include="Controllers\TalleresController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\VehiculosController.cs" />
@@ -140,6 +141,10 @@
     <Compile Include="Migrations\201912151851073_kari.cs" />
     <Compile Include="Migrations\201912151851073_kari.designer.cs">
       <DependentUpon>201912151851073_kari.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912221815353_edo4.cs" />
+    <Compile Include="Migrations\201912221815353_edo4.designer.cs">
+      <DependentUpon>201912221815353_edo4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
@@ -219,6 +224,11 @@
     <Content Include="Views\Incidencia\View.cshtml" />
     <Content Include="Views\Vehiculos\AgregarChoferView.cshtml" />
     <Content Include="Views\Home\ListadoIncidenciasHome.cshtml" />
+    <Content Include="Views\Servicios\Create.cshtml" />
+    <Content Include="Views\Servicios\Delete.cshtml" />
+    <Content Include="Views\Servicios\Details.cshtml" />
+    <Content Include="Views\Servicios\Edit.cshtml" />
+    <Content Include="Views\Servicios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -239,6 +249,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201912151851073_kari.resx">
       <DependentUpon>201912151851073_kari.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912221815353_edo4.resx">
+      <DependentUpon>201912221815353_edo4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
