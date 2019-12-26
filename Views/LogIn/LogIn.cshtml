@@ -3,7 +3,8 @@
     ViewBag.Title = "LogIn";
 }
 
-<h2>Iniciar Sesión</h2>
+<h3>Iniciar Sesión</h3>
+<br />
 
 @model CARS.Usuario
 
@@ -13,45 +14,31 @@
             <div class="form-group">
 
                 @Html.LabelFor(m => m.Mail, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    <input type="email" required name="email" class="form-control" placeholder="Ingrese su e-mail" />
-
+                <div class="col-md-10 input-group">
+                    <span class="input-group-addon glyphicon glyphicon-user"></span>
+                    <input type="email" id="email" required name="email" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(m => m.Contrasenia, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    <input type="password" required name="pass" class="form-control" placeholder="Ingrese su contraseña" />
-
+                <div class="col-md-10 input-group">
+                    <span class="input-group-addon glyphicon glyphicon-lock"></span>
+                    <input type="password" id="pass" required name="pass" class="form-control" />
                 </div>
             </div>
 
-            @* <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <div class="checkbox">
-                        <input type="checkbox" name="recordar" />
-                        <label for="recordar">Recordar usuario</label>
-
-                    </div>
-                </div>
-            </div>*@
-
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <button type="button" class="btn btn-secondary">Olvidé mi contraseña</button>
+                    <a href="~/LogIn/OlvideMiContrasenia" class="btn-xs">Olvidé mi contraseña</a>
                     <button type="submit" class="btn btn-primary">Ingresar</button>
                 </div>
             </div>
 
         </form>
 
-
-        <h3><strong>@TempData["Message"]</strong></h3>
-
-
     </div>
 </div>
 
 
-   
+
 

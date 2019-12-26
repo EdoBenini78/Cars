@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<CARS.Models.Vehiculo>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Vehículos";
 }
 
 <h2>Vehículos</h2>
 
 <p>
-    @Html.ActionLink("Crear nuevo", "Create")
+    @Html.ActionLink("Agregar nuevo", "Create")
 </p>
-<table class="table">
+<table class="table table-responsive table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.NumeroUnidad)

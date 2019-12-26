@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<CARS.Usuario>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Usuarios";
 }
 
 <h2>Usuarios</h2>
@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Crear Usuario", "Create")
 </p>
-<table class="table">
+<table class="table table-responsive table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nombre)

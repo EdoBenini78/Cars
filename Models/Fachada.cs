@@ -21,7 +21,7 @@ namespace CARS.Models
             return pUsuario;
         }
 
-        public bool UpdateUsuario (Usuario aUsuario)
+        public bool UpdateUsuario(Usuario aUsuario)
         {
             Usuario pUsuario = GetUsuarioBYDbId(aUsuario.Id);
             if (pUsuario != null)
@@ -40,7 +40,7 @@ namespace CARS.Models
             return pUsuario != null ? true : false;
         }
 
-        public bool InsertarUsuario (Usuario aUsuario)
+        public bool InsertarUsuario(Usuario aUsuario)
         {
             if (VerificarMailExistente(aUsuario.Mail))
             {

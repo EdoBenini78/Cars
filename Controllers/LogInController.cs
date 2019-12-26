@@ -28,9 +28,21 @@ namespace CARS.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            TempData["Message"] = "This is my Error";
             return RedirectToAction("LogIn", "LogIn"); 
             
+        }
+
+        [HttpGet]
+        public ActionResult OlvideMiContrasenia()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult OlvideMiContrasenia(string email)
+        {
+            //MANDA UN MAIL SOLICITANDO UNA NUEVA CONTRASEÑA
+            return RedirectToAction("LogIn", "LogIn");
         }
     }
 }
