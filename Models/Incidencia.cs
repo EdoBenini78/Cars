@@ -12,16 +12,18 @@ namespace CARS.Models
         public long Id { get; set; }
         public Usuario Usuario { get; set; }
         public EstadoIncidencia Estado { get; set; }
-        [DisplayName("Fecha de Inicio"), DataType(DataType.Date)]
+        [DisplayName("Fecha Inicio"), DataType(DataType.Date)]
         public DateTime FechaInicio { get; set; }
-        [DisplayName("Fecha de Fin"), DataType(DataType.Date)]
+        [DisplayName("Fecha Fin"), DataType(DataType.Date)]
         public DateTime? FechaFin { get; set; }
-        [DisplayName("Fecha de Sugerida"), DataType(DataType.Date)]
+        [DisplayName("Fecha Sugerida"), DataType(DataType.Date)]
         public DateTime FechaSugerida { get; set; }
         public string Descripcion { get; set; }
         [DisplayName("Direccion Sugerida")]
         public string DireccionSugerida { get; set; }
+        [DisplayName("Km")]
         public long Kilometraje { get; set; }
+        [DisplayName("Vehículo")]
         public Vehiculo Vehiculo { get; set; }
         #endregion
 

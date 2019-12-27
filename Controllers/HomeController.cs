@@ -20,7 +20,8 @@ namespace CARS.Controllers
                     return View(fachada.GetListaIncidenciasChofer(long.Parse(Session["UserId"].ToString()),EstadoIncidencia.Pendiente));
                 }
 
-                ViewBag.IncidenciasPendientes = 0;//fachada.GetListaIncidencias(EstadoIncidencia.Pendiente).Count();
+                List<Incidencia> incidenciasPendientes = fachada.GetListaIncidencias(EstadoIncidencia.Pendiente);
+                ViewBag.IncidenciasPendientes = incidenciasPendientes.Count;
                 return View(fachada.GetListaIncidencias(EstadoIncidencia.Pendiente));
                 //return la partialView con un select tab
             }
