@@ -230,6 +230,70 @@ namespace CARS.Models
             return incidencias;
         }
 
+
+        internal dynamic GetIncidenciasReporte(EstadoIncidencia estado, DateTime fechaInicio, DateTime fechaFin, Vehiculo vehiculo)
+        {
+            List<Incidencia> incidencias = new List<Incidencia>();
+
+            if (vehiculo == null)
+            {
+                if (fechaInicio == null && fechaFin == null)
+                {
+                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado).ToList();
+
+                }
+                else if (fechaInicio != null && fechaFin == null)
+                {
+                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio).ToList();
+                }
+                else if (fechaInicio == null && fechaFin != null)
+                {
+                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.FechaFin <= fechaFin).ToList();
+                }
+                else if (fechaInicio != null && fechaFin != null)
+                {
+                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.FechaInicio>=fechaInicio && i.FechaFin <= fechaFin).ToList();
+                }
+            }
+            else
+            {
+                if (fechaInicio == null && fechaFin == null)
+                {
+                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.Vehiculo==vehiculo).ToList();
+
+                }
+                else if (fechaInicio != null && fechaFin == null)
+                {
+                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio && i.Vehiculo == vehiculo).ToList();
+                }
+                else if (fechaInicio == null && fechaFin != null)
+                {
+                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.FechaFin <= fechaFin && i.Vehiculo == vehiculo).ToList();
+                }
+                else if (fechaInicio != null && fechaFin != null)
+                {
+                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio && i.FechaFin <= fechaFin && i.Vehiculo == vehiculo).ToList();
+                }
+            }
+            
+                                           
+            return incidencias;
+        }
+
+        internal dynamic GetServiciosIncidencia(long idIncidencia)
+        {
+            List<ServicioIncidencia> serviciosIncidencia = db.DbServicioDeIncidencia.Where(i => i.Incidencia.Id == idIncidencia).ToList();
+
+            List<Servicio> servicios = new List<Servicio>();
+
+            foreach (ServicioIncidencia si in serviciosIncidencia)
+            {
+                servicios.Add(si.Servicio);
+            }
+            
+           return servicios;
+        }
+
         internal void AgregarIncidencia()
         {
             throw new NotImplementedException();

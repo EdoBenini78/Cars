@@ -43,5 +43,43 @@ namespace CARS.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult ReporteServicios(DateTime fechaInicio, DateTime fechaFin, string matricula)
+        {
+            Vehiculo v = fachada.GetVehiculoByMatricula(matricula);
+
+            List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, fechaInicio, fechaFin, v);
+            
+            List<Servicio> listaServicios = new List<Servicio>();
+
+            foreach (Incidencia i in incidencias)
+            {
+                listaServicios.Add(fachada.GetServiciosIncidencia(i.Id));
+            }
+                      
+                        
+            return View(listaServicios);
+        }
+        [HttpGet]
+        public ActionResult ReporteServicios()
+        {
+            if (Session["UserId"] != null)
+            {
+                List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, DateTime.Today, DateTime.Today, null);
+
+                List<Servicio> listaServicios = new List<Servicio>();
+
+                foreach (Incidencia i in incidencias)
+                {
+                    listaServicios.Add(fachada.GetServiciosIncidencia(i.Id));
+                }
+
+
+                return View(listaServicios);
+            }
+            return RedirectToAction("LogIn", "LogIn");
+
+            
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace CARS.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("LogIn", "LogIn"); 
+            return RedirectToAction("LogIn"); 
             
         }
 

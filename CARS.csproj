@@ -230,6 +230,7 @@
     <Content Include="Views\Servicios\Edit.cshtml" />
     <Content Include="Views\Servicios\Index.cshtml" />
     <Content Include="Views\LogIn\OlvideMiContrasenia.cshtml" />
+    <Content Include="Views\Incidencia\ReporteServicios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
