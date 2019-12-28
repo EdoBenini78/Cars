@@ -23,12 +23,13 @@ namespace CARS.Controllers
 
         //Método para crear incidencia del usuario del vehículo
 
-        public ActionResult InsertIncidencia(string fecha, string km, string dir,string matricula, string com)
+        public ActionResult InsertIncidencia(string FechaSugerida, string km, string dir,string matricula, string com, string longitud, string latitud)
         {
             Vehiculo aVehiculo = fachada.GetVehiculoByMatricula(matricula);
+            long edo = long.Parse(Session["UserId"].ToString());
             if (aVehiculo != null)
             {
-                fachada.AgregarIncidencia(DateTime.Parse(fecha), long.Parse(km), dir, matricula, com, long.Parse(Session["UserId"].ToString()));
+                fachada.AgregarIncidencia(DateTime.Parse(FechaSugerida), long.Parse(km), dir, matricula, com, long.Parse(Session["UserId"].ToString()), double.Parse(longitud), double.Parse(latitud));
             }
             else
             {

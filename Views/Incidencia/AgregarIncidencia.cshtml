@@ -1,4 +1,23 @@
-﻿@*SOLICITUD DE SERVICIO PARA USUARIO DE VEHÍCULO*@
+﻿<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDA6zs432NlkBRKk4vxHwIq945u-GTpcNg&libraries=places"></script>
+<script>
+    var searchInput = 'dir';
+    $(document).ready(function () {
+        var autocomplete;
+        autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+            componentRestrictions: { country: "uy" }
+        });
+
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            var nearPlace = autocomplete.getPlace();
+            document.getElementById('long').value = nearPlace.geometry.location.lng();
+            document.getElementById('lat').value = nearPlace.geometry.location.lat();
+        });
+
+    });
+
+</script>>
+@*SOLICITUD DE SERVICIO PARA USUARIO DE VEHÍCULO*@
 
 @model CARS.Models.Incidencia
 
@@ -15,12 +34,13 @@
                     @Html.ValidationMessageFor(model => model.FechaSugerida, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-           @* <div class="form-group">
-                <label for="fecha" class="col-md-2 control-label">Fecha sugerida</label>
-                <div class="col-md-10">
-                    <input type="date" required="required" name="fecha" class="form-control" />
-                </div>
+            <input type="text" hidden="hidden" name="longitud" id="long" />
+            <input type="text" hidden="hidden" name="latitud" id="lat" />
+            @* <div class="form-group">
+            <label for="fecha" class="col-md-2 control-label">Fecha sugerida</label>
+            <div class="col-md-10">
+                <input type="date" required="required" name="fecha" class="form-control" />
+            </div>
             </div>*@
 
             <div class="form-group">
@@ -33,7 +53,7 @@
             <div class="form-group">
                 <label for="ubicacion" class="col-md-2 control-label">Dirección</label>
                 <div class="col-md-10">
-                    <input type="text" required="required" name="dir" class="form-control" />
+                    <input type="search" required="required" name="dir" id="dir" class="form-control" />
 
                 </div>
 
@@ -72,3 +92,14 @@
     </div>
 </div>
 
+@*<script type="text/javascript">google.maps.event.addDomListener(window, 'load', function () {
+        var options = {
+            types: ['(cities)'],
+            componentRestrictions: { country: "uy" }
+        };
+
+        var input = document.getElementById('dir');
+        var places = new google.maps.places.Autocomplete(input, options);
+
+
+    });</script>*@

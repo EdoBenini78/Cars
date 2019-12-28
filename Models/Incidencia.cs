@@ -25,6 +25,8 @@ namespace CARS.Models
         public long Kilometraje { get; set; }
         [DisplayName("Vehículo")]
         public Vehiculo Vehiculo { get; set; }
+        public double Longitud { get; set; }
+        public double Latitud { get; set; }
         #endregion
 
 
@@ -48,7 +50,7 @@ namespace CARS.Models
             Vehiculo = vehiculo;
         }
 
-        public Incidencia(DateTime fechaSugerida, long pKm, string pDireccion, Vehiculo aVehiculo, string pComentario, Usuario aUsuario)
+        public Incidencia(DateTime fechaSugerida, long pKm, string pDireccion, Vehiculo aVehiculo, string pComentario, Usuario aUsuario, double longitud, double latitud)
         {
             FechaSugerida = fechaSugerida;
             Kilometraje = pKm;
@@ -58,6 +60,8 @@ namespace CARS.Models
             FechaInicio = DateTime.Today;
             Estado = EstadoIncidencia.Pendiente;
             Usuario = aUsuario;
+            Latitud = latitud;
+            Longitud = longitud;
         }
 
         #endregion

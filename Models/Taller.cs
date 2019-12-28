@@ -17,13 +17,13 @@ namespace CARS.Models
         public bool Activo { get; set; }
         [DisplayName("Fecha de Ingreso"), DataType(DataType.Date)]
         public DateTime FechaIngreso { get; set; }
-        public long X { get; set; }
-        public long Y { get; set; }
+        public double Longitud { get; set; }
+        public double Latitud { get; set; }
         [Required] public string Direccion { get; set; }
         #endregion
 
         #region Constructor
-        public Taller(string nombre, long rut, string nombreContacto, int telefono, long x, long y, string direccion)
+        public Taller(string nombre, long rut, string nombreContacto, int telefono, double x, double y, string direccion)
         {
             Nombre = nombre;
             Rut = rut;
@@ -31,8 +31,8 @@ namespace CARS.Models
             Telefono = telefono;
             Activo = true;
             FechaIngreso = DateTime.Today;
-            X = x;
-            Y = y;
+            Longitud = x;
+            Latitud = y;
             Direccion = direccion;
         }
 

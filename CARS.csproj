@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +45,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -145,6 +147,18 @@
     <Compile Include="Migrations\201912221815353_edo4.cs" />
     <Compile Include="Migrations\201912221815353_edo4.designer.cs">
       <DependentUpon>201912221815353_edo4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912282050234_edo3.cs" />
+    <Compile Include="Migrations\201912282050234_edo3.designer.cs">
+      <DependentUpon>201912282050234_edo3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912282118580_edo2.cs" />
+    <Compile Include="Migrations\201912282118580_edo2.designer.cs">
+      <DependentUpon>201912282118580_edo2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912282200445_edo1.cs" />
+    <Compile Include="Migrations\201912282200445_edo1.designer.cs">
+      <DependentUpon>201912282200445_edo1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
@@ -255,6 +269,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912221815353_edo4.resx">
       <DependentUpon>201912221815353_edo4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912282050234_edo3.resx">
+      <DependentUpon>201912282050234_edo3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912282118580_edo2.resx">
+      <DependentUpon>201912282118580_edo2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912282200445_edo1.resx">
+      <DependentUpon>201912282200445_edo1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

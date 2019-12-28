@@ -13,6 +13,7 @@ namespace CARS.Controllers
     public class ServiciosController : Controller
     {
         private DbCARS db = new DbCARS();
+        private Fachada fachada = new Fachada();
 
         // GET: Servicios
         public ActionResult Index()
@@ -38,6 +39,7 @@ namespace CARS.Controllers
         // GET: Servicios/Create
         public ActionResult Create(string id)
         {
+            ViewBag.ListadoTalleres = fachada.GetTalleresDistanciaOk(fachada.GetIncidenciaByDbId(long.Parse(id)));
             ViewBag.Incidencia = id;
             return View();
         }
@@ -47,11 +49,12 @@ namespace CARS.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Tipo,FechaSugerida,Estado")] Servicio servicio, string incidencia)
+        public ActionResult Create([Bind(Include = "Tipo,FechaSugerida,Estado")] Servicio servicio, string incidencia, string taller)
         {
             if (ModelState.IsValid)
             {
                 Incidencia aIncidencia = db.DbIncidencias.Find(long.Parse(incidencia));
+                servicio.Taller = fachada.GetTallerByDbId(long.Parse(taller));
                 db.DbServicios.Add(servicio);
                 ServicioIncidencia servicioIncidencia = new ServicioIncidencia(servicio, aIncidencia);
                 db.DbServicioDeIncidencia.Add(servicioIncidencia);
