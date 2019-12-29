@@ -18,8 +18,9 @@ namespace CARS.Models
         public DateTime? FechaFin { get; set; }
         [DisplayName("Fecha Sugerida"), DataType(DataType.Date)]
         public DateTime FechaSugerida { get; set; }
+        [DisplayName("Descripción")]
         public string Descripcion { get; set; }
-        [DisplayName("Direccion Sugerida")]
+        [DisplayName("Dirección Sugerida")]
         public string DireccionSugerida { get; set; }
         [DisplayName("Km")]
         public long Kilometraje { get; set; }

@@ -6,6 +6,9 @@
             @Html.DisplayNameFor(model => model.Vehiculo.NumeroUnidad)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Vehiculo.Matricula)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.FechaInicio)
         </th>
         <th>
@@ -24,62 +27,56 @@
         <th>
             @Html.DisplayNameFor(model => model.Kilometraje)
         </th>
-        <th></th>
+
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vehiculo.NumeroUnidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaInicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaSugerida)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaFin)
-            </td>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Vehiculo.NumeroUnidad)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Vehiculo.Matricula)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaInicio)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaSugerida)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaFin)
+    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DireccionSugerida)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Kilometraje)
-            </td>
-            <td>
-                <button class="glyphicon-plus-sign" type="button" data-toggle="collapse" data-target="#servicios" role="button" aria-expanded="false" aria-controls="servicios">
-                </button>
-                <div class="collapse" id="servicios">
-                    <div class="card card-body">
-                        mis servicios
-                    </div>
-                </div>
+    <td>
+        @Html.DisplayFor(modelItem => item.Descripcion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DireccionSugerida)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Kilometraje)
+    </td>
 
-            </td>
-            <td>
-                <div class="btn-group">
-                    <a href="#" class="btn btn-default btn-xs">Opciones</a>
-                    <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>@Html.ActionLink("Editar", "Edit", new { id = item.Id })</li>
-                        <li>@Html.ActionLink("Detalles", "Details", new { id = item.Id })</li>
-                        <li>@Html.ActionLink("Borrar", "Delete", new { id = item.Id })</li>
-                        <li class="divider"></li>
-                        <li class="text-dark">@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
+    <td>
+        <div class="btn-group">
+            <a href="#" class="btn btn-default btn-xs">Opciones</a>
+            <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Editar", "Edit", new { id = item.Id })</li>
+                <li>@Html.ActionLink("Detalles", "Details", new { id = item.Id })</li>
+                <li>@Html.ActionLink("Borrar", "Delete", new { id = item.Id })</li>
+                <li class="divider"></li>
+                <li class="text-dark">@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
 
 
-                    </ul>
-                </div>
+            </ul>
+        </div>
 
-            </td>
-        </tr>
+    </td>
+</tr>
       
     }
 

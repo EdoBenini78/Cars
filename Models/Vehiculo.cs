@@ -14,7 +14,7 @@ namespace CARS.Models
         [Required] public double Kilometros{ get; set; }
         [DisplayName("Fecha de compra"), DataType(DataType.Date),Required]
         public DateTime FechaDeCompra { get; set; }
-        [DisplayName("Número de Unidad")]
+        [DisplayName("Unidad")]
         [Required] public int NumeroUnidad { get; set; }
         [Required] public string Marca { get; set; }
         [Required] public string Modelo { get; set; }
