@@ -4,17 +4,20 @@
     ViewBag.Title = "ReporteServicios";
 }
 
-<h2>Reporte Servicios</h2>
+<h3>Servicios realizados</h3>
 
 @using (Html.BeginForm("ReporteServicios", "Incidencia", FormMethod.Post))
 {
     <fieldset>
         <p>
-            <input type="text" class="form-control" placeholder="Desde" id="fechaInicio" name="fechaInicio">
-            <input type="text" class="form-control" placeholder="Hasta" id="fechaFin" name="fechaFin">
+            <label for="fechaInicio">Desde </label>
+            <input type="date" class="form-control" placeholder="Desde" id="fechaInicio" name="fechaInicio">
+            <label for="fechaFin">Hasta </label>
+            <input type="date" class="form-control" placeholder="Hasta" id="fechaFin" name="fechaFin">
+            <label for="matricula">Matrícula </label>
             <input type="text" class="form-control" placeholder="Matrícula" id="matricula" name="matricula">
-        
-            <button type="submit" class="btn btn-default">Filtrar </button>
+
+            <button type="submit" class="btn btn-primary">Filtrar </button>
         </p>
 
     </fieldset>
@@ -27,7 +30,7 @@
             @Html.DisplayNameFor(model => model.Tipo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FechaSugerida)
+            @Html.DisplayNameFor(model => model.Vehiculo.Matricula)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FechaEntrada)
@@ -36,35 +39,43 @@
             @Html.DisplayNameFor(model => model.FechaSalida)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Estado)
+            @Html.DisplayNameFor(model => model.Taller)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroOrden)
+        </th>
+        <th>
+            Km próximo servicio
+        </th>
+
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tipo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaSugerida)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaEntrada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaSalida)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tipo)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.Vehiculo.Matricula)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaEntrada)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FechaSalida)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.Taller)
+    </td>
+    <td>
+        @Html.DisplayNameFor(model => model.NumeroOrden)
+    </td>
+    <td>
+        @*Poner km del próximo servicio si es mantenimiento preventivo*@
+    </td>
+
+</tr>
     }
 
 </table>

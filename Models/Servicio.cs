@@ -22,8 +22,8 @@ namespace CARS.Models
         public TipoEstado Estado{ get; set; }
         public List<Factura> Facturas { get; set; }
         public string Descripcion { get; set; }
-        [DisplayName("Numero de Orden")]
-        public string? NumeroOrden { get; set; }
+        [DisplayName("Número de Orden")]
+        public string NumeroOrden { get; set; }
         #endregion
 
         #region Constructor
