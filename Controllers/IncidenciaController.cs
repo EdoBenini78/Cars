@@ -82,5 +82,12 @@ namespace CARS.Controllers
 
             
         }
+
+        public ActionResult VerServicios(long idIncidencia)
+        {
+            List<Servicio> serviciosDeIncidencia = fachada.GetServiciosIncidencia(idIncidencia);
+
+            return View(serviciosDeIncidencia);
+        }
     }
 }

@@ -28,6 +28,7 @@
             @Html.DisplayNameFor(model => model.Kilometraje)
         </th>
 
+     
         <th></th>
     </tr>
 
@@ -59,18 +60,21 @@
     <td>
         @Html.DisplayFor(modelItem => item.Kilometraje)
     </td>
-
+  
     <td>
         <div class="btn-group">
             <a href="#" class="btn btn-default btn-xs">Opciones</a>
             <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li>@Html.ActionLink("Editar", "Edit", new { id = item.Id })</li>
-                <li>@Html.ActionLink("Detalles", "Details", new { id = item.Id })</li>
-                <li>@Html.ActionLink("Borrar", "Delete", new { id = item.Id })</li>
+
+
+                <li class="text-dark">@Html.ActionLink("Ver Servicios", "VerServicios","Incidencia", new { id = item.Id })</li>
                 <li class="divider"></li>
                 <li class="text-dark">@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
-
+                <li class="divider"></li>
+                <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id })</li>
+                <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id })</li>
+                <li>@Html.ActionLink("Borrar", "Delete", "Incidencia", new { id = item.Id })</li>
 
             </ul>
         </div>
