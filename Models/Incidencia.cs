@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace CARS.Models
 {
-    public class Incidencia: IEntity
+    public class Incidencia: IEntity, IExportable
     {
         #region Properties
         public long Id { get; set; }
@@ -29,7 +29,6 @@ namespace CARS.Models
         public double Longitud { get; set; }
         public double Latitud { get; set; }
         #endregion
-
 
         #region Constructor
         public Incidencia()
@@ -65,6 +64,13 @@ namespace CARS.Models
             Longitud = longitud;
         }
 
+        #endregion
+
+        #region Metodos
+        public string MiNombre()
+        {
+            return this.Id.ToString();
+        }
         #endregion
     }
 }

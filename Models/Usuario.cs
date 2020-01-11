@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CARS
 {
-    public class Usuario: IEntity
+    public class Usuario: IEntity, IExportable
     {
         #region Properties
         public long Id { get; set; }
@@ -42,6 +42,13 @@ namespace CARS
         public Usuario()
         {
          
+        }
+        #endregion
+
+        #region Metodos
+        public string MiNombre()
+        {
+            return this.Mail;
         }
         #endregion
     }

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CARS.Models
 {
-    public class Servicio: IEntity
+    public class Servicio: IEntity, IExportable
     {
         #region Properties
         public long Id { get; set; }
@@ -42,6 +42,13 @@ namespace CARS.Models
         public Servicio()
         {
             Facturas = new List<Factura>();
+        }
+        #endregion
+
+        #region Metodos
+        public string MiNombre()
+        {
+            return this.Id.ToString();
         }
         #endregion
     }

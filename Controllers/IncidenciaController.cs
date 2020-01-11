@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using CARS.Export_Excel;
 using System.Web.Mvc;
+using CARS.Interfaces;
 
 namespace CARS.Controllers
 {
@@ -83,11 +85,22 @@ namespace CARS.Controllers
             
         }
 
-        public ActionResult VerServicios(long idIncidencia)
+        public ActionResult VerServicios(string idIncidencia)
         {
-            List<Servicio> serviciosDeIncidencia = fachada.GetServiciosIncidencia(idIncidencia);
+            List<Servicio> serviciosDeIncidencia = fachada.GetServiciosIncidencia(long.Parse(idIncidencia));
 
             return View(serviciosDeIncidencia);
+        }
+
+        [HttpPost]
+        public ActionResult ExportToExcel(List<Servicio> lista)
+        {
+            List<IExportable> listaExport = new List<IExportable>();
+            foreach (var item in lista)
+                listaExport.Add(item);
+            ExportExcel export = new ExportExcel();
+            export.ExportToExcel(listaExport);
+            return View();
         }
     }
 }

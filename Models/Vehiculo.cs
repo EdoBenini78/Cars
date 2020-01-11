@@ -58,5 +58,12 @@ namespace CARS.Models
             //Choferes = new List<Usuario>();
         }
         #endregion
+
+        #region Metodos
+        public string MiNombre()
+        {
+            return this.Matricula;
+        }
+        #endregion
     }
 }

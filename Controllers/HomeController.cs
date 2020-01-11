@@ -58,6 +58,11 @@ namespace CARS.Controllers
             return RedirectToAction("Create", "Servicios", new { id = int.Parse(id)});
         }
 
+        public ActionResult VerServicios(string id)
+        {
+            return RedirectToAction("VerServicios", "Incidencia", new { id });
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Todavia no tenemos nada en la base de datos.";
