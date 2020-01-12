@@ -46,20 +46,22 @@ namespace CARS.Export_Excel
             return tabla;
         }
 
-        public void ExportToExcel(List<IExportable> lista)
+        public void ExportToExcel(List<IExportable> lista, HttpServerUtilityBase server, HttpResponseBase response, string nombreArchivo)
         {
             DataTable dt = ToDataTable(lista);
             var workbook = new XLWorkbook();
             dt.TableName = "Reporte";
             workbook.Worksheets.Add(dt);
-            string filename = "Export Reporte";
-            MemoryStream strem = GetStream(workbook);
-            HttpContext.Current.Response.Clear();
-            HttpContext.Current.Response.Buffer = true;
-            HttpContext.Current.Response.AddHeader("contenet_disposition","attachment; filename=" + filename + ".xlsx");
-            HttpContext.Current.Response.ContentType = "application/vnd.ms-excel";
-            HttpContext.Current.Response.BinaryWrite(strem.ToArray());
-            HttpContext.Current.Response.End();
+
+            string myName = server.UrlEncode(nombreArchivo + ".xlsx");
+            MemoryStream stream = GetStream(workbook);
+
+            response.Clear();
+            response.Buffer = true;
+            response.AddHeader("content-disposition", "attachment; filename=" + myName);
+            response.ContentType = "application/vnd.ms-excel";
+            response.BinaryWrite(stream.ToArray());
+            response.End();
         }
 
         private MemoryStream GetStream(XLWorkbook workbook)

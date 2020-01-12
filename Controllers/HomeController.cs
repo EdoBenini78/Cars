@@ -60,7 +60,7 @@ namespace CARS.Controllers
 
         public ActionResult VerServicios(string id)
         {
-            return RedirectToAction("VerServicios", "Incidencia", new { id });
+            return RedirectToAction("VerServicios", "Incidencia", new { id = id });
         }
 
         public ActionResult About()

@@ -85,9 +85,9 @@ namespace CARS.Controllers
             
         }
 
-        public ActionResult VerServicios(string idIncidencia)
+        public ActionResult VerServicios(string id)
         {
-            List<Servicio> serviciosDeIncidencia = fachada.GetServiciosIncidencia(long.Parse(idIncidencia));
+            List<Servicio> serviciosDeIncidencia = fachada.GetServiciosIncidencia(long.Parse(id));
 
             return View(serviciosDeIncidencia);
         }
@@ -99,7 +99,8 @@ namespace CARS.Controllers
             foreach (var item in lista)
                 listaExport.Add(item);
             ExportExcel export = new ExportExcel();
-            export.ExportToExcel(listaExport);
+            string nombreAArchivo = "Export Reporte";
+            export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
             return View();
         }
     }
