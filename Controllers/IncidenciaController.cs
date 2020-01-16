@@ -29,6 +29,8 @@ namespace CARS.Controllers
         {
             Vehiculo aVehiculo = fachada.GetVehiculoByMatricula(matricula);
             long edo = long.Parse(Session["UserId"].ToString());
+            longitud = longitud.Replace(".",",");
+            latitud = latitud.Replace(".", ",");
             if (aVehiculo != null)
             {
                 fachada.AgregarIncidencia(DateTime.Parse(FechaSugerida), long.Parse(km), dir, matricula, com, long.Parse(Session["UserId"].ToString()), double.Parse(longitud), double.Parse(latitud));
@@ -47,7 +49,7 @@ namespace CARS.Controllers
         }
 
         [HttpPost]
-        public ActionResult ReporteServicios(DateTime fechaInicio, DateTime fechaFin, string matricula)
+        public ActionResult ReporteServicios(DateTime? fechaInicio, DateTime? fechaFin, string matricula)
         {
             Vehiculo v = fachada.GetVehiculoByMatricula(matricula);
 
@@ -57,7 +59,11 @@ namespace CARS.Controllers
 
             foreach (Incidencia i in incidencias)
             {
-                listaServicios.Add(fachada.GetServiciosIncidencia(i.Id));
+                List<Servicio> servicios = fachada.GetServiciosIncidencia(i.Id);
+                if (servicios.Count() != 0)
+                {
+                    listaServicios.AddRange(servicios);
+                }              
             }
                       
                         
@@ -85,21 +91,14 @@ namespace CARS.Controllers
             
         }
 
-        public ActionResult VerServicios(string id)
-        {
-            List<Servicio> serviciosDeIncidencia = fachada.GetServiciosIncidencia(long.Parse(id));
-
-            return View(serviciosDeIncidencia);
-        }
-
         [HttpPost]
-        public ActionResult ExportToExcel(List<Servicio> lista)
+        public ActionResult ExportToExcel(IEnumerable<Servicio> lista)
         {
             List<IExportable> listaExport = new List<IExportable>();
-            foreach (var item in lista)
-                listaExport.Add(item);
+            //foreach (var item in lista)
+            //    listaExport.Add(item);
             ExportExcel export = new ExportExcel();
-            string nombreAArchivo = "Export Reporte";
+            string nombreAArchivo = "Export_Reporte";
             export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
             return View();
         }

@@ -185,7 +185,7 @@ namespace CARS.Models
         #region Incidencia
         public Incidencia GetIncidenciaByDbId(long id)
         {
-            Incidencia aIncidencia = db.DbIncidencias.Find(id);
+            Incidencia aIncidencia = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Id == id).FirstOrDefault();
             return aIncidencia;
         }
 
@@ -195,7 +195,7 @@ namespace CARS.Models
             List<Incidencia> incidencias = null;
             if (vehiculoChofer != null)
             {
-                incidencias = db.DbIncidencias.Include("Vehiculo").Where(i => i.Estado == estado && i.Vehiculo.Id == vehiculoChofer.Id).ToList();
+                incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.Vehiculo.Id == vehiculoChofer.Id).ToList();
 
             }
             else
@@ -207,7 +207,7 @@ namespace CARS.Models
 
         internal dynamic GetListaIncidencias(EstadoIncidencia estado)
         {
-            List<Incidencia> incidencias = db.DbIncidencias.Include("Vehiculo").Where(i => i.Estado == estado).ToList();
+            List<Incidencia> incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado).ToList();
             return incidencias;
         }
 
@@ -226,12 +226,12 @@ namespace CARS.Models
 
         internal dynamic ListarIncidencia(long pUserId)
         {
-            List<Incidencia> incidencias = db.DbIncidencias.Where(i => i.Usuario.Id == pUserId).ToList();
+            List<Incidencia> incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Usuario.Id == pUserId).ToList();
             return incidencias;
         }
 
 
-        internal dynamic GetIncidenciasReporte(EstadoIncidencia estado, DateTime fechaInicio, DateTime fechaFin, Vehiculo vehiculo)
+        internal dynamic GetIncidenciasReporte(EstadoIncidencia estado, DateTime? fechaInicio, DateTime? fechaFin, Vehiculo vehiculo)
         {
             List<Incidencia> incidencias = new List<Incidencia>();
 
@@ -239,39 +239,39 @@ namespace CARS.Models
             {
                 if (fechaInicio == null && fechaFin == null)
                 {
-                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado).ToList();
+                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado).ToList();
                 }
                 if (fechaInicio != null && fechaFin == null)
                 {
-                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio).ToList();
+                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio).ToList();
                 }
                 if (fechaInicio == null && fechaFin != null)
                 {
-                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.FechaFin <= fechaFin).ToList();
+                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaFin <= fechaFin).ToList();
                 }
                 if (fechaInicio != null && fechaFin != null)
                 {
-                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.FechaInicio>=fechaInicio && i.FechaFin <= fechaFin).ToList();
+                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio>=fechaInicio && i.FechaFin <= fechaFin).ToList();
                 }
             }
             else
             {
                 if (fechaInicio == null && fechaFin == null)
                 {
-                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.Vehiculo==vehiculo).ToList();
+                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.Vehiculo==vehiculo).ToList();
 
                 }
                 if (fechaInicio != null && fechaFin == null)
                 {
-                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio && i.Vehiculo == vehiculo).ToList();
+                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio && i.Vehiculo == vehiculo).ToList();
                 }
                 if (fechaInicio == null && fechaFin != null)
                 {
-                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.FechaFin <= fechaFin && i.Vehiculo == vehiculo).ToList();
+                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaFin <= fechaFin && i.Vehiculo == vehiculo).ToList();
                 }
                 else if (fechaInicio != null && fechaFin != null)
                 {
-                    incidencias = db.DbIncidencias.Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio && i.FechaFin <= fechaFin && i.Vehiculo == vehiculo).ToList();
+                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio && i.FechaFin <= fechaFin && i.Vehiculo == vehiculo).ToList();
                 }
             }
             
@@ -281,16 +281,21 @@ namespace CARS.Models
 
         internal dynamic GetServiciosIncidencia(long idIncidencia)
         {
-            List<ServicioIncidencia> serviciosIncidencia = db.DbServicioDeIncidencia.Where(i => i.Incidencia.Id == idIncidencia).ToList();
+            List<ServicioIncidencia> serviciosIncidencia = db.DbServicioDeIncidencia.Include("Servicio").Include("Incidencia").Where(i => i.Incidencia.Id == idIncidencia).ToList();
 
             List<Servicio> servicios = new List<Servicio>();
 
             foreach (ServicioIncidencia si in serviciosIncidencia)
             {
-                servicios.Add(si.Servicio);
+                servicios.Add(GetServicioById(si.Servicio.Id));
             }
             
            return servicios;
+        }
+
+        private Servicio GetServicioById(long id)
+        {
+            return db.DbServicios.Include("Vehiculo").Include("Taller").Where(s => s.Id == id).FirstOrDefault();
         }
 
         internal void AgregarIncidencia()

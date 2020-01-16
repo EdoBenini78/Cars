@@ -53,7 +53,7 @@ namespace CARS.Controllers
         {
             if (ModelState.IsValid)
             {
-                Incidencia aIncidencia = db.DbIncidencias.Find(long.Parse(incidencia));
+                Incidencia aIncidencia = fachada.GetIncidenciaByDbId(long.Parse(incidencia));
                 servicio.Taller = fachada.GetTallerByDbId(long.Parse(taller));
                 db.DbServicios.Add(servicio);
                 ServicioIncidencia servicioIncidencia = new ServicioIncidencia(servicio, aIncidencia);
@@ -94,6 +94,16 @@ namespace CARS.Controllers
                 return RedirectToAction("Index");
             }
             return View(servicio);
+        }
+
+        public ActionResult VerServicios(string id)
+        {
+            List<Servicio> serviciosDeIncidencia = fachada.GetServiciosIncidencia(long.Parse(id));
+            if (serviciosDeIncidencia.Count == 0)
+            {
+                return RedirectToAction("Index","Home");
+            }
+            return View("Index",serviciosDeIncidencia);
         }
 
         // GET: Servicios/Delete/5

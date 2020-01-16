@@ -24,25 +24,29 @@ namespace CARS.Export_Excel
                 }
                
             }
-
-            object[] valores = new object[tipoObjeto.GetType().GetProperties().Count()];
-            foreach (var item in lista)
+            if (lista.Count != 0)
             {
-                int posicion = 0;
-                foreach (PropertyInfo prop in item.GetType().GetProperties())
+                object[] valores = new object[tipoObjeto.GetType().GetProperties().Count()];
+                foreach (var item in lista)
                 {
-                    if (!(prop.GetValue(item,null) is Nullable) && prop.GetValue(item,null) != null)
+                    int posicion = 0;
+                    foreach (PropertyInfo prop in item.GetType().GetProperties())
                     {
-                        valores[posicion] = item.MiNombre();
+                        if (!(prop.GetValue(item, null) is Nullable) && prop.GetValue(item, null) != null)
+                        {
+                            valores[posicion] = item.MiNombre();
+                        }
+                        else
+                        {
+                            valores[posicion] = prop.GetValue(item, null);
+                        }
+                        posicion++;
                     }
-                    else
-                    {
-                        valores[posicion] = prop.GetValue(item, null);
-                    }
-                    posicion++;
+                    tabla.Rows.Add(valores);
                 }
-                tabla.Rows.Add(valores);
             }
+            
+            
             return tabla;
         }
 
