@@ -6,8 +6,6 @@
 
 <h3>Servicios realizados</h3>
 
-<button type="button" onclick="ExportToExcel">dalee</button>
-
 @using (Html.BeginForm("ReporteServicios", "Incidencia", FormMethod.Post))
 {
     <fieldset>
@@ -25,16 +23,14 @@
     </fieldset>
 }
 
-@using (Html.BeginForm("ExportToExcel", "Incidencia", FormMethod.Post, new { lista = Model }))
+@using (Html.BeginForm("ExportToExcel", "Incidencia", FormMethod.Post, new { id = Model }))
 {
     <fieldset>
-        <input hidden="hidden" value='@Model' name="lista" />
+
         <button type="submit" class="btn btn-primary">Exportar </button>
 
     </fieldset>
 }
-
-@Html.ActionLink("Export", "ExportToExcel", "Incidencia", new { @lista = Model})
 
 
 
@@ -93,3 +89,22 @@
     }
 
 </table>
+
+
+
+@*<script>
+        $.ajax({ url: '@Url.Action("ExportToExcel", "Incidencia")',
+            traditional: true,
+            data: '{ "listkey":' + JSON.stringify(list) + '}',
+            dataType: "html",
+            type: 'POST',
+            success: function (data) {
+                alert("success");
+            },
+            error: function () {
+
+                alert("fail");
+            }
+        });
+
+</script>*@
