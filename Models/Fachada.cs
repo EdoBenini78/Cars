@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace CARS.Models
@@ -128,6 +129,7 @@ namespace CARS.Models
             }
             return false;
         }
+
         public bool AgregarVehiculo(Vehiculo aVehiculo)
         {
             if (ControlVehiculoExistenes(aVehiculo))
@@ -293,14 +295,19 @@ namespace CARS.Models
            return servicios;
         }
 
-        private Servicio GetServicioById(long id)
-        {
-            return db.DbServicios.Include("Vehiculo").Include("Taller").Where(s => s.Id == id).FirstOrDefault();
-        }
+       
 
         internal void AgregarIncidencia()
         {
             throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Servicio
+        public Servicio GetServicioById(long id)
+        {
+            return db.DbServicios.Include("Vehiculo").Include("Taller").Where(s => s.Id == id).FirstOrDefault();
         }
 
         #endregion

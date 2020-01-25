@@ -1,110 +1,126 @@
 ﻿@model IEnumerable<CARS.Models.Servicio>
-
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
 @{
     ViewBag.Title = "ReporteServicios";
 }
+    <body>
+        @using (Html.BeginForm("ReporteServicios", "Incidencia", FormMethod.Post))
+        {
+            <fieldset>
+                <p>
+                    <label for="fechaInicio">Desde </label>
+                    <input type="date" class="form-control" placeholder="Desde" id="fechaInicio" name="fechaInicio">
+                    <label for="fechaFin">Hasta </label>
+                    <input type="date" class="form-control" placeholder="Hasta" id="fechaFin" name="fechaFin">
+                    <label for="matricula">Matrícula </label>
+                    <input type="text" class="form-control" placeholder="Matrícula" id="matricula" name="matricula">
+                    <br />
+                    <button type="submit" class="btn btn-primary">Filtrar </button>
+                    <input type="button" id="btnExportar" value="Exportar" class="btn btn-primary" />
+                </p>
 
+            </fieldset>
+        }
+
+      
+
+
+
+        <table id="exportReport" class="table table-responsive table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Tipo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vehiculo.Matricula)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaEntrada)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaSalida)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Taller)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NumeroOrden)
+                    </th>
+                    <th>
+                        Km próximo servicio
+                    </th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Vehiculo.Matricula)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaEntrada)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaSalida)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Taller.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.NumeroOrden)
+                    </td>
+                    <td>
+                        @*Poner km del próximo servicio si es mantenimiento preventivo*@
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
+    </body>
 <h3>Servicios realizados</h3>
 
-@using (Html.BeginForm("ReporteServicios", "Incidencia", FormMethod.Post))
-{
-    <fieldset>
-        <p>
-            <label for="fechaInicio">Desde </label>
-            <input type="date" class="form-control" placeholder="Desde" id="fechaInicio" name="fechaInicio">
-            <label for="fechaFin">Hasta </label>
-            <input type="date" class="form-control" placeholder="Hasta" id="fechaFin" name="fechaFin">
-            <label for="matricula">Matrícula </label>
-            <input type="text" class="form-control" placeholder="Matrícula" id="matricula" name="matricula">
-
-            <button type="submit" class="btn btn-primary">Filtrar </button>
-        </p>
-
-    </fieldset>
-}
-
-@using (Html.BeginForm("ExportToExcel", "Incidencia", FormMethod.Post, new { id = Model }))
-{
-    <fieldset>
-
-        <button type="submit" class="btn btn-primary">Exportar </button>
-
-    </fieldset>
-}
 
 
 
-<table class="table table-responsive table-striped table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Tipo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Vehiculo.Matricula)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaEntrada)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FechaSalida)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Taller)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumeroOrden)
-        </th>
-        <th>
-            Km próximo servicio
-        </th>
 
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tipo)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Vehiculo.Matricula)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaEntrada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaSalida)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Taller.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.NumeroOrden)
-            </td>
-            <td>
-                @*Poner km del próximo servicio si es mantenimiento preventivo*@
-            </td>
-
-        </tr>
-    }
-
-</table>
-
-
-
-@*<script>
-        $.ajax({ url: '@Url.Action("ExportToExcel", "Incidencia")',
-            traditional: true,
-            data: '{ "listkey":' + JSON.stringify(list) + '}',
-            dataType: "html",
-            type: 'POST',
-            success: function (data) {
-                alert("success");
-            },
-            error: function () {
-
-                alert("fail");
-            }
+<script type="text/javascript">
+    $("body").on("click", "#btnExportar", function () {
+        var exportTable = new Array();
+        $("#exportReport tbody tr").each(function () {
+            var row = $(this);
+            var item = {};
+            item = row.find("TD").eq(0).html();
+            exportTable.push(item);
         });
 
-</script>*@
+
+        $.ajax({
+            type: "POST",
+            url: "ExportToExcel",
+            data: JSON.stringify(exportTable),
+            contentType: "application/json; chartset-uft-8",
+            dataType: "json",
+            success: function (r) {
+                alert("Reporte emitido correctamente");
+            }
+        });
+    });
+        
+        
+
+</script>
