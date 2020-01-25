@@ -15,20 +15,24 @@
                     <input type="date" class="form-control" placeholder="Hasta" id="fechaFin" name="fechaFin">
                     <label for="matricula">Matrícula </label>
                     <input type="text" class="form-control" placeholder="Matrícula" id="matricula" name="matricula">
-
+                    <br />
                     <button type="submit" class="btn btn-primary">Filtrar </button>
+                    <input type="button" id="btnExportar" value="Exportar" class="btn btn-primary" />
                 </p>
 
             </fieldset>
         }
 
-        <input type="button" id="btnExportar" value="Exportar" class="btn btn-primary" />
+      
 
 
 
         <table id="exportReport" class="table table-responsive table-striped table-hover">
             <thead>
                 <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Tipo)
                     </th>
@@ -57,30 +61,33 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Tipo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.Vehiculo.Matricula)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FechaEntrada)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FechaSalida)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.Taller.Nombre)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.NumeroOrden)
-                        </td>
-                        <td>
-                            @*Poner km del próximo servicio si es mantenimiento preventivo*@
-                        </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Vehiculo.Matricula)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaEntrada)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaSalida)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Taller.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.NumeroOrden)
+                    </td>
+                    <td>
+                        @*Poner km del próximo servicio si es mantenimiento preventivo*@
+                    </td>
 
-                    </tr>
+                </tr>
                 }
             </tbody>
         </table>
@@ -94,7 +101,6 @@
 <script type="text/javascript">
     $("body").on("click", "#btnExportar", function () {
         var exportTable = new Array();
-        console.log("estoy");
         $("#exportReport tbody tr").each(function () {
             var row = $(this);
             var item = {};

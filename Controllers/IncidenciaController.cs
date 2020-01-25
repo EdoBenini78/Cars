@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using ActionResult = System.Web.Mvc.ActionResult;
 using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
 using HttpGetAttribute = System.Web.Mvc.HttpGetAttribute;
+using System.Text.RegularExpressions;
 
 namespace CARS.Controllers
 {
@@ -95,14 +96,34 @@ namespace CARS.Controllers
         [HttpPost]
         public ActionResult ExportToExcel([FromBody] IEnumerable<string> exportTable)
         {
-            //List<IExportable> listaExport = new List<IExportable>();
-            //List<Servicio> servicios = fachada.GetServiciosIncidencia(8);
-            //foreach (var item in servicios)
-            //    listaExport.Add(item);
-            //ExportExcel export = new ExportExcel();
-            //string nombreAArchivo = "Export_Reporte";
-            //export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
-            return View();
+
+            List<IExportable> listaExport = new List<IExportable>();
+            List<Servicio> servicios = ParseoLista(exportTable);
+            foreach (var item in servicios)
+                listaExport.Add(item);
+            ExportExcel export = new ExportExcel();
+            string nombreAArchivo = "Export_Reporte";
+            export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
+            return RedirectToAction("Index", "Home");
+        }
+
+        private List<Servicio> ParseoLista(IEnumerable<string> exportTable)
+        {
+            List<Servicio> servicios = new List<Servicio>();
+            foreach (var item in exportTable)
+            {
+                var matches = Regex.Matches(item, "[0-9]+");
+                string idServicio = "";
+                foreach (var num in matches)
+                {
+                    idServicio += num.ToString();
+                }
+                Servicio servicio = fachada.GetServicioById(long.Parse(idServicio.ToString()));
+                servicios.Add(servicio);
+            }
+            
+            return servicios;
+
         }
     }
 }
