@@ -71,9 +71,8 @@ namespace CARS.Controllers
         }
 
             // GET: Servicios/Edit/5
-            public ActionResult Edit(long? id, long idIncidencia)
+            public ActionResult Edit(long? id)
         {
-            ViewBag.Incidencia = idIncidencia;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -91,17 +90,16 @@ namespace CARS.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Tipo,FechaSugerida,FechaEntrada,FechaSalida,Estado")] Servicio servicio, long idIncincia)
+        public ActionResult Edit([Bind(Include = "Id,Tipo,FechaSugerida,FechaEntrada,FechaSalida,Estado")] Servicio servicio)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(servicio).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.SaveChanges();               
             }
 
-            fachada.ControlStatusIncidencia(servicio);
-            return View(servicio);
+            fachada.ControlStatusIncidencia(servicio); 
+            return RedirectToAction("Index");
         }
 
         public ActionResult VerServicios(string id)

@@ -289,39 +289,40 @@ namespace CARS.Models
         {
             List<Servicio> servicios = new List<Servicio>();
             Incidencia incidencia = db.DbServicioDeIncidencia.Include("Incidencia").Include("Servicio").Where(si => si.Servicio.Id == servicio.Id).FirstOrDefault().Incidencia;
+            incidencia = db.DbIncidencias.Include("Usuario").Include("Vehiculo").Where(i => i.Id == incidencia.Id).FirstOrDefault();
             List<ServicioIncidencia> servicioDeIncidencia = db.DbServicioDeIncidencia.Include("Incidencia").Include("Servicio").Where(si => si.Incidencia.Id == incidencia.Id).ToList();
-            long[] cancelado = new long[servicioDeIncidencia.Count()];
-            long[] terminado = new long[servicioDeIncidencia.Count()];
+            List<Servicio> cancelado = new List<Servicio>();
+            List<Servicio> terminado = new List<Servicio>();
             foreach (var item in servicioDeIncidencia)
             {
-                Servicio servicioDB = db.DbServicios.Include("Taller").Include("Vehiculo").Where(s => s.Id == item.Servicio.Id).FirstOrDefault();
-                if (servicioDB != null)
+                if (item.Servicio.Estado == TipoEstado.Cancelado)
                 {
-                    servicios.Add(servicioDB);
+                    cancelado.Add(item.Servicio);
+                }
+                if (item.Servicio.Estado == TipoEstado.Terminado)
+                {
+                    terminado.Add(item.Servicio);
                 }
             }
+            
 
-            foreach (var item in servicios)
-            {
-                if (item.Estado == TipoEstado.Cancelado)
-                {
-                    cancelado.Append(item.Id);
-                }
-                if (item.Estado == TipoEstado.Terminado)
-                {
-                    terminado.Append(item.Id);
-                }
-            }
-
-            if (cancelado.Length == servicioDeIncidencia.Count())
+            if (cancelado.Count == servicioDeIncidencia.Count())
             {
                 incidencia.Estado = EstadoIncidencia.Cancelada;
                 ModificarIncidencia(ref incidencia);
             }
-            else if (terminado.Length == servicioDeIncidencia.Count())
+            else if (terminado.Count + cancelado.Count == servicioDeIncidencia.Count())
             {
                 incidencia.Estado = EstadoIncidencia.Finalizada;
                 ModificarIncidencia(ref incidencia);
+            }
+            else if (terminado.Count + cancelado.Count != servicioDeIncidencia.Count())
+            {
+                if (incidencia.Estado != EstadoIncidencia.Procesando)
+                {
+                    incidencia.Estado = EstadoIncidencia.Procesando;
+                    ModificarIncidencia(ref incidencia);
+                }
             }
            
         }
