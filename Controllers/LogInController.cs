@@ -24,6 +24,7 @@ namespace CARS.Controllers
             if (pUsuario != null)
             {
                 Session["Tipo"] = pUsuario.Tipo;
+                Session["Mail"] = pUsuario.Mail;
                 Session["UserId"] = pUsuario.Id;
                 return RedirectToAction("Index", "Home");
             }
