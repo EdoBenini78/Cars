@@ -6,6 +6,10 @@ using System.Web;
 using CARS.Export_Excel;
 using System.Web.Mvc;
 using CARS.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using ActionResult = System.Web.Mvc.ActionResult;
+using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
+using HttpGetAttribute = System.Web.Mvc.HttpGetAttribute;
 
 namespace CARS.Controllers
 {
@@ -81,15 +85,6 @@ namespace CARS.Controllers
                 {
                     listaServicios.Add(fachada.GetServiciosIncidencia(i.Id));
                 }
-
-                //String[] arrayId = new String[listaServicios.Count];
-                //int position = 0;
-                //foreach (var item in listaServicios)
-                //{
-                //    arrayId[position] = item.Id.ToString();
-                //    position++;
-                //}
-                //ViewBag.ListaIdString = arrayId;
                 return View(listaServicios);
             }
             return RedirectToAction("LogIn", "LogIn");
@@ -98,15 +93,15 @@ namespace CARS.Controllers
         }
 
         [HttpPost]
-        public ActionResult ExportToExcel()
+        public ActionResult ExportToExcel([FromBody] IEnumerable<string> exportTable)
         {
-            List<IExportable> listaExport = new List<IExportable>();
-            List<Servicio> servicios = fachada.GetServiciosIncidencia(8);
-            foreach (var item in servicios)
-                listaExport.Add(item);
-            ExportExcel export = new ExportExcel();
-            string nombreAArchivo = "Export_Reporte";
-            export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
+            //List<IExportable> listaExport = new List<IExportable>();
+            //List<Servicio> servicios = fachada.GetServiciosIncidencia(8);
+            //foreach (var item in servicios)
+            //    listaExport.Add(item);
+            //ExportExcel export = new ExportExcel();
+            //string nombreAArchivo = "Export_Reporte";
+            //export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
             return View();
         }
     }
