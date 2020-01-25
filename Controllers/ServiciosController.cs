@@ -128,7 +128,9 @@ namespace CARS.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Servicio servicio = db.DbServicios.Find(id);
-            db.DbServicios.Remove(servicio);
+            servicio.Estado = TipoEstado.Terminado;
+            db.DbServicios.Add(servicio);
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }

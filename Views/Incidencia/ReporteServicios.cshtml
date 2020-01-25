@@ -16,8 +16,13 @@
                     <label for="matricula">Matrícula </label>
                     <input type="text" class="form-control" placeholder="Matrícula" id="matricula" name="matricula">
                     <br />
-                    <button type="submit" class="btn btn-primary">Filtrar </button>
-                    <input type="button" id="btnExportar" value="Exportar" class="btn btn-primary" />
+                    <button type="submit" class="btn btn-primary" id="btnFiltrar">Filtrar </button>
+                    @if (@ViewBag.BtnFiltrar == 1)
+                    {
+                        <input type="button" id="btnExportar" value="Exportar" class="btn btn-primary" />
+                    }
+                    <input type="button" id="btnExportar" value="Exportar" class="btn btn-primary" disabled />
+
                 </p>
 
             </fieldset>
@@ -121,6 +126,9 @@
         });
     });
         
-        
+    //$("body").on("click", "#btnFiltrar", function () {
+    //    document.getElementById("btnExportar").removeAttribute("disabled");
+    //    console.log("que onda????")
+    //});  
 
 </script>

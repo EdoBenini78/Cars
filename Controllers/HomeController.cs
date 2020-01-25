@@ -22,8 +22,8 @@ namespace CARS.Controllers
 
                 List<Incidencia> incidenciasPendientes = fachada.GetListaIncidencias(EstadoIncidencia.Pendiente);
                 ViewBag.IncidenciasPendientes = incidenciasPendientes.Count;
+                ViewBag.BtnFiltrar = 0;
                 return View(fachada.GetListaIncidencias(EstadoIncidencia.Pendiente));
-                //return la partialView con un select tab
             }
             else
             {

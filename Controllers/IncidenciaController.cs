@@ -70,7 +70,7 @@ namespace CARS.Controllers
                     listaServicios.AddRange(servicios);
                 }              
             }
-
+            ViewBag.BtnFiltrar = 1;
             return View(listaServicios);
         }
         [HttpGet]
@@ -94,9 +94,8 @@ namespace CARS.Controllers
         }
 
         [HttpPost]
-        public ActionResult ExportToExcel([FromBody] IEnumerable<string> exportTable)
+        public void ExportToExcel([FromBody] IEnumerable<string> exportTable)
         {
-
             List<IExportable> listaExport = new List<IExportable>();
             List<Servicio> servicios = ParseoLista(exportTable);
             foreach (var item in servicios)
@@ -104,7 +103,6 @@ namespace CARS.Controllers
             ExportExcel export = new ExportExcel();
             string nombreAArchivo = "Export_Reporte";
             export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
-            return RedirectToAction("Index", "Home");
         }
 
         private List<Servicio> ParseoLista(IEnumerable<string> exportTable)

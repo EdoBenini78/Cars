@@ -2,8 +2,8 @@
 {
     public enum TipoEstado
     {
-        Nuevo = 1,
-        Reservado = 2,
-        Terminado = 3
+        Reservado = 1,
+        Terminado = 2,
+        Cancelado = 3
     }
 }
