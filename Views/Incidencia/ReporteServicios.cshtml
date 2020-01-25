@@ -6,8 +6,6 @@
 
 <h3>Servicios realizados</h3>
 
-<button type="button" onclick="ExportToExcel">dalee</button>
-
 @using (Html.BeginForm("ReporteServicios", "Incidencia", FormMethod.Post))
 {
     <fieldset>
@@ -25,74 +23,88 @@
     </fieldset>
 }
 
-@using (Html.BeginForm("ExportToExcel", "Incidencia", new { @lista = Model }, FormMethod.Post, null))
+@using (Html.BeginForm("ExportToExcel", "Incidencia", FormMethod.Post, new { id = Model }))
 {
     <fieldset>
-
-
-        @*<input hidden="hidden" value="Hola" name="lista" id="lista" />*@
-
 
         <button type="submit" class="btn btn-primary">Exportar </button>
 
     </fieldset>
 }
 
-@*@Html.ActionLink("Export", "ExportToExcel", "Incidencia", new { @lista = Model })*@
 
 
-    <table class="table table-responsive table-striped table-hover">
+<table class="table table-responsive table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vehiculo.Matricula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaEntrada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaSalida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Taller)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroOrden)
+        </th>
+        <th>
+            Km próximo servicio
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Tipo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Vehiculo.Matricula)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaEntrada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaSalida)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Taller)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroOrden)
-            </th>
-            <th>
-                Km próximo servicio
-            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tipo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Vehiculo.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEntrada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaSalida)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Taller.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.NumeroOrden)
+            </td>
+            <td>
+                @*Poner km del próximo servicio si es mantenimiento preventivo*@
+            </td>
 
         </tr>
+    }
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tipo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Vehiculo.Matricula)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaEntrada)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaSalida)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Taller.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumeroOrden)
-                </td>
-                <td>
-                    @*Poner km del próximo servicio si es mantenimiento preventivo*@
-                </td>
+</table>
 
-            </tr>
-        }
 
-    </table>
+
+@*<script>
+        $.ajax({ url: '@Url.Action("ExportToExcel", "Incidencia")',
+            traditional: true,
+            data: '{ "listkey":' + JSON.stringify(list) + '}',
+            dataType: "html",
+            type: 'POST',
+            success: function (data) {
+                alert("success");
+            },
+            error: function () {
+
+                alert("fail");
+            }
+        });
+
+</script>*@

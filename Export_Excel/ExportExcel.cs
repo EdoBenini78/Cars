@@ -32,9 +32,9 @@ namespace CARS.Export_Excel
                     int posicion = 0;
                     foreach (PropertyInfo prop in item.GetType().GetProperties())
                     {
-                        if (!(prop.GetValue(item, null) is Nullable) && prop.GetValue(item, null) != null)
+                        if (prop.PropertyType.FullName.Contains("CARS.Models")/*!(prop.GetValue(item, null) is Nullable) && prop.GetValue(item, null) != null*/)
                         {
-                            valores[posicion] = item.MiNombre();
+                            //valores[posicion] = prop.GetValue(item, null).MiNombre();
                         }
                         else
                         {

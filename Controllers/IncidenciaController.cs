@@ -65,8 +65,7 @@ namespace CARS.Controllers
                     listaServicios.AddRange(servicios);
                 }              
             }
-                      
-                        
+
             return View(listaServicios);
         }
         [HttpGet]
@@ -83,7 +82,14 @@ namespace CARS.Controllers
                     listaServicios.Add(fachada.GetServiciosIncidencia(i.Id));
                 }
 
-
+                //String[] arrayId = new String[listaServicios.Count];
+                //int position = 0;
+                //foreach (var item in listaServicios)
+                //{
+                //    arrayId[position] = item.Id.ToString();
+                //    position++;
+                //}
+                //ViewBag.ListaIdString = arrayId;
                 return View(listaServicios);
             }
             return RedirectToAction("LogIn", "LogIn");
@@ -92,11 +98,12 @@ namespace CARS.Controllers
         }
 
         [HttpPost]
-        public ActionResult ExportToExcel(IEnumerable<Servicio> lista)
+        public ActionResult ExportToExcel()
         {
             List<IExportable> listaExport = new List<IExportable>();
-            //foreach (var item in lista)
-            //    listaExport.Add(item);
+            List<Servicio> servicios = fachada.GetServiciosIncidencia(8);
+            foreach (var item in servicios)
+                listaExport.Add(item);
             ExportExcel export = new ExportExcel();
             string nombreAArchivo = "Export_Reporte";
             export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
