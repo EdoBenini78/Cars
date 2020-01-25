@@ -103,6 +103,7 @@ namespace CARS.Controllers
             {
                 return RedirectToAction("Index","Home");
             }
+            ViewBag.Incidencia = id;
             return View("Index",serviciosDeIncidencia);
         }
 

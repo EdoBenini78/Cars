@@ -56,11 +56,21 @@
                         </li>
 
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("Cerrar Sesión", "LogIn", "LogIn")</li>
-                        
-                    </ul>
-                </div>
+                    <div class="nav navbar-nav navbar-right">
+                    
+                        <a data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-user">@Session["Mail"].ToString()</span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Editar", "Edit", "Usuarios",null, new { id = Session["UserId"].ToString() })</li>
+                            <li>@Html.ActionLink("Ver detalles", "Details", "Usuarios", new { id = Session["UserId"] })</li>
+                                                                                 
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Cerrar Sesión", "LogIn", "LogIn")</li>
+                        </ul>
+
+                           
+
+                        </div>
+</div>
             }
         </div>
     </nav>
