@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -281,21 +282,55 @@ namespace CARS.Models
             return incidencias;
         }
 
-        internal dynamic GetServiciosIncidencia(long idIncidencia)
+        
+
+
+        internal void ControlStatusIncidencia(Servicio servicio)
         {
-            List<ServicioIncidencia> serviciosIncidencia = db.DbServicioDeIncidencia.Include("Servicio").Include("Incidencia").Where(i => i.Incidencia.Id == idIncidencia).ToList();
-
             List<Servicio> servicios = new List<Servicio>();
-
-            foreach (ServicioIncidencia si in serviciosIncidencia)
+            Incidencia incidencia = db.DbServicioDeIncidencia.Include("Incidencia").Include("Servicio").Where(si => si.Servicio.Id == servicio.Id).FirstOrDefault().Incidencia;
+            List<ServicioIncidencia> servicioDeIncidencia = db.DbServicioDeIncidencia.Include("Incidencia").Include("Servicio").Where(si => si.Incidencia.Id == incidencia.Id).ToList();
+            long[] cancelado = new long[servicioDeIncidencia.Count()];
+            long[] terminado = new long[servicioDeIncidencia.Count()];
+            foreach (var item in servicioDeIncidencia)
             {
-                servicios.Add(GetServicioById(si.Servicio.Id));
+                Servicio servicioDB = db.DbServicios.Include("Taller").Include("Vehiculo").Where(s => s.Id == item.Servicio.Id).FirstOrDefault();
+                if (servicioDB != null)
+                {
+                    servicios.Add(servicioDB);
+                }
             }
-            
-           return servicios;
+
+            foreach (var item in servicios)
+            {
+                if (item.Estado == TipoEstado.Cancelado)
+                {
+                    cancelado.Append(item.Id);
+                }
+                if (item.Estado == TipoEstado.Terminado)
+                {
+                    terminado.Append(item.Id);
+                }
+            }
+
+            if (cancelado.Length == servicioDeIncidencia.Count())
+            {
+                incidencia.Estado = EstadoIncidencia.Cancelada;
+                ModificarIncidencia(ref incidencia);
+            }
+            else if (terminado.Length == servicioDeIncidencia.Count())
+            {
+                incidencia.Estado = EstadoIncidencia.Finalizada;
+                ModificarIncidencia(ref incidencia);
+            }
+           
         }
 
-       
+        private void ModificarIncidencia(ref Incidencia incidencia)
+        {
+            db.Entry(incidencia).State = EntityState.Modified;
+            db.SaveChanges();
+        }
 
         internal void AgregarIncidencia()
         {
@@ -311,6 +346,23 @@ namespace CARS.Models
         }
 
         #endregion
+
+        #region ServicioIncidencia
+        internal dynamic GetServiciosIncidencia(long idIncidencia)
+        {
+            List<ServicioIncidencia> serviciosIncidencia = db.DbServicioDeIncidencia.Include("Servicio").Include("Incidencia").Where(i => i.Incidencia.Id == idIncidencia).ToList();
+
+            List<Servicio> servicios = new List<Servicio>();
+
+            foreach (ServicioIncidencia si in serviciosIncidencia)
+            {
+                servicios.Add(GetServicioById(si.Servicio.Id));
+            }
+
+            return servicios;
+        }
+        #endregion
+
         public double CalcularDistancia(Incidencia aIncidencia, Taller aTaller)
         {
             double lng = Math.Pow((aIncidencia.Longitud - aTaller.Longitud), 2);

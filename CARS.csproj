@@ -297,6 +297,10 @@
     <Compile Include="Migrations\201912282200445_edo1.designer.cs">
       <DependentUpon>201912282200445_edo1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202001251928122_edo5.cs" />
+    <Compile Include="Migrations\202001251928122_edo5.designer.cs">
+      <DependentUpon>202001251928122_edo5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
     <Compile Include="Models\EstadoIncidencia.cs" />
@@ -415,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201912282200445_edo1.resx">
       <DependentUpon>201912282200445_edo1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001251928122_edo5.resx">
+      <DependentUpon>202001251928122_edo5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -54,6 +54,11 @@ namespace CARS.Controllers
             if (ModelState.IsValid)
             {
                 Incidencia aIncidencia = fachada.GetIncidenciaByDbId(long.Parse(incidencia));
+                if (aIncidencia.Estado == EstadoIncidencia.Pendiente)
+                {
+                    aIncidencia.Estado = EstadoIncidencia.Procesando;
+                    db.Entry(aIncidencia).State = EntityState.Modified;
+                }
                 servicio.Taller = fachada.GetTallerByDbId(long.Parse(taller));
                 db.DbServicios.Add(servicio);
                 ServicioIncidencia servicioIncidencia = new ServicioIncidencia(servicio, aIncidencia);
@@ -66,8 +71,9 @@ namespace CARS.Controllers
         }
 
             // GET: Servicios/Edit/5
-            public ActionResult Edit(long? id)
+            public ActionResult Edit(long? id, long idIncidencia)
         {
+            ViewBag.Incidencia = idIncidencia;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -85,7 +91,7 @@ namespace CARS.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Tipo,FechaSugerida,FechaEntrada,FechaSalida,Estado")] Servicio servicio)
+        public ActionResult Edit([Bind(Include = "Id,Tipo,FechaSugerida,FechaEntrada,FechaSalida,Estado")] Servicio servicio, long idIncincia)
         {
             if (ModelState.IsValid)
             {
@@ -93,6 +99,8 @@ namespace CARS.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            fachada.ControlStatusIncidencia(servicio);
             return View(servicio);
         }
 
@@ -128,8 +136,7 @@ namespace CARS.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Servicio servicio = db.DbServicios.Find(id);
-            servicio.Estado = TipoEstado.Terminado;
-            db.DbServicios.Add(servicio);
+            db.DbServicios.Remove(servicio);
 
             db.SaveChanges();
             return RedirectToAction("Index");

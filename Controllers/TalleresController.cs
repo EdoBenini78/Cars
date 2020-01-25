@@ -55,8 +55,18 @@ namespace CARS.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.DbTalleres.Add(taller);
-                db.SaveChanges();
+                if (db.DbTalleres.Where(t=>t.Rut == taller.Rut).FirstOrDefault() == null)
+                {
+                    db.DbTalleres.Add(taller);
+                    db.SaveChanges();
+                    //success
+                }
+                else
+                {
+                    //error
+                }
+
+               
                 return RedirectToAction("Index");
             }
 
