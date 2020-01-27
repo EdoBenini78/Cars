@@ -18,7 +18,7 @@ namespace CARS.Models
         public DbSet<ServicioIncidencia> DbServicioDeIncidencia { get; set; }
         public DbSet <VehiculoChofer> DbVehiculoChofer{ get; set; }
 
-        public DbCARS() : base("dollarWeb")
+        public DbCARS() : base("CarsLocal")
         {
 
         }
