@@ -277,9 +277,9 @@
     </Compile>
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IExportable.cs" />
-    <Compile Include="Migrations\202001270040360_edo.cs" />
-    <Compile Include="Migrations\202001270040360_edo.designer.cs">
-      <DependentUpon>202001270040360_edo.cs</DependentUpon>
+    <Compile Include="Migrations\202001302245102_edo.cs" />
+    <Compile Include="Migrations\202001302245102_edo.designer.cs">
+      <DependentUpon>202001302245102_edo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
@@ -313,6 +313,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\proyectocars - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\proyectoIntegradorORTCARS - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -385,8 +386,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001270040360_edo.resx">
-      <DependentUpon>202001270040360_edo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001302245102_edo.resx">
+      <DependentUpon>202001302245102_edo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
