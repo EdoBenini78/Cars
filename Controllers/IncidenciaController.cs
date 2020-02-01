@@ -11,12 +11,16 @@ using ActionResult = System.Web.Mvc.ActionResult;
 using HttpPostAttribute = System.Web.Mvc.HttpPostAttribute;
 using HttpGetAttribute = System.Web.Mvc.HttpGetAttribute;
 using System.Text.RegularExpressions;
+using System.Net;
+using ActionNameAttribute = System.Web.Mvc.ActionNameAttribute;
 
 namespace CARS.Controllers
 {
     public class IncidenciaController : Controller
     {
         Fachada fachada = new Fachada();
+        private DbCARS db = new DbCARS();
+        
         // GET: Incidencia
         public ActionResult AgregarIncidencia()
         {
@@ -66,10 +70,12 @@ namespace CARS.Controllers
             {
                 List<Servicio> servicios = fachada.GetServiciosIncidencia(i.Id);
                 if (servicios.Count() != 0)
+                if (servicios.Count() != 0)
                 {
                     listaServicios.AddRange(servicios);
                 }              
             }
+            
             ViewBag.BtnFiltrar = 1;
             return View(listaServicios);
         }
@@ -122,6 +128,46 @@ namespace CARS.Controllers
             
             return servicios;
 
+        }
+
+        // GET: Incidencias/Cancelar/5
+        public ActionResult Cancelar(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Incidencia i = db.DbIncidencias.Find(id);
+            if (i == null)
+            {
+                return HttpNotFound();
+            }
+            return View(i);
+        }
+
+        // POST: Incidencia/Cancelar/5
+        [HttpPost, ActionName("Cancelar")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CalcelarConfirmed(long id)
+        {
+            //Las incidencias pendientes no tienen ningún servicio, por lo que siempre pueden cancelarse
+            Incidencia i = db.DbIncidencias.Find(id);
+            if (i.Estado == EstadoIncidencia.Procesando)
+            {
+                     List<Servicio> servicios = fachada.GetServiciosIncidencia(id);
+                    foreach (Servicio s in servicios)
+                    {
+                        if(s.Estado != TipoEstado.Cancelado)
+                        {
+                            //RETORNAR MENSAJE DE ERROR.  NO SE PUEDE CANCELAR LA INCIDENCIA SI HAY SERVICIOS PENDIENTES O FINALIZADOS
+                        }
+                    }
+                
+            }
+          
+            
+
+            return RedirectToAction("Index");
         }
     }
 }

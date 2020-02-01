@@ -16,7 +16,7 @@
 
     });
 
-</script>>
+</script>
 @*SOLICITUD DE SERVICIO PARA USUARIO DE VEHÍCULO*@
 
 @model CARS.Models.Incidencia
@@ -77,14 +77,14 @@
             <div class="form-group">
                 <label for="comentario" class="col-md-2 control-label">Comentarios adicionales</label>
                 <div class="col-md-10">
-                    <textarea type="text" required="required" id="comentario" name="com" class="form-control" placeholder="Describa el problema de su vehículo con el mayor detalle posible"></textarea>
+                    <textarea type="text" required="required" id="comentario" name="com" class="form-control" placeholder="Indique número de orden y describa el problema en su vehículo"></textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <button type="button" class="btn btn-danger"> Cancelar </button>
-                    <button type="submit" class="btn btn-success"> Solicitar </button>
+                    @Html.ActionLink("Cancelar", "Index","Home",null, new { @class="btn btn-danger" })
+                    <button type="submit" class="btn btn-primary"> Solicitar </button>
                 </div>
             </div>
 

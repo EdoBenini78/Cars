@@ -64,21 +64,79 @@
     <td>
         <div class="btn-group">
             @*<a href="#" class="btn btn-default btn-xs">Opciones</a>
-            <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>*@
-            
-            <a data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>
-            <ul class="dropdown-menu">
+        <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>*@
+
+            @if (item.Estado == CARS.Models.EstadoIncidencia.Pendiente)
+            {
+
+                <a data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-menu-down"></span></a>
+                <ul class="dropdown-menu">
 
 
-                <li>@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
-                <li class="divider"></li>
-                <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
-                <li class="divider"></li>
-                <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id })</li>
-                <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id })</li>
-                <li>@Html.ActionLink("Borrar", "Delete", "Incidencia", new { id = item.Id })</li>
+                    <li class="disabled">@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
+                    <li class="divider"></li>
 
-            </ul>
+                    <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id }, null)</li>
+                    <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id }, null)</li>
+                    <li>@Html.ActionLink("Cancelar", "Cancelar", "Incidencia", new { id = item.Id }, null)</li>
+
+
+                </ul>
+
+            }
+            else if (item.Estado == CARS.Models.EstadoIncidencia.Cancelada)
+            {
+                <a data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-menu-down"></span></a>
+                <ul class="dropdown-menu">
+
+
+                    <li>@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id }, null)</li>
+                    <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id }, null)</li>
+
+                </ul>
+            }
+            else if (item.Estado == CARS.Models.EstadoIncidencia.Finalizada)
+            {
+                <a data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-menu-down">Ver más</span></a>
+                <ul class="dropdown-menu">
+
+                    <li>@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id }, null)</li>
+                    <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id }, null)</li>
+
+                </ul>
+            }
+            else
+            {
+               
+                <a data-toggle="dropdown" aria-expanded="false" href="#" class="dropdown-toggle" role="button"><span class="glyphicon glyphicon-menu-down"></span></a>
+                             <ul class="dropdown-menu">
+
+
+                    <li>@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
+                    <li class="divider"></li>
+                    <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id }, null)</li>
+                    <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id }, null)</li>
+                    <li>@Html.ActionLink("Cancelar", "Cancelar", "Incidencia", new { id = item.Id }, null)</li>
+
+                </ul>
+
+            }
+
+
+
+
         </div>
 
     </td>

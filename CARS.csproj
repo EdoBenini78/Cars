@@ -277,9 +277,13 @@
     </Compile>
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IExportable.cs" />
-    <Compile Include="Migrations\202001270040360_edo.cs" />
-    <Compile Include="Migrations\202001270040360_edo.designer.cs">
-      <DependentUpon>202001270040360_edo.cs</DependentUpon>
+    <Compile Include="Migrations\202001302146269_katenTop.cs" />
+    <Compile Include="Migrations\202001302146269_katenTop.designer.cs">
+      <DependentUpon>202001302146269_katenTop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002012032243_horaservicio.cs" />
+    <Compile Include="Migrations\202002012032243_horaservicio.designer.cs">
+      <DependentUpon>202002012032243_horaservicio.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
@@ -311,6 +315,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagenes\D_Logo_Red_Car_Rental_RGB.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\proyectoIntegradorORTCARS - Web Deploy.pubxml" />
@@ -366,10 +371,10 @@
     <Content Include="Views\Servicios\Index.cshtml" />
     <Content Include="Views\LogIn\OlvideMiContrasenia.cshtml" />
     <Content Include="Views\Incidencia\ReporteServicios.cshtml" />
+    <Content Include="Views\Home\Ayuda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Imagenes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -385,8 +390,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001270040360_edo.resx">
-      <DependentUpon>202001270040360_edo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001302146269_katenTop.resx">
+      <DependentUpon>202001302146269_katenTop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002012032243_horaservicio.resx">
+      <DependentUpon>202002012032243_horaservicio.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

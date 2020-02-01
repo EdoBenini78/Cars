@@ -41,6 +41,8 @@ namespace CARS.Controllers
         {
             ViewBag.ListadoTalleres = fachada.GetTalleresDistanciaOk(fachada.GetIncidenciaByDbId(long.Parse(id)));
             ViewBag.Incidencia = id;
+            long miID = long.Parse(id);
+            ViewBag.Matricula = fachada.GetIncidenciaByDbId(miID).Vehiculo.Matricula;
             return View();
         }
 

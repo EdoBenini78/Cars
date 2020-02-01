@@ -89,7 +89,16 @@
                         @Html.DisplayFor(model => item.NumeroOrden)
                     </td>
                     <td>
-                        @*Poner km del próximo servicio si es mantenimiento preventivo*@
+                        @if (item.Tipo == CARS.Models.TipoServicio.Preventivo)
+                        {
+                           
+                            @Html.Label(item.getIncidencia().km + 10000);
+                            //tengo que agarrar el km que dice la incidencia
+                        }
+                        else
+                        {
+                            @Html.Label("-");
+                        }
                     </td>
 
                 </tr>
