@@ -1,6 +1,10 @@
 ﻿@model IEnumerable<CARS.Models.Incidencia>
 
-<table class="table table-responsive table-striped table-hover">
+<form class="navbar-form navbar-left" role="search">
+    <input type="text" id="myInput" class="form-control" onkeyup="Buscar()" placeholder="Ingresar unidad..">
+</form>
+
+<table class="table table-responsive table-striped table-hover" id="miTabla">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Vehiculo.NumeroUnidad)
@@ -28,120 +32,144 @@
             @Html.DisplayNameFor(model => model.Kilometraje)
         </th>
 
-     
+
         <th>Opciones </th>
     </tr>
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Vehiculo.NumeroUnidad)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Vehiculo.Matricula)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FechaInicio)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FechaSugerida)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.FechaFin)
-    </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehiculo.NumeroUnidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehiculo.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaSugerida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaFin)
+            </td>
 
-    <td>
-        @Html.DisplayFor(modelItem => item.Descripcion)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DireccionSugerida)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Kilometraje)
-    </td>
-  
-    <td>
-        <div class="btn-group">
-            @*<a href="#" class="btn btn-default btn-xs">Opciones</a>
-        <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DireccionSugerida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kilometraje)
+            </td>
 
-            @if (item.Estado == CARS.Models.EstadoIncidencia.Pendiente)
-            {
+            <td>
+                <div class="btn-group">
+                    @*<a href="#" class="btn btn-default btn-xs">Opciones</a>
+                        <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></a>*@
 
-                <a data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-menu-down"></span></a>
-                <ul class="dropdown-menu">
+                    @if (item.Estado == CARS.Models.EstadoIncidencia.Pendiente)
+                    {
 
-
-                    <li class="disabled">@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
-                    <li class="divider"></li>
-
-                    <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id }, null)</li>
-                    <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id }, null)</li>
-                    <li>@Html.ActionLink("Cancelar", "Cancelar", "Incidencia", new { id = item.Id }, null)</li>
+                        <a data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-menu-down"></span></a>
+                        <ul class="dropdown-menu">
 
 
-                </ul>
+                            <li class="disabled">@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
+                            <li class="divider"></li>
 
-            }
-            else if (item.Estado == CARS.Models.EstadoIncidencia.Cancelada)
-            {
-                <a data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-menu-down"></span></a>
-                <ul class="dropdown-menu">
-
-
-                    <li>@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id }, null)</li>
-                    <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id }, null)</li>
-
-                </ul>
-            }
-            else if (item.Estado == CARS.Models.EstadoIncidencia.Finalizada)
-            {
-                <a data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-menu-down">Ver más</span></a>
-                <ul class="dropdown-menu">
-
-                    <li>@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id }, null)</li>
-                    <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id }, null)</li>
-
-                </ul>
-            }
-            else
-            {
-               
-                <a data-toggle="dropdown" aria-expanded="false" href="#" class="dropdown-toggle" role="button"><span class="glyphicon glyphicon-menu-down"></span></a>
-                             <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id }, null)</li>
+                            <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id }, null)</li>
+                            <li>@Html.ActionLink("Cancelar", "Cancelar", "Incidencia", new { id = item.Id }, null)</li>
 
 
-                    <li>@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id }, null)</li>
-                    <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id }, null)</li>
-                    <li>@Html.ActionLink("Cancelar", "Cancelar", "Incidencia", new { id = item.Id }, null)</li>
+                        </ul>
 
-                </ul>
-
-            }
+                    }
+                    else if (item.Estado == CARS.Models.EstadoIncidencia.Cancelada)
+                    {
+                        <a data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-menu-down"></span></a>
+                        <ul class="dropdown-menu">
 
 
+                            <li>@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id }, null)</li>
+                            <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id }, null)</li>
+
+                        </ul>
+                    }
+                    else if (item.Estado == CARS.Models.EstadoIncidencia.Finalizada)
+                    {
+                        <a data-toggle="dropdown" aria-expanded="false"><span class="glyphicon glyphicon-menu-down">Ver más</span></a>
+                        <ul class="dropdown-menu">
+
+                            <li>@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id }, null)</li>
+                            <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id }, null)</li>
+
+                        </ul>
+                    }
+                    else
+                    {
+
+                        <a data-toggle="dropdown" aria-expanded="false" href="#" class="dropdown-toggle" role="button"><span class="glyphicon glyphicon-menu-down"></span></a>
+                        <ul class="dropdown-menu">
 
 
-        </div>
+                            <li>@Html.ActionLink("Ver Servicios", "VerServicios", new { id = item.Id })</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Agregar Servicio", "Servicio", new { id = item.Id })</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Editar", "Edit", "Incidencia", new { id = item.Id }, null)</li>
+                            <li>@Html.ActionLink("Detalles", "Details", "Incidencia", new { id = item.Id }, null)</li>
+                            <li>@Html.ActionLink("Cancelar", "Cancelar", "Incidencia", new { id = item.Id }, null)</li>
 
-    </td>
-</tr>
-      
+                        </ul>
+
+                    }
+
+
+
+
+                </div>
+
+            </td>
+        </tr>
+
     }
 
 </table>
+
+<script>
+    function Buscar() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("miTabla");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
