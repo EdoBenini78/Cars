@@ -76,5 +76,23 @@ namespace CARS.Controllers
 
             return View();
         }
+
+        public ActionResult BuscarIncidenciaPorMatricula (string matricula, EstadoIncidencia estado)
+        {
+            
+            List<Incidencia> incidencias = fachada.GetListaIncidencias(estado);
+            if (matricula != "")
+            {
+                incidencias = fachada.GetListaIncidenciasPorMatriculaYEstado(matricula, estado);
+            }
+            
+
+            return View(incidencias);
+        }
+
+        public ActionResult Ayuda()
+        {
+            return View("Ayuda");
+        }
     }
 }

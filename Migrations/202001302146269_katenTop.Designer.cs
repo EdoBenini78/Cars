@@ -7,13 +7,13 @@ namespace CARS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0-preview1-19506-01")]
-    public sealed partial class edo : IMigrationMetadata
+    public sealed partial class katenTop : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(edo));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(katenTop));
         
         string IMigrationMetadata.Id
         {
-            get { return "202001302245102_edo"; }
+            get { return "202001302146269_katenTop"; }
         }
         
         string IMigrationMetadata.Source

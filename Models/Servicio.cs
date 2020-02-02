@@ -13,11 +13,14 @@ namespace CARS.Models
         public Vehiculo Vehiculo { get; set; }
         public Taller Taller { get; set; }
         public TipoServicio Tipo{ get; set; }
-        [DisplayName("Fecha de Agenda"), DataType(DataType.DateTime)]
+        [DisplayName("Fecha de Agenda"), DataType(DataType.Date)]
         public DateTime FechaSugerida { get; set; }
-        [DisplayName("Fecha de Entrada"), DataType(DataType.DateTime)]
+
+        [DisplayName("Hora de Agenda"), DataType(DataType.Time)]
+        public DateTime Hora { get; set; }
+        [DisplayName("Fecha de Entrada"), DataType(DataType.Date)]
         public DateTime? FechaEntrada { get; set; }
-        [DisplayName("Fecha de Salida"), DataType(DataType.DateTime)]
+        [DisplayName("Fecha de Salida"), DataType(DataType.Date)]
         public DateTime? FechaSalida { get; set; }
         public TipoEstado Estado{ get; set; }
         public List<Factura> Facturas { get; set; }

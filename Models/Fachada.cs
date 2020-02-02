@@ -214,6 +214,12 @@ namespace CARS.Models
             return incidencias;
         }
 
+        internal dynamic GetListaIncidenciasPorMatriculaYEstado(string matricula, EstadoIncidencia estado)
+        {
+            List<Incidencia> incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Vehiculo.Matricula == matricula).Where(i => i.Estado == estado).ToList();
+            return incidencias;
+        }
+
         public bool AgregarIncidencia(DateTime fechaSugerida, long pKm, string pDireccion, string pMatricula, string pComentario, long pUsuario, double lng, double lat)
         {
             Vehiculo aVehiculo = db.DbVehiculos.Where(v => v.Matricula == pMatricula).FirstOrDefault();
@@ -327,6 +333,13 @@ namespace CARS.Models
            
         }
 
+        public void CambiarEstadoIncidencia (Incidencia i, EstadoIncidencia estado)
+        {
+            
+            i.Estado = estado;
+            ModificarIncidencia(ref i);
+        }
+        
         private void ModificarIncidencia(ref Incidencia incidencia)
         {
             db.Entry(incidencia).State = EntityState.Modified;

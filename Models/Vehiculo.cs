@@ -26,6 +26,7 @@ namespace CARS.Models
         [Required] public TipoTraccion Traccion{ get; set; }
         [Required] public string Combustible { get; set; }
         public Localidad Localidad { get; set; }
+       
         public bool Activo { get; set; }
         [DisplayName("Fecha de Ingreso"), DataType(DataType.Date)]
         public DateTime FechaIngreso { get; set; }

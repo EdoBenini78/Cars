@@ -3,7 +3,7 @@
 
 
 @{
-    ViewBag.Title = "C.A.R.S.";
+    ViewBag.Title = "Inicio";
 }
 
 
@@ -27,9 +27,10 @@
 
         <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Buscar">
+                <input type="text" name="matricula" class="form-control" placeholder="Ingrese la matrícula...">
+                <input type="hidden" name="estado" value="Pendientes" />
             </div>
-            <button type="submit" class="btn btn-default">Buscar</button>
+            <button type="submit" class="glyphicon glyphicon-search"></button>
         </form>
 
         <div class="row" id="listadosIncidencia" data-backdrop="false">

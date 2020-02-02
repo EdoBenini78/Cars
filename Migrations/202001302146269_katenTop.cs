@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class edo : DbMigration
+    public partial class katenTop : DbMigration
     {
         public override void Up()
         {
