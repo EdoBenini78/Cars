@@ -31,7 +31,10 @@
             window.location = "@Url.Action("AgregarIncidencia", "Incidencia")";
         }else if (msg.includes("Rut")) {
             window.location = "@Url.Action("Index", "Home")";
-        }else {
+        }else if (msg.includes("incidencia")) {
+            window.location = "@Url.Action("Index", "Home")";
+        }
+        else {
             window.location = "@Url.Action("LogIn", "LogIn")";
         }
     };

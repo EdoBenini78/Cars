@@ -11,6 +11,7 @@ namespace CARS.Controllers
     {
         // GET: LogIn
         Fachada fachada = new Fachada();
+        [HandleError(View = "Error")]
         public ActionResult LogIn()
         {
             Session["Tipo"] = null;

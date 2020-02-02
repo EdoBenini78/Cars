@@ -15,7 +15,7 @@ namespace CARS.Controllers
     {
         private DbCARS db = new DbCARS();
         private Fachada fachada = new Fachada();
-
+        [HandleError(View = "Error")]
         // GET: Vehiculos
         public ActionResult Index()
         {
@@ -130,7 +130,8 @@ namespace CARS.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Vehiculo vehiculo = db.DbVehiculos.Find(id);
-            db.DbVehiculos.Remove(vehiculo);
+            vehiculo.Activo = false;
+            db.Entry(vehiculo).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

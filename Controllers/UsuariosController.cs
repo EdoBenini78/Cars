@@ -15,7 +15,7 @@ namespace CARS.Controllers
     public class UsuariosController : Controller
     {
         private DbCARS db = new DbCARS();
-
+        [HandleError(View = "Error")]
         // GET: Usuarios
         public ActionResult Index()
         {
@@ -132,7 +132,8 @@ namespace CARS.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Usuario usuario = db.DbUsuarios.Find(id);
-            db.DbUsuarios.Remove(usuario);
+            usuario.Activo = false;
+            db.Entry(usuario).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

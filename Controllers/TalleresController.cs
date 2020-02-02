@@ -14,7 +14,7 @@ namespace CARS.Controllers
     public class TalleresController : Controller
     {
         private DbCARS db = new DbCARS();
-
+        [HandleError(View = "Error")]
         // GET: Talleres
         public ActionResult Index()
         {
@@ -64,7 +64,7 @@ namespace CARS.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nombre,Rut,NombreContacto,Telefono,Longitud,Latitud,Direccion")] Taller taller)
+        public ActionResult Create([Bind(Include = "Id,Nombre,Rut,NombreContacto,Telefono,Direccion")] Taller taller, string longitud, string latitud)
         {
             try
             {
@@ -72,6 +72,8 @@ namespace CARS.Controllers
                 {
                     if (db.DbTalleres.Where(t => t.Rut == taller.Rut).FirstOrDefault() == null)
                     {
+                        taller.Longitud = double.Parse(longitud.Replace(".", ","));
+                        taller.Latitud = double.Parse(latitud.ToString().Replace(".", ","));
                         db.DbTalleres.Add(taller);
                         db.SaveChanges();
                         //success
@@ -144,7 +146,8 @@ namespace CARS.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Taller taller = db.DbTalleres.Find(id);
-            db.DbTalleres.Remove(taller);
+            taller.Activo = false;
+            db.Entry(taller).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

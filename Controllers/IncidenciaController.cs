@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Net;
 using ActionNameAttribute = System.Web.Mvc.ActionNameAttribute;
 using CARS.Utilities;
+using System.Data.Entity;
 
 namespace CARS.Controllers
 {
@@ -21,7 +22,7 @@ namespace CARS.Controllers
     {
         Fachada fachada = new Fachada();
         private DbCARS db = new DbCARS();
-        
+        [HandleError(View = "Error")]
         // GET: Incidencia
         public ActionResult AgregarIncidencia()
         {
@@ -52,7 +53,6 @@ namespace CARS.Controllers
             try
             {
                 Vehiculo aVehiculo = fachada.GetVehiculoByMatricula(matricula);
-                long edo = long.Parse(Session["UserId"].ToString());
                 longitud = longitud.Replace(".", ",");
                 latitud = latitud.Replace(".", ",");
                 if (aVehiculo != null)
@@ -208,18 +208,21 @@ namespace CARS.Controllers
         public ActionResult CalcelarConfirmed(long id)
         {
             //Las incidencias pendientes no tienen ningún servicio, por lo que siempre pueden cancelarse
-            Incidencia i = db.DbIncidencias.Find(id);
-            if (i.Estado == EstadoIncidencia.Procesando)
+            Incidencia incidencia = db.DbIncidencias.Find(id);
+            if (incidencia.Estado == EstadoIncidencia.Procesando)
             {
                 List<Servicio> servicios = fachada.GetServiciosIncidencia(id);
                 foreach (Servicio s in servicios)
                 {
                     if (s.Estado != TipoEstado.Cancelado)
                     {
+                        throw new MyException("No se puede borrar la incidencia ya que tiene SERVICIOS activos");
                         //RETORNAR MENSAJE DE ERROR.  NO SE PUEDE CANCELAR LA INCIDENCIA SI HAY SERVICIOS PENDIENTES O FINALIZADOS
                     }
                 }
             }
+            db.Entry(incidencia).State = EntityState.Modified;
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

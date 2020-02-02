@@ -14,7 +14,7 @@ namespace CARS.Controllers
     {
         private DbCARS db = new DbCARS();
         private Fachada fachada = new Fachada();
-
+        [HandleError(View = "Error")]
         // GET: Servicios
         public ActionResult Index()
         {
@@ -168,8 +168,8 @@ namespace CARS.Controllers
         public ActionResult DeleteConfirmed(long id)
         {
             Servicio servicio = db.DbServicios.Find(id);
-            db.DbServicios.Remove(servicio);
-
+            servicio.Estado = TipoEstado.Cancelado;
+            db.Entry(servicio).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
