@@ -18,32 +18,56 @@ namespace CARS.Controllers
         // GET: Servicios
         public ActionResult Index()
         {
-            return View(db.DbServicios.ToList());
+            try
+            {
+                return View(db.DbServicios.ToList());
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         // GET: Servicios/Details/5
         public ActionResult Details(long? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Servicio servicio = db.DbServicios.Find(id);
+                if (servicio == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(servicio);
             }
-            Servicio servicio = db.DbServicios.Find(id);
-            if (servicio == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+
+                throw;
             }
-            return View(servicio);
         }
 
         // GET: Servicios/Create
         public ActionResult Create(string id)
         {
-            ViewBag.ListadoTalleres = fachada.GetTalleresDistanciaOk(fachada.GetIncidenciaByDbId(long.Parse(id)));
-            ViewBag.Incidencia = id;
-            long miID = long.Parse(id);
-            ViewBag.Matricula = fachada.GetIncidenciaByDbId(miID).Vehiculo.Matricula;
-            return View();
+            try
+            {
+                ViewBag.ListadoTalleres = fachada.GetTalleresDistanciaOk(fachada.GetIncidenciaByDbId(long.Parse(id)));
+                ViewBag.Incidencia = id;
+                long miID = long.Parse(id);
+                ViewBag.Matricula = fachada.GetIncidenciaByDbId(miID).Vehiculo.Matricula;
+                return View();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         // POST: Servicios/Create
@@ -53,23 +77,31 @@ namespace CARS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Tipo,FechaSugerida,Estado")] Servicio servicio, string incidencia, string taller)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Incidencia aIncidencia = fachada.GetIncidenciaByDbId(long.Parse(incidencia));
-                if (aIncidencia.Estado == EstadoIncidencia.Pendiente)
+                if (ModelState.IsValid)
                 {
-                    aIncidencia.Estado = EstadoIncidencia.Procesando;
-                    db.Entry(aIncidencia).State = EntityState.Modified;
+                    Incidencia aIncidencia = fachada.GetIncidenciaByDbId(long.Parse(incidencia));
+                    if (aIncidencia.Estado == EstadoIncidencia.Pendiente)
+                    {
+                        aIncidencia.Estado = EstadoIncidencia.Procesando;
+                        db.Entry(aIncidencia).State = EntityState.Modified;
+                    }
+                    servicio.Taller = fachada.GetTallerByDbId(long.Parse(taller));
+                    db.DbServicios.Add(servicio);
+                    ServicioIncidencia servicioIncidencia = new ServicioIncidencia(servicio, aIncidencia);
+                    db.DbServicioDeIncidencia.Add(servicioIncidencia);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
-                servicio.Taller = fachada.GetTallerByDbId(long.Parse(taller));
-                db.DbServicios.Add(servicio);
-                ServicioIncidencia servicioIncidencia = new ServicioIncidencia(servicio, aIncidencia);
-                db.DbServicioDeIncidencia.Add(servicioIncidencia);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            return View(servicio);
+                return View(servicio);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
             // GET: Servicios/Edit/5

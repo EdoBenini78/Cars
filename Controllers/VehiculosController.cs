@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CARS.Models;
+using CARS.Utilities;
 
 namespace CARS.Controllers
 {
@@ -18,11 +19,23 @@ namespace CARS.Controllers
         // GET: Vehiculos
         public ActionResult Index()
         {
-            if (Session["UserId"] != null)
+            try
             {
-                return View(db.DbVehiculos.ToList());
+                if (Session["UserId"] != null)
+                {
+                    return View(db.DbVehiculos.ToList());
+                }
+                else
+                {
+                    throw new MyException("Han caducado las credenciales, por favor ingreselas nuevamente");
+                }
+                //return RedirectToAction("LogIn", "LogIn");
             }
-            return RedirectToAction("LogIn", "LogIn");
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
 
             
         }
@@ -141,9 +154,16 @@ namespace CARS.Controllers
         [HttpPost]
         public ActionResult AsignarChofer(string chofer, string IdVehiculo)
         {
-            fachada.AgregarChoferaVehiculo(fachada.GetUsuarioBYDbId(long.Parse(chofer)),fachada.GetVehiculoByDbId(long.Parse(IdVehiculo)));
-           
-            return RedirectToAction("Index","Vehiculos");
+            try
+            {
+                fachada.AgregarChoferaVehiculo(fachada.GetUsuarioBYDbId(long.Parse(chofer)), fachada.GetVehiculoByDbId(long.Parse(IdVehiculo)));
+                return RedirectToAction("Index", "Vehiculos");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }

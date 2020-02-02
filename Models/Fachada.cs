@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CARS.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -19,20 +20,39 @@ namespace CARS.Models
 
         public Usuario ValidarLogIn(string aPass, string aMail)
         {
-            Usuario pUsuario = db.DbUsuarios.Where(us => us.Mail == aMail && us.Contrasenia == aPass).FirstOrDefault();
-            return pUsuario;
+            try
+            {
+                Usuario pUsuario = db.DbUsuarios.Where(us => us.Mail == aMail && us.Contrasenia == aPass).FirstOrDefault();
+                if (pUsuario == null)
+                {
+                    throw new MyException("Usuario o contraseña incorrectos");
+                }              
+                return pUsuario;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public bool UpdateUsuario(Usuario aUsuario)
         {
-            Usuario pUsuario = GetUsuarioBYDbId(aUsuario.Id);
-            if (pUsuario != null)
+            try
             {
-                pUsuario = aUsuario;
-                db.SaveChanges();
-                return true;
+                Usuario pUsuario = GetUsuarioBYDbId(aUsuario.Id);
+                if (pUsuario != null)
+                {
+                    pUsuario = aUsuario;
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
 

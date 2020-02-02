@@ -1,4 +1,5 @@
 ﻿using CARS.Models;
+using CARS.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,46 +11,61 @@ namespace CARS.Controllers
     public class HomeController : Controller
     {
         Fachada fachada = new Fachada();
+        [HandleError(View = "Error")]
         public ActionResult Index()
-        {   
-            if (Session["UserId"] != null)
+        {
+            try
             {
-                Usuario usuario = fachada.GetUsuarioBYDbId(long.Parse(Session["UserId"].ToString()));
-                if (usuario.Tipo == TipoUsuario.Chofer)
+                if (Session["UserId"] != null)
                 {
-                    return View(fachada.GetListaIncidenciasChofer(long.Parse(Session["UserId"].ToString()),EstadoIncidencia.Pendiente));
-                }
+                    Usuario usuario = fachada.GetUsuarioBYDbId(long.Parse(Session["UserId"].ToString()));
+                    if (usuario.Tipo == TipoUsuario.Chofer)
+                    {
+                        return View(fachada.GetListaIncidenciasChofer(long.Parse(Session["UserId"].ToString()), EstadoIncidencia.Pendiente));
+                    }
 
-                List<Incidencia> incidenciasPendientes = fachada.GetListaIncidencias(EstadoIncidencia.Pendiente);
-                ViewBag.IncidenciasPendientes = incidenciasPendientes.Count;
-                ViewBag.BtnFiltrar = 0;
-                return View(fachada.GetListaIncidencias(EstadoIncidencia.Pendiente));
+                    List<Incidencia> incidenciasPendientes = fachada.GetListaIncidencias(EstadoIncidencia.Pendiente);
+                    ViewBag.IncidenciasPendientes = incidenciasPendientes.Count;
+                    ViewBag.BtnFiltrar = 0;
+                    return View(fachada.GetListaIncidencias(EstadoIncidencia.Pendiente));
+                }
+                else
+                {
+                    throw new MyException("Han caducado las credenciales, por favor ingreselas nuevamente");                    
+                }
             }
-            else
+            catch (Exception ex)
             {
-                //mensaje de error
-                return RedirectToAction("LogIn", "LogIn");
+                throw ex;
             }
             
         }
 
         public ActionResult MostrarListaIncidencia(string id)
         {
-            if (Session["UserId"] != null)
+            try
             {
-                Usuario usuario = fachada.GetUsuarioBYDbId(long.Parse(Session["UserId"].ToString()));
-                EstadoIncidencia estadoIncidencia = (EstadoIncidencia)Enum.ToObject(typeof(EstadoIncidencia), int.Parse(id));
-                if (usuario.Tipo == TipoUsuario.Chofer)
+                if (Session["UserId"] != null)
                 {
-                    return PartialView("ListadoIncidenciasHome",fachada.GetListaIncidenciasChofer(long.Parse(Session["UserId"].ToString()), estadoIncidencia));
+                    Usuario usuario = fachada.GetUsuarioBYDbId(long.Parse(Session["UserId"].ToString()));
+                    EstadoIncidencia estadoIncidencia = (EstadoIncidencia)Enum.ToObject(typeof(EstadoIncidencia), int.Parse(id));
+                    if (usuario.Tipo == TipoUsuario.Chofer)
+                    {
+                        return PartialView("ListadoIncidenciasHome", fachada.GetListaIncidenciasChofer(long.Parse(Session["UserId"].ToString()), estadoIncidencia));
+                    }
+                    return PartialView("ListadoIncidenciasHome", fachada.GetListaIncidencias(estadoIncidencia));
+                    //return la partialView con un select tab
                 }
-                return PartialView("ListadoIncidenciasHome",fachada.GetListaIncidencias(estadoIncidencia));
-                //return la partialView con un select tab
+                else
+                {
+                    throw new MyException("Han caducado las credenciales, por favor ingreselas nuevamente");
+                    return RedirectToAction("LogIn", "LogIn");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                //mensaje de error
-                return RedirectToAction("LogIn", "LogIn");
+
+                throw ex;
             }
         }
 
@@ -79,15 +95,20 @@ namespace CARS.Controllers
 
         public ActionResult BuscarIncidenciaPorMatricula (string matricula, EstadoIncidencia estado)
         {
-            
-            List<Incidencia> incidencias = fachada.GetListaIncidencias(estado);
-            if (matricula != "")
+            try
             {
-                incidencias = fachada.GetListaIncidenciasPorMatriculaYEstado(matricula, estado);
-            }
-            
+                List<Incidencia> incidencias = fachada.GetListaIncidencias(estado);
+                if (matricula != "")
+                {
+                    incidencias = fachada.GetListaIncidenciasPorMatriculaYEstado(matricula, estado);
+                }
 
-            return View(incidencias);
+                return View(incidencias);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public ActionResult Ayuda()

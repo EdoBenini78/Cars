@@ -13,6 +13,7 @@ using HttpGetAttribute = System.Web.Mvc.HttpGetAttribute;
 using System.Text.RegularExpressions;
 using System.Net;
 using ActionNameAttribute = System.Web.Mvc.ActionNameAttribute;
+using CARS.Utilities;
 
 namespace CARS.Controllers
 {
@@ -24,77 +25,133 @@ namespace CARS.Controllers
         // GET: Incidencia
         public ActionResult AgregarIncidencia()
         {
-            if (Session["UserId"] != null)
+            try
             {
-                ViewBag.Vehiculo = fachada.GetVehiculoByChofer(long.Parse(Session["UserId"].ToString()));
-                return View();
+                if (Session["UserId"] != null)
+                {
+                    ViewBag.Vehiculo = fachada.GetVehiculoByChofer(long.Parse(Session["UserId"].ToString()));
+                    return View();
+                }
+                else
+                {
+                    throw new MyException("Han caducado las credenciales, por favor ingreselas nuevamente");
+                }
+                
             }
-            return RedirectToAction("LogIn", "LogIn");        
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         //Método para crear incidencia del usuario del vehículo
 
         public ActionResult InsertIncidencia(string FechaSugerida, string km, string dir,string matricula, string com, string longitud, string latitud)
         {
-            Vehiculo aVehiculo = fachada.GetVehiculoByMatricula(matricula);
-            long edo = long.Parse(Session["UserId"].ToString());
-            longitud = longitud.Replace(".",",");
-            latitud = latitud.Replace(".", ",");
-            if (aVehiculo != null)
+            try
             {
-                fachada.AgregarIncidencia(DateTime.Parse(FechaSugerida), long.Parse(km), dir, matricula, com, long.Parse(Session["UserId"].ToString()), double.Parse(longitud), double.Parse(latitud));
+                Vehiculo aVehiculo = fachada.GetVehiculoByMatricula(matricula);
+                long edo = long.Parse(Session["UserId"].ToString());
+                longitud = longitud.Replace(".", ",");
+                latitud = latitud.Replace(".", ",");
+                if (aVehiculo != null)
+                {
+                    fachada.AgregarIncidencia(DateTime.Parse(FechaSugerida), long.Parse(km), dir, matricula, com, long.Parse(Session["UserId"].ToString()), double.Parse(longitud), double.Parse(latitud));
+                }
+                else
+                {
+                    throw new MyException("No se encontro el Vehiculo");
+                    //return RedirectToAction("AgregarIncidencia", "Incidencia");
+                }
+                return RedirectToAction("Index", "Home");
             }
-            else
+            catch (Exception ex)
             {
-                return RedirectToAction("AgregarIncidencia", "Incidencia");
-            }            
-            return RedirectToAction("Index","Home");
+
+                throw ex;
+            }
         }
 
         public ActionResult ListaIncidencias()
         {
-            ViewBag.ListaIncidencia = fachada.ListarIncidencia(long.Parse(Session["UserId"].ToString()));
-            return View();
+            try
+            {
+                if (Session["UserId"] != null)
+                {
+                    ViewBag.ListaIncidencia = fachada.ListarIncidencia(long.Parse(Session["UserId"].ToString()));
+                    return View();
+                }
+                else
+                {
+                    throw new MyException("Han caducado las credenciales, por favor ingreselas nuevamente");
+                }                  
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         [HttpPost]
         public ActionResult ReporteServicios(DateTime? fechaInicio, DateTime? fechaFin, string matricula)
         {
-            Vehiculo v = fachada.GetVehiculoByMatricula(matricula);
-
-            List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, fechaInicio, fechaFin, v);
-            
-            List<Servicio> listaServicios = new List<Servicio>();
-
-            foreach (Incidencia i in incidencias)
+            try
             {
-                List<Servicio> servicios = fachada.GetServiciosIncidencia(i.Id);
-                if (servicios.Count() != 0)
-                if (servicios.Count() != 0)
-                {
-                    listaServicios.AddRange(servicios);
-                }              
-            }
-            
-            ViewBag.BtnFiltrar = 1;
-            return View(listaServicios);
-        }
-        [HttpGet]
-        public ActionResult ReporteServicios()
-        {
-            if (Session["UserId"] != null)
-            {
-                List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, DateTime.Today, DateTime.Today, null);
+                Vehiculo v = fachada.GetVehiculoByMatricula(matricula);
+
+                List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, fechaInicio, fechaFin, v);
 
                 List<Servicio> listaServicios = new List<Servicio>();
 
                 foreach (Incidencia i in incidencias)
                 {
-                    listaServicios.Add(fachada.GetServiciosIncidencia(i.Id));
+                    List<Servicio> servicios = fachada.GetServiciosIncidencia(i.Id);
+                    if (servicios.Count() != 0)
+                        if (servicios.Count() != 0)
+                        {
+                            listaServicios.AddRange(servicios);
+                        }
                 }
+
+                ViewBag.BtnFiltrar = 1;
                 return View(listaServicios);
             }
-            return RedirectToAction("LogIn", "LogIn");
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        [HttpGet]
+        public ActionResult ReporteServicios()
+        {
+            try
+            {
+                if (Session["UserId"] != null)
+                {
+                    List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, DateTime.Today, DateTime.Today, null);
+
+                    List<Servicio> listaServicios = new List<Servicio>();
+
+                    foreach (Incidencia i in incidencias)
+                    {
+                        listaServicios.Add(fachada.GetServiciosIncidencia(i.Id));
+                    }
+                    return View(listaServicios);
+                }
+                else
+                {
+                    throw new MyException("Han caducado las credenciales, por favor ingreselas nuevamente");
+                }
+                //return RedirectToAction("LogIn", "LogIn");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
 
             
         }
@@ -154,19 +211,15 @@ namespace CARS.Controllers
             Incidencia i = db.DbIncidencias.Find(id);
             if (i.Estado == EstadoIncidencia.Procesando)
             {
-                     List<Servicio> servicios = fachada.GetServiciosIncidencia(id);
-                    foreach (Servicio s in servicios)
+                List<Servicio> servicios = fachada.GetServiciosIncidencia(id);
+                foreach (Servicio s in servicios)
+                {
+                    if (s.Estado != TipoEstado.Cancelado)
                     {
-                        if(s.Estado != TipoEstado.Cancelado)
-                        {
-                            //RETORNAR MENSAJE DE ERROR.  NO SE PUEDE CANCELAR LA INCIDENCIA SI HAY SERVICIOS PENDIENTES O FINALIZADOS
-                        }
+                        //RETORNAR MENSAJE DE ERROR.  NO SE PUEDE CANCELAR LA INCIDENCIA SI HAY SERVICIOS PENDIENTES O FINALIZADOS
                     }
-                
+                }
             }
-          
-            
-
             return RedirectToAction("Index");
         }
     }

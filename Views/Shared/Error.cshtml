@@ -1,4 +1,6 @@
 ﻿<!DOCTYPE html>
+@using CARS.Utilities
+@model HandleErrorInfo
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -8,7 +10,29 @@
 <body>
     <hgroup>
         <h1>Error.</h1>
-        <h2>Error al procesar la solicitud.</h2>
+
+        @if (Model.Exception is MyException)
+        {
+            <h2>@Model.Exception.Message .</h2>
+        }
+        else
+        {
+            <h2>Ha ocurrido un error fatal, estas despedido\a.</h2>
+        }
     </hgroup>
+    <button id="btnAceptar" onclick="RedirectTo('@Model.Exception.Message')" class="btn btn-primary">Aceptar</button>
 </body>
 </html>
+<script type="text/javascript">
+    function RedirectTo(msg) {
+        if (msg.includes("caducado") || msg.includes("Usuario")){
+            window.location = "@Url.Action("LogIn", "LogIn")";
+        }else if  (msg.includes("Vehiculo")){
+            window.location = "@Url.Action("AgregarIncidencia", "Incidencia")";
+        }else if (msg.includes("Rut")) {
+            window.location = "@Url.Action("Index", "Home")";
+        }else {
+            window.location = "@Url.Action("LogIn", "LogIn")";
+        }
+    };
+</script>

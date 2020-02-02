@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CARS.Models;
+using CARS.Utilities;
 
 namespace CARS.Controllers
 {
@@ -17,11 +18,23 @@ namespace CARS.Controllers
         // GET: Talleres
         public ActionResult Index()
         {
-            if (Session["UserId"] != null)
+            try
             {
-                return View(db.DbTalleres.ToList());
+                if (Session["UserId"] != null)
+                {
+                    return View(db.DbTalleres.ToList());
+                }
+                else
+                {
+                    throw new MyException("Han caducado las credenciales, por favor ingreselas nuevamente");
+                }
+                //return RedirectToAction("LogIn", "LogIn");
             }
-            return RedirectToAction("LogIn", "LogIn");
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
             
         }
 
@@ -53,24 +66,30 @@ namespace CARS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nombre,Rut,NombreContacto,Telefono,Longitud,Latitud,Direccion")] Taller taller)
         {
-            if (ModelState.IsValid)
+            try
             {
-                if (db.DbTalleres.Where(t=>t.Rut == taller.Rut).FirstOrDefault() == null)
+                if (ModelState.IsValid)
                 {
-                    db.DbTalleres.Add(taller);
-                    db.SaveChanges();
-                    //success
-                }
-                else
-                {
-                    //error
+                    if (db.DbTalleres.Where(t => t.Rut == taller.Rut).FirstOrDefault() == null)
+                    {
+                        db.DbTalleres.Add(taller);
+                        db.SaveChanges();
+                        //success
+                    }
+                    else
+                    {
+                        throw new MyException("Rut ya existente");
+                    }
+                    return RedirectToAction("Index");
                 }
 
-               
-                return RedirectToAction("Index");
+                return View(taller);
             }
+            catch (Exception ex)
+            {
 
-            return View(taller);
+                throw ex;
+            }
         }
 
         // GET: Talleres/Edit/5

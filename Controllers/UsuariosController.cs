@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CARS;
 using CARS.Models;
+using CARS.Utilities;
 
 namespace CARS.Controllers
 {
@@ -18,11 +19,23 @@ namespace CARS.Controllers
         // GET: Usuarios
         public ActionResult Index()
         {
-            if (Session["UserId"] != null)
+            try
             {
-                return View(db.DbUsuarios.ToList());
+                if (Session["UserId"] != null)
+                {
+                    return View(db.DbUsuarios.ToList());
+                }
+                else
+                {
+                    throw new MyException("Han caducado las credenciales, por favor ingreselas nuevamente");
+                }
+                //return RedirectToAction("LogIn", "LogIn");
             }
-            return RedirectToAction("LogIn", "LogIn");
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
 
             
         }

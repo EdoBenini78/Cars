@@ -15,6 +15,7 @@ namespace CARS.Controllers
         {
             Session["Tipo"] = null;
             Session["UserId"] = null;
+            Session["Mail"] = null;
             return View();
         }
         [HttpPost]
