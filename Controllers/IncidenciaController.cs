@@ -187,6 +187,8 @@ namespace CARS.Controllers
 
         }
 
+
+
         // GET: Incidencias/Cancelar/5
         public ActionResult Cancelar(long? id)
         {
@@ -225,5 +227,61 @@ namespace CARS.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // GET: Incidencia/Edit/5
+        public ActionResult Edit(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Incidencia incidencia = db.DbIncidencias.Find(id);
+            if (incidencia == null)
+            {
+                return HttpNotFound();
+            }
+            return View(incidencia);
+        }
+
+        // POST: Servicios/Edit/5
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([System.Web.Mvc.Bind(Include = "Id,FechaInicio,FechaFin,FechaSugerida,Descripcion,DireccionSugerida,Kilometraje")] Incidencia incidencia)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(incidencia).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            
+            return RedirectToAction("Index","Home",null);
+        }
+
+        // GET: Servicios/Details/5
+        public ActionResult Details(long? id)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Incidencia incidencia = db.DbIncidencias.Find(id);
+                if (incidencia == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(incidencia);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

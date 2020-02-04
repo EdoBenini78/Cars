@@ -21,14 +21,14 @@
                     <span class="icon-bar"></span>
 
                 </button>
-                <img class="navbar-brand" href="~/Home/Index" src="~/Imagenes/D_Logo_Red_Car_Rental_RGB.png" >
+                <img class="navbar-brand" href="~/Home/Index" src="~/Imagenes/D_Logo_Red_Car_Rental_RGB.png">
 
 
             </div>
 
 
 
-            @if (Session["Tipo"] != null && Session["Tipo"].ToString() == "Administracion")
+            @if (Session["Tipo"] != null && (Session["Tipo"].ToString() == "Administracion" || Session["Tipo"].ToString() == "Director"))
             {
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav nav">
@@ -40,6 +40,9 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a class="nav-link" href="~/Incidencia/AgregarIncidencia">Nueva</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="~/Home/Index">Ver todas</a>
                                 </li>
                             </ul>
                         </li>
@@ -61,61 +64,121 @@
 
                     </ul>
                     <div class="nav navbar-nav navbar-right">
-                    <li class="dropdown" >
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" role="button"><span class="glyphicon glyphicon-user"> @Session["Mail"].ToString() </span><span class="glyphicon glyphicon-menu-down"></span> </a>
-                        <ul class="dropdown-menu">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" role="button"><span class="glyphicon glyphicon-user"> @Session["Mail"].ToString() </span><span class="glyphicon glyphicon-menu-down"></span> </a>
+                            <ul class="dropdown-menu">
 
 
-                            <li>@Html.ActionLink("Ver detalles", "Details", "Usuarios", new { id = Session["UserId"] }, null)</li>
-                            <li>@Html.ActionLink("Editar", "Edit", "Usuarios", new { id = Session["UserId"] }, null)</li>
+                                <li>@Html.ActionLink("Ver detalles", "Details", "Usuarios", new { id = Session["UserId"] }, null)</li>
+                                <li>@Html.ActionLink("Editar", "Edit", "Usuarios", new { id = Session["UserId"] }, null)</li>
 
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("Cerrar Sesión", "LogIn", "LogIn")</li>
-                        </ul>
+                                <li class="divider"></li>
+                                <li>@Html.ActionLink("Cerrar Sesión", "LogIn", "LogIn")</li>
+                            </ul>
                         </li>
-                           
 
-                        </div>
-</div>
+
+                    </div>
+                </div>
+            }
+            else if (Session["Tipo"] != null && (Session["Tipo"].ToString() == "Ventas" || Session["Tipo"].ToString() == "Mantenimiento"))
+            {
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="~/Home/Index">Inicio<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Incidencia <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a class="nav-link" href="~/Incidencia/AgregarIncidencia">Nueva</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="~/Home/Index">Ver todas</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Home/Ayuda">Ayuda</a>
+                        </li>
+
+                    </ul>
+                    <div class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" role="button"><span class="glyphicon glyphicon-user"> @Session["Mail"].ToString() </span><span class="glyphicon glyphicon-menu-down"></span> </a>
+                            <ul class="dropdown-menu">
+
+
+                                <li>@Html.ActionLink("Ver detalles", "Details", "Usuarios", new { id = Session["UserId"] }, null)</li>
+                                <li>@Html.ActionLink("Editar", "Edit", "Usuarios", new { id = Session["UserId"] }, null)</li>
+
+                                <li class="divider"></li>
+                                <li>@Html.ActionLink("Cerrar Sesión", "LogIn", "LogIn")</li>
+                            </ul>
+                        </li>
+
+
+                    </div>
+                </div>
+
+            }
+            else if (Session["Tipo"] != null && Session["Tipo"].ToString() == "Chofer")
+            {
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="~/Home/Index">Inicio<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Incidencia <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a class="nav-link" href="~/Incidencia/AgregarIncidencia">Nueva</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="~/Home/Index">Ver todas</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Home/Ayuda">Ayuda</a>
+                        </li>
+
+                    </ul>
+                    <div class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" role="button"><span class="glyphicon glyphicon-user"> @Session["Mail"].ToString() </span><span class="glyphicon glyphicon-menu-down"></span> </a>
+                            <ul class="dropdown-menu">
+
+
+                                <li>@Html.ActionLink("Ver detalles", "Details", "Usuarios", new { id = Session["UserId"] }, null)</li>
+                                <li>@Html.ActionLink("Editar", "Edit", "Usuarios", new { id = Session["UserId"] }, null)</li>
+
+                                <li class="divider"></li>
+                                <li>@Html.ActionLink("Cerrar Sesión", "LogIn", "LogIn")</li>
+                            </ul>
+                        </li>
+
+
+                    </div>
+                </div>
             }
         </div>
     </nav>
 
 
-    @* <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("C.A.R.S.", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-
-                        <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Usuarios", "Index", "Usuarios")</li>
-                    <li>@Html.ActionLink("Vehiculos", "Index", "Vehiculos")</li>
-                    <li>@Html.ActionLink("Talleres", "Index", "Talleres")</li>
-                    <li>@Html.ActionLink("Agregar Incidencia", "AgregarIncidencia", "Incidencia")</li>
-
-                </ul>
-              </div>
-
-        </div>
-        </div>
-    *@
 
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; C.A.R.S.</p>
-            <p><span class="glyphicon glyphicon-earphone"></span> (+598) 2908 0915</p>
-            <p><span class="glyphicon glyphicon-envelope"></span> reservas@dollar.com.uy</p>
-            <p><span class="glyphicon glyphicon-home"></span> Durazno 1390 - MVD - UY</p>
+            <p><span class="glyphicon glyphicon-earphone"></span> (+598) 2908 0915 - 
+            <span class="glyphicon glyphicon-envelope"></span> reservas@dollar.com.uy - 
+            <span class="glyphicon glyphicon-home"></span> Durazno 1390 - MVD - UY</p>
         </footer>
     </div>
 

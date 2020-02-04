@@ -370,6 +370,8 @@
     <Content Include="Views\LogIn\OlvideMiContrasenia.cshtml" />
     <Content Include="Views\Incidencia\ReporteServicios.cshtml" />
     <Content Include="Views\Home\Ayuda.cshtml" />
+    <Content Include="Views\Incidencia\Edit.cshtml" />
+    <Content Include="Views\Incidencia\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

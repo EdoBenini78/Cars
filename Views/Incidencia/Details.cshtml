@@ -1,0 +1,75 @@
+﻿@model CARS.Models.Incidencia
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Ver detalles</h2>
+
+<div>
+    <h4>Incidencia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaFin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaSugerida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaSugerida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DireccionSugerida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DireccionSugerida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kilometraje)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kilometraje)
+        </dd>
+
+       
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Volver", "Index","Home",null,null)
+</p>
