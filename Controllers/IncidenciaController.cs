@@ -159,13 +159,28 @@ namespace CARS.Controllers
         [HttpPost]
         public void ExportToExcel([FromBody] IEnumerable<string> exportTable)
         {
-            List<IExportable> listaExport = new List<IExportable>();
-            List<Servicio> servicios = ParseoLista(exportTable);
-            foreach (var item in servicios)
-                listaExport.Add(item);
-            ExportExcel export = new ExportExcel();
-            string nombreAArchivo = "Export_Reporte";
-            export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
+            try
+            {
+                if (exportTable != null)
+                {
+                    List<IExportable> listaExport = new List<IExportable>();
+                    List<Servicio> servicios = ParseoLista(exportTable);
+                    foreach (var item in servicios)
+                        listaExport.Add(item);
+                    ExportExcel export = new ExportExcel();
+                    string nombreAArchivo = "Export_Reporte";
+                    export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
+                }
+                else
+                {
+                    throw new MyException("No hay SERVICIOS para exporta en el reporte");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         private List<Servicio> ParseoLista(IEnumerable<string> exportTable)

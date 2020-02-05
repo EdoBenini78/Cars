@@ -56,9 +56,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.NumeroOrden)
                     </th>
-                    <th>
+                    @*<th>
                         Km próximo servicio
-                    </th>
+                    </th>*@
 
                 </tr>
             </thead>
@@ -88,7 +88,7 @@
                     <td>
                         @Html.DisplayFor(model => item.NumeroOrden)
                     </td>
-                    <td>
+                    @*<td>
                         @if (item.Tipo == CARS.Models.TipoServicio.Preventivo)
                         {
                            
@@ -99,7 +99,7 @@
                         {
                             @Html.Label("-");
                         }
-                    </td>
+                    </td>*@
 
                 </tr>
                 }
