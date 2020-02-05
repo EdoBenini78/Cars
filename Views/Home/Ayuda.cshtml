@@ -3,11 +3,13 @@
     ViewBag.Title = "Ayuda";
 }
 
-<h2>Manual de Usuario</h2>
+<form>
+<button id="manual" class="form-control" onclick="GetClientReport()" >Manual de Usuario</button>
+</form>
 
-<h3>1) Login</h3>
+<script type="text/javascript">
+    function GetClientReport() {
+        window.open("/Home/GetReport");
+    };
 
-<h3>2) Agregar Incidencia</h3>
-
-
-
+</script>
