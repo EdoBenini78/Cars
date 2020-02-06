@@ -115,5 +115,12 @@ namespace CARS.Controllers
         {
             return View("Ayuda");
         }
+
+        public FileResult GetReport()
+        {
+            string ReportURL = "C:/Users/Usuario/Desktop/CARS/Docs/documento302.pdf";
+            byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
+            return File(FileBytes, "application/pdf");
+        }
     }
 }
