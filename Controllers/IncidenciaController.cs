@@ -240,7 +240,7 @@ namespace CARS.Controllers
             }
             db.Entry(incidencia).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home",null);
         }
 
         // GET: Incidencia/Edit/5

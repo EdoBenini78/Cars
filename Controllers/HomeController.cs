@@ -113,14 +113,10 @@ namespace CARS.Controllers
 
         public ActionResult Ayuda()
         {
-            return View("Ayuda");
+            return Redirect("https://docs.google.com/document/d/e/2PACX-1vSmlzzuUDgW3Qd-lmwzwC9aCSry4nxAmGQmKN6NsWBMmQiribIffnipxNCQYzeOUe4MxtmwWD7lstmc/pub");
+            
         }
 
-        public FileResult GetReport()
-        {
-            string ReportURL = "https://docs.google.com/document/d/e/2PACX-1vSmlzzuUDgW3Qd-lmwzwC9aCSry4nxAmGQmKN6NsWBMmQiribIffnipxNCQYzeOUe4MxtmwWD7lstmc/pub";
-            byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
-            return File(FileBytes, "application/pdf");
-        }
+      
     }
 }
