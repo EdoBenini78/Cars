@@ -118,7 +118,7 @@ namespace CARS.Controllers
 
         public FileResult GetReport()
         {
-            string ReportURL = "C:/Users/Usuario/Desktop/CARS/Docs/documento302.pdf";
+            string ReportURL = "https://docs.google.com/document/d/e/2PACX-1vSmlzzuUDgW3Qd-lmwzwC9aCSry4nxAmGQmKN6NsWBMmQiribIffnipxNCQYzeOUe4MxtmwWD7lstmc/pub";
             byte[] FileBytes = System.IO.File.ReadAllBytes(ReportURL);
             return File(FileBytes, "application/pdf");
         }
