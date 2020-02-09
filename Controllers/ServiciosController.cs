@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CARS.Models;
+using CARS.Utilities;
 
 namespace CARS.Controllers
 {
@@ -66,7 +67,7 @@ namespace CARS.Controllers
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
@@ -82,16 +83,9 @@ namespace CARS.Controllers
                 if (ModelState.IsValid)
                 {
                     Incidencia aIncidencia = fachada.GetIncidenciaByDbId(long.Parse(incidencia));
-                    if (aIncidencia.Estado == EstadoIncidencia.Pendiente)
-                    {
-                        aIncidencia.Estado = EstadoIncidencia.Procesando;
-                        db.Entry(aIncidencia).State = EntityState.Modified;
-                    }
-                    servicio.Taller = fachada.GetTallerByDbId(long.Parse(taller));
-                    db.DbServicios.Add(servicio);
-                    ServicioIncidencia servicioIncidencia = new ServicioIncidencia(servicio, aIncidencia);
-                    db.DbServicioDeIncidencia.Add(servicioIncidencia);
-                    db.SaveChanges();
+
+                    fachada.CreateServicio(aIncidencia,servicio,taller);
+                    
                     return RedirectToAction("Index");
                 }
 
@@ -128,6 +122,10 @@ namespace CARS.Controllers
         {
             if (ModelState.IsValid)
             {
+                Servicio getServicio = fachada.GetServicioById(servicio.Id);
+                servicio.Taller = getServicio.Taller;
+                servicio.Vehiculo = getServicio.Vehiculo;
+                servicio.Hora = DateTime.Now;
                 db.Entry(servicio).State = EntityState.Modified;
                 db.SaveChanges();               
             }

@@ -99,10 +99,8 @@ namespace CARS.Controllers
         {
             try
             {
-                Vehiculo v = fachada.GetVehiculoByMatricula(matricula);
-
-                List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, fechaInicio, fechaFin, v);
-
+                //Vehiculo v = fachada.GetVehiculoByMatricula(matricula);
+                List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, fechaInicio, fechaFin);
                 List<Servicio> listaServicios = new List<Servicio>();
 
                 foreach (Incidencia i in incidencias)
@@ -131,7 +129,7 @@ namespace CARS.Controllers
             {
                 if (Session["UserId"] != null)
                 {
-                    List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, DateTime.Today, DateTime.Today, null);
+                    List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, DateTime.Today, DateTime.Today);
 
                     List<Servicio> listaServicios = new List<Servicio>();
 

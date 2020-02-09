@@ -10,7 +10,10 @@ namespace CARS.Models
 {
     public class Fachada
     {
-        DbCARS db = new DbCARS();
+        #region Propiedades
+        DbCARS db = new DbCARS(); 
+        #endregion
+
         #region Usuario
         public Usuario GetUsuarioBYDbId(long id)
         {
@@ -202,7 +205,21 @@ namespace CARS.Models
             return false;
         }
 
+        public List<Taller> GetTalleresDistanciaOk(Incidencia aIncidencia)
+        {
+            var talleres = db.DbTalleres.ToList();
+            List<Taller> talleresOk = new List<Taller>();
 
+            foreach (var item in talleres)
+            {
+                if (CalcularDistancia(aIncidencia, item) < 1.30)
+                {
+                    talleresOk.Add(item);
+                }
+            }
+
+            return talleresOk;
+        }
         #endregion
 
         #region Incidencia
@@ -260,12 +277,12 @@ namespace CARS.Models
         }
 
 
-        internal dynamic GetIncidenciasReporte(EstadoIncidencia estado, DateTime? fechaInicio, DateTime? fechaFin, Vehiculo vehiculo)
+        internal dynamic GetIncidenciasReporte(EstadoIncidencia estado, DateTime? fechaInicio, DateTime? fechaFin)
         {
             List<Incidencia> incidencias = new List<Incidencia>();
 
-            if (vehiculo == null)
-            {
+            //if (vehiculo == null)
+            //{
                 if (fechaInicio == null && fechaFin == null)
                 {
                     incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado).ToList();
@@ -282,27 +299,27 @@ namespace CARS.Models
                 {
                     incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio>=fechaInicio && i.FechaFin <= fechaFin).ToList();
                 }
-            }
-            else
-            {
-                if (fechaInicio == null && fechaFin == null)
-                {
-                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.Vehiculo==vehiculo).ToList();
+            //}
+            //else
+            //{
+            //    if (fechaInicio == null && fechaFin == null)
+            //    {
+            //        incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.Vehiculo==vehiculo).ToList();
 
-                }
-                if (fechaInicio != null && fechaFin == null)
-                {
-                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio && i.Vehiculo == vehiculo).ToList();
-                }
-                if (fechaInicio == null && fechaFin != null)
-                {
-                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaFin <= fechaFin && i.Vehiculo == vehiculo).ToList();
-                }
-                else if (fechaInicio != null && fechaFin != null)
-                {
-                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio && i.FechaFin <= fechaFin && i.Vehiculo == vehiculo).ToList();
-                }
-            }
+            //    }
+            //    if (fechaInicio != null && fechaFin == null)
+            //    {
+            //        incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio && i.Vehiculo == vehiculo).ToList();
+            //    }
+            //    if (fechaInicio == null && fechaFin != null)
+            //    {
+            //        incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaFin <= fechaFin && i.Vehiculo == vehiculo).ToList();
+            //    }
+            //    else if (fechaInicio != null && fechaFin != null)
+            //    {
+            //        incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio && i.FechaFin <= fechaFin && i.Vehiculo == vehiculo).ToList();
+            //    }
+            //}
             
                                            
             return incidencias;
@@ -379,6 +396,27 @@ namespace CARS.Models
             return db.DbServicios.Include("Vehiculo").Include("Taller").Where(s => s.Id == id).FirstOrDefault();
         }
 
+        internal void CreateServicio(Incidencia aIncidencia, Servicio servicio, string taller)
+        {
+            if (aIncidencia.Estado == EstadoIncidencia.Pendiente)
+            {
+                aIncidencia.Estado = EstadoIncidencia.Procesando;
+                db.Entry(aIncidencia).State = EntityState.Modified;
+            }
+            servicio.Taller = GetTallerByDbId(long.Parse(taller));
+            servicio.Vehiculo = aIncidencia.Vehiculo;
+            servicio.Hora = DateTime.Now;//arreglar esto
+
+            db.DbServicios.Add(servicio);
+            db.Entry(servicio.Taller).State = EntityState.Unchanged;
+            db.Entry(servicio.Vehiculo).State = EntityState.Unchanged;
+            db.SaveChanges();
+
+            ServicioIncidencia servicioIncidencia = new ServicioIncidencia(servicio, aIncidencia);
+            db.DbServicioDeIncidencia.Add(servicioIncidencia);
+            db.SaveChanges();
+        }
+
         #endregion
 
         #region ServicioIncidencia
@@ -397,29 +435,15 @@ namespace CARS.Models
         }
         #endregion
 
+        #region Utilidades
         public double CalcularDistancia(Incidencia aIncidencia, Taller aTaller)
         {
             double lng = Math.Pow((aIncidencia.Longitud - aTaller.Longitud), 2);
             double lat = Math.Pow((aIncidencia.Latitud - aTaller.Latitud), 2);
 
             return Math.Sqrt(lng + lat);
-        }
-
-        public List<Taller> GetTalleresDistanciaOk(Incidencia aIncidencia)
-        {
-            var talleres = db.DbTalleres.ToList();
-            List<Taller> talleresOk = new List<Taller>();
-
-            foreach (var item in talleres)
-            {
-                if (CalcularDistancia(aIncidencia,item) < 1.30)
-                {
-                    talleresOk.Add(item);
-                }
-            }
-
-            return talleresOk;
-        }
+        } 
+        #endregion
 
     }
 }

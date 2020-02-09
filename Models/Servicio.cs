@@ -30,7 +30,7 @@ namespace CARS.Models
         #endregion
 
         #region Constructor
-        public Servicio(Vehiculo vehiculo, Taller taller, TipoServicio tipo, DateTime fechaSugerida, DateTime fechaEntrada, DateTime fechaSalida, TipoEstado estado, List<Factura> facturas)
+        public Servicio(Vehiculo vehiculo, Taller taller, TipoServicio tipo, DateTime fechaSugerida, DateTime fechaEntrada, DateTime fechaSalida, TipoEstado estado  ,List<Factura> facturas)
         {
             Vehiculo = vehiculo;
             Taller = taller;

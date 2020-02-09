@@ -281,6 +281,14 @@
     <Compile Include="Migrations\202002020010354_edo1.designer.cs">
       <DependentUpon>202002020010354_edo1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202002081737041_noFacturas.cs" />
+    <Compile Include="Migrations\202002081737041_noFacturas.designer.cs">
+      <DependentUpon>202002081737041_noFacturas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002082230057_siFacturas.cs" />
+    <Compile Include="Migrations\202002082230057_siFacturas.designer.cs">
+      <DependentUpon>202002082230057_siFacturas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
     <Compile Include="Models\EstadoIncidencia.cs" />
@@ -393,6 +401,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002020010354_edo1.resx">
       <DependentUpon>202002020010354_edo1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002081737041_noFacturas.resx">
+      <DependentUpon>202002081737041_noFacturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002082230057_siFacturas.resx">
+      <DependentUpon>202002082230057_siFacturas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
