@@ -129,15 +129,22 @@ namespace CARS.Controllers
             {
                 if (Session["UserId"] != null)
                 {
-                    List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, DateTime.Today, DateTime.Today);
-
-                    List<Servicio> listaServicios = new List<Servicio>();
-
-                    foreach (Incidencia i in incidencias)
+                    if (fachada.GetUsuarioRole(Session["UserId"].ToString()) == TipoUsuario.Administracion)
                     {
-                        listaServicios.Add(fachada.GetServiciosIncidencia(i.Id));
+                        List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, DateTime.Today, DateTime.Today);
+
+                        List<Servicio> listaServicios = new List<Servicio>();
+
+                        foreach (Incidencia i in incidencias)
+                        {
+                            listaServicios.Add(fachada.GetServiciosIncidencia(i.Id));
+                        }
+                        return View(listaServicios);
                     }
-                    return View(listaServicios);
+                    else
+                    {
+                        throw new MyException("Usuario no Autorizado");
+                    }
                 }
                 else
                 {
@@ -205,16 +212,24 @@ namespace CARS.Controllers
         // GET: Incidencias/Cancelar/5
         public ActionResult Cancelar(long? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Incidencia i = db.DbIncidencias.Find(id);
+                if (i == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(i);
             }
-            Incidencia i = db.DbIncidencias.Find(id);
-            if (i == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+
+                throw ex;
             }
-            return View(i);
         }
 
         // POST: Incidencia/Cancelar/5
@@ -222,38 +237,54 @@ namespace CARS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CalcelarConfirmed(long id)
         {
-            //Las incidencias pendientes no tienen ningún servicio, por lo que siempre pueden cancelarse
-            Incidencia incidencia = db.DbIncidencias.Find(id);
-            if (incidencia.Estado == EstadoIncidencia.Procesando)
+            try
             {
-                List<Servicio> servicios = fachada.GetServiciosIncidencia(id);
-                foreach (Servicio s in servicios)
+                //Las incidencias pendientes no tienen ningún servicio, por lo que siempre pueden cancelarse
+                Incidencia incidencia = db.DbIncidencias.Find(id);
+                if (incidencia.Estado == EstadoIncidencia.Procesando)
                 {
-                    if (s.Estado != TipoEstado.Cancelado)
+                    List<Servicio> servicios = fachada.GetServiciosIncidencia(id);
+                    foreach (Servicio s in servicios)
                     {
-                        throw new MyException("No se puede borrar la incidencia ya que tiene SERVICIOS activos");
-                        //RETORNAR MENSAJE DE ERROR.  NO SE PUEDE CANCELAR LA INCIDENCIA SI HAY SERVICIOS PENDIENTES O FINALIZADOS
+                        if (s.Estado != TipoEstado.Cancelado)
+                        {
+                            throw new MyException("No se puede borrar la incidencia ya que tiene SERVICIOS activos");
+                            //RETORNAR MENSAJE DE ERROR.  NO SE PUEDE CANCELAR LA INCIDENCIA SI HAY SERVICIOS PENDIENTES O FINALIZADOS
+                        }
                     }
                 }
+                db.Entry(incidencia).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Home", null);
             }
-            db.Entry(incidencia).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index","Home",null);
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         // GET: Incidencia/Edit/5
         public ActionResult Edit(long? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Incidencia incidencia = db.DbIncidencias.Find(id);
+                if (incidencia == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(incidencia);
             }
-            Incidencia incidencia = db.DbIncidencias.Find(id);
-            if (incidencia == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+
+                throw ex;
             }
-            return View(incidencia);
         }
 
         // POST: Servicios/Edit/5
@@ -263,14 +294,21 @@ namespace CARS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([System.Web.Mvc.Bind(Include = "Id,FechaInicio,FechaFin,FechaSugerida,Descripcion,DireccionSugerida,Kilometraje")] Incidencia incidencia)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(incidencia).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+                if (ModelState.IsValid)
+                {
+                    db.Entry(incidencia).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
 
-            
-            return RedirectToAction("Index","Home",null);
+                return RedirectToAction("Index", "Home", null);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         // GET: Servicios/Details/5
@@ -291,8 +329,7 @@ namespace CARS.Controllers
             }
             catch (Exception ex)
             {
-
-                throw;
+                throw ex;
             }
         }
 

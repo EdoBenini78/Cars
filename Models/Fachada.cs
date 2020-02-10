@@ -21,6 +21,12 @@ namespace CARS.Models
             return pUsuario;
         }
 
+        internal TipoUsuario GetUsuarioRole(string userId)
+        {
+            Usuario usuario = GetUsuarioBYDbId(long.Parse(userId));
+            return usuario.Tipo;
+        }
+
         public Usuario ValidarLogIn(string aPass, string aMail)
         {
             try
@@ -57,7 +63,6 @@ namespace CARS.Models
                 throw ex;
             }
         }
-
 
         public bool VerificarMailExistente(string aMail)
         {

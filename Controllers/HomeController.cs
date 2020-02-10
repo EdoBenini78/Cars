@@ -59,7 +59,7 @@ namespace CARS.Controllers
                 else
                 {
                     throw new MyException("Han caducado las credenciales, por favor ingreselas nuevamente");
-                    return RedirectToAction("LogIn", "LogIn");
+                    //return RedirectToAction("LogIn", "LogIn");
                 }
             }
             catch (Exception ex)
