@@ -21,7 +21,14 @@ namespace CARS.Controllers
         {
             try
             {
-                return View(db.DbServicios.ToList());
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    return View(db.DbServicios.ToList());
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas.");
+                }
             }
             catch (Exception ex)
             {
@@ -49,7 +56,7 @@ namespace CARS.Controllers
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
@@ -58,11 +65,18 @@ namespace CARS.Controllers
         {
             try
             {
-                ViewBag.ListadoTalleres = fachada.GetTalleresDistanciaOk(fachada.GetIncidenciaByDbId(long.Parse(id)));
-                ViewBag.Incidencia = id;
-                long miID = long.Parse(id);
-                ViewBag.Matricula = fachada.GetIncidenciaByDbId(miID).Vehiculo.Matricula;
-                return View();
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    ViewBag.ListadoTalleres = fachada.GetTalleresDistanciaOk(fachada.GetIncidenciaByDbId(long.Parse(id)));
+                    ViewBag.Incidencia = id;
+                    long miID = long.Parse(id);
+                    ViewBag.Matricula = fachada.GetIncidenciaByDbId(miID).Vehiculo.Matricula;
+                    return View();
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas.");
+                }
             }
             catch (Exception ex)
             {
@@ -76,20 +90,27 @@ namespace CARS.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Tipo,FechaSugerida,Estado")] Servicio servicio, string incidencia, string taller)
+        public ActionResult Create([Bind(Include = "Tipo,FechaSugerida,Estado,NumeroOrden")] Servicio servicio, string incidencia, string taller)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
                 {
-                    Incidencia aIncidencia = fachada.GetIncidenciaByDbId(long.Parse(incidencia));
+                    if (ModelState.IsValid)
+                    {
+                        Incidencia aIncidencia = fachada.GetIncidenciaByDbId(long.Parse(incidencia));
 
-                    fachada.CreateServicio(aIncidencia,servicio,taller);
-                    
-                    return RedirectToAction("Index");
+                        fachada.CreateServicio(aIncidencia, servicio, taller);
+
+                        return RedirectToAction("Index");
+                    }
+
+                    return View(servicio);
                 }
-
-                return View(servicio);
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas.");
+                }
             }
             catch (Exception ex)
             {
@@ -99,18 +120,33 @@ namespace CARS.Controllers
         }
 
             // GET: Servicios/Edit/5
-            public ActionResult Edit(long? id)
+        public ActionResult Edit(long? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Servicio servicio = db.DbServicios.Find(id);
+                    if (servicio == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(servicio);
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas");
+                }
             }
-            Servicio servicio = db.DbServicios.Find(id);
-            if (servicio == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+
+                throw ex;
             }
-            return View(servicio);
         }
 
         // POST: Servicios/Edit/5
@@ -118,46 +154,84 @@ namespace CARS.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Tipo,FechaSugerida,FechaEntrada,FechaSalida,Estado")] Servicio servicio)
+        public ActionResult Edit([Bind(Include = "Id,Tipo,FechaSugerida,FechaEntrada,FechaSalida,Estado,NumeroOrden")] Servicio servicio)
         {
-            if (ModelState.IsValid)
+            try
             {
-                Servicio getServicio = fachada.GetServicioById(servicio.Id);
-                servicio.Taller = getServicio.Taller;
-                servicio.Vehiculo = getServicio.Vehiculo;
-                servicio.Hora = DateTime.Now;
-                db.Entry(servicio).State = EntityState.Modified;
-                db.SaveChanges();               
-            }
+                if (ModelState.IsValid)
+                {
+                    Servicio getServicio = fachada.GetServicioById(servicio.Id);
+                    servicio.Taller = getServicio.Taller;
+                    servicio.Vehiculo = getServicio.Vehiculo;
+                    servicio.Hora = DateTime.Now;
+                    db.Entry(servicio).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
 
-            fachada.ControlStatusIncidencia(servicio); 
-            return RedirectToAction("Index");
+                fachada.ControlStatusIncidencia(servicio);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public ActionResult VerServicios(string id)
         {
-            List<Servicio> serviciosDeIncidencia = fachada.GetServiciosIncidencia(long.Parse(id));
-            if (serviciosDeIncidencia.Count == 0)
+            try
             {
-                return RedirectToAction("Index","Home");
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    List<Servicio> serviciosDeIncidencia = fachada.GetServiciosIncidencia(long.Parse(id));
+                    if (serviciosDeIncidencia.Count == 0)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    ViewBag.Incidencia = id;
+                    return View("Index", serviciosDeIncidencia);
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas.");
+                }
             }
-            ViewBag.Incidencia = id;
-            return View("Index",serviciosDeIncidencia);
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         // GET: Servicios/Delete/5
         public ActionResult Delete(long? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Servicio servicio = db.DbServicios.Find(id);
+                    if (servicio == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(servicio);
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas.");
+                }
             }
-            Servicio servicio = db.DbServicios.Find(id);
-            if (servicio == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+
+                throw ex;
             }
-            return View(servicio);
         }
 
         // POST: Servicios/Delete/5
