@@ -17,14 +17,21 @@ namespace CARS.Export_Excel
         {
             var tipoObjeto = lista.FirstOrDefault();
             DataTable tabla = new DataTable();
-            foreach (var item in lista)
+            foreach (PropertyInfo prop in tipoObjeto.GetType().GetProperties())
             {
-                foreach (PropertyInfo prop in item.GetType().GetProperties())
+                if (!tabla.Columns.Contains(prop.Name))
                 {
                     tabla.Columns.Add(prop.Name);
                 }
-               
+                else
+                {
+                    if (tabla.Columns.Count == tipoObjeto.GetType().GetProperties().Count())
+                    {
+                        break;
+                    }
+                }
             }
+
             if (lista.Count != 0)
             {
                 object[] valores = new object[tipoObjeto.GetType().GetProperties().Count()];
@@ -54,19 +61,21 @@ namespace CARS.Export_Excel
         public void ExportToExcel(List<IExportable> lista, HttpServerUtilityBase server, HttpResponseBase response, string nombreArchivo)
         {
             DataTable dt = ToDataTable(lista);
-            var workbook = new XLWorkbook();
-            dt.TableName = "Reporte";
-            workbook.Worksheets.Add(dt);
+            XLWorkbook workbook = new XLWorkbook();
+
+            workbook.Worksheets.Add(dt, "Reporte");
 
             string myName = server.UrlEncode(nombreArchivo + ".xlsx");
-            MemoryStream stream = GetStream(workbook);
 
             response.Clear();
             response.Buffer = true;
-            response.AddHeader("content-disposition", "attachment; filename=" + myName);
             response.ContentType = "application/vnd.ms-excel";
-            response.TransmitFile(GetDownloadFolderPath());
-            response.BinaryWrite(stream.ToArray());
+            response.AddHeader("content-disposition", "attachment; filename=" + myName);
+            using MemoryStream memoryStream = new MemoryStream();
+            workbook.SaveAs(memoryStream);
+            memoryStream.Position = 0;
+            memoryStream.WriteTo(response.OutputStream);
+            response.Flush();
             response.End();
         }
 
