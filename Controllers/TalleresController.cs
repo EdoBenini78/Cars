@@ -13,6 +13,7 @@ namespace CARS.Controllers
 {
     public class TalleresController : Controller
     {
+        Fachada fachada = new Fachada();
         private DbCARS db = new DbCARS();
         [HandleError(View = "Error")]
         // GET: Talleres
@@ -20,9 +21,12 @@ namespace CARS.Controllers
         {
             try
             {
-                if (Session["UserId"] != null)
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
                 {
-                    return View(db.DbTalleres.ToList());
+                    if (true)
+                    {
+                        return View(db.DbTalleres.ToList()); 
+                    }
                 }
                 else
                 {
@@ -56,7 +60,15 @@ namespace CARS.Controllers
         // GET: Talleres/Create
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         // POST: Talleres/Create
@@ -116,28 +128,51 @@ namespace CARS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nombre,Rut,NombreContacto,Telefono,Activo,FechaIngreso,X,Y,Direccion")] Taller taller)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(taller).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(taller).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(taller);
             }
-            return View(taller);
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         // GET: Talleres/Delete/5
         public ActionResult Delete(long? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Taller taller = db.DbTalleres.Find(id);
+                    if (taller == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(taller);
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas");
+                }
             }
-            Taller taller = db.DbTalleres.Find(id);
-            if (taller == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+
+                throw ex;
             }
-            return View(taller);
         }
 
         // POST: Talleres/Delete/5
@@ -145,11 +180,19 @@ namespace CARS.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Taller taller = db.DbTalleres.Find(id);
-            taller.Activo = false;
-            db.Entry(taller).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Taller taller = db.DbTalleres.Find(id);
+                taller.Activo = false;
+                db.Entry(taller).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         protected override void Dispose(bool disposing)

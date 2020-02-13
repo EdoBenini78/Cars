@@ -71,12 +71,45 @@ namespace CARS.Controllers
 
         public ActionResult Servicio(string id)
         {
-            return RedirectToAction("Create", "Servicios", new { id = int.Parse(id)});
+            try
+            {
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer || fachada.GetUsuarioRole(Session["UserId"].ToString()) == TipoUsuario.Vendedor)
+                {
+                    return RedirectToAction("Create", "Servicios", new { id = int.Parse(id) });
+                }
+                else
+                {
+                    throw new MyException("No tiene las credenciales adecuadas.");
+                }
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
         public ActionResult VerServicios(string id)
         {
-            return RedirectToAction("VerServicios", "Servicios", new { id = id });
+            try
+            {
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    return RedirectToAction("VerServicios", "Servicios", new { id = id });
+                }
+                else
+                {
+                    throw new MyException("No tiene las credenciales adecuadas.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public ActionResult About()
@@ -113,7 +146,7 @@ namespace CARS.Controllers
 
         public ActionResult Ayuda()
         {
-            return Redirect("https://docs.google.com/document/d/e/2PACX-1vSmlzzuUDgW3Qd-lmwzwC9aCSry4nxAmGQmKN6NsWBMmQiribIffnipxNCQYzeOUe4MxtmwWD7lstmc/pub");
+            return Redirect("https://drive.google.com/file/d/1aOqYSTQBb-Qc-GY2BeIYsgCRhbs0WgwN/view?usp=drivesdk");
             
         }
 

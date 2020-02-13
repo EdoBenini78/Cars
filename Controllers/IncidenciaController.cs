@@ -166,19 +166,23 @@ namespace CARS.Controllers
         {
             try
             {
-                if (exportTable != null)
+
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) == TipoUsuario.Administracion)
                 {
-                    List<IExportable> listaExport = new List<IExportable>();
-                    List<Servicio> servicios = ParseoLista(exportTable);
-                    foreach (var item in servicios)
-                        listaExport.Add(item);
-                    ExportExcel export = new ExportExcel();
-                    string nombreAArchivo = "Export_Reporte";
-                    export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
-                }
-                else
-                {
-                    throw new MyException("No hay SERVICIOS para exporta en el reporte");
+                    if (exportTable != null)
+                    {
+                        List<IExportable> listaExport = new List<IExportable>();
+                        List<Servicio> servicios = ParseoLista(exportTable);
+                        foreach (var item in servicios)
+                            listaExport.Add(item);
+                        ExportExcel export = new ExportExcel();
+                        string nombreAArchivo = "Export_Reporte";
+                        export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
+                    }
+                    else
+                    {
+                        throw new MyException("No hay SERVICIOS para exporta en el reporte");
+                    } 
                 }
             }
             catch (Exception ex)

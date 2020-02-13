@@ -23,7 +23,14 @@ namespace CARS.Controllers
             {
                 if (Session["UserId"] != null)
                 {
-                    return View(db.DbVehiculos.ToList());
+                    if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                    {
+                        return View(db.DbVehiculos.ToList());
+                    }
+                    else
+                    {
+                        throw new MyException("Credenciales no adecuadas");
+                    }
                 }
                 else
                 {
@@ -43,22 +50,52 @@ namespace CARS.Controllers
         // GET: Vehiculos/Details/5
         public ActionResult Details(long? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Vehiculo vehiculo = db.DbVehiculos.Find(id);
+                    if (vehiculo == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(vehiculo);
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas");
+                }
             }
-            Vehiculo vehiculo = db.DbVehiculos.Find(id);
-            if (vehiculo == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+
+                throw ex;
             }
-            return View(vehiculo);
         }
 
         // GET: Vehiculos/Create
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    return View();
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         // POST: Vehiculos/Create
@@ -81,16 +118,31 @@ namespace CARS.Controllers
         // GET: Vehiculos/Edit/5
         public ActionResult Edit(long? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Vehiculo vehiculo = db.DbVehiculos.Find(id);
+                    if (vehiculo == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(vehiculo);
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas");
+                }
             }
-            Vehiculo vehiculo = db.DbVehiculos.Find(id);
-            if (vehiculo == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+
+                throw ex;
             }
-            return View(vehiculo);
         }
 
         // POST: Vehiculos/Edit/5
@@ -112,16 +164,31 @@ namespace CARS.Controllers
         // GET: Vehiculos/Delete/5
         public ActionResult Delete(long? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Vehiculo vehiculo = db.DbVehiculos.Find(id);
+                    if (vehiculo == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(vehiculo);
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas.");
+                }
             }
-            Vehiculo vehiculo = db.DbVehiculos.Find(id);
-            if (vehiculo == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+
+                throw ex;
             }
-            return View(vehiculo);
         }
 
         // POST: Vehiculos/Delete/5
@@ -147,9 +214,24 @@ namespace CARS.Controllers
 
         public ActionResult AgregarChoferView(int Id)
         {
-            ViewBag.Vehiculo = Id;
-            ViewBag.ListaChoferes = fachada.GetListaChoferesParaVehiculo(Id);
-            return View();
+            try
+            {
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    ViewBag.Vehiculo = Id;
+                    ViewBag.ListaChoferes = fachada.GetListaChoferesParaVehiculo(Id);
+                    return View();
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         [HttpPost]
@@ -157,8 +239,15 @@ namespace CARS.Controllers
         {
             try
             {
-                fachada.AgregarChoferaVehiculo(fachada.GetUsuarioBYDbId(long.Parse(chofer)), fachada.GetVehiculoByDbId(long.Parse(IdVehiculo)));
-                return RedirectToAction("Index", "Vehiculos");
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    fachada.AgregarChoferaVehiculo(fachada.GetUsuarioBYDbId(long.Parse(chofer)), fachada.GetVehiculoByDbId(long.Parse(IdVehiculo)));
+                    return RedirectToAction("Index", "Vehiculos");
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas.");
+                }
             }
             catch (Exception ex)
             {

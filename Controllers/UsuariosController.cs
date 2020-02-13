@@ -14,6 +14,7 @@ namespace CARS.Controllers
 {
     public class UsuariosController : Controller
     {
+        Fachada fachada = new Fachada();
         private DbCARS db = new DbCARS();
         [HandleError(View = "Error")]
         // GET: Usuarios
@@ -23,7 +24,15 @@ namespace CARS.Controllers
             {
                 if (Session["UserId"] != null)
                 {
-                    return View(db.DbUsuarios.ToList());
+                    if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                    {
+                        return View(db.DbUsuarios.ToList());
+                    }
+                    else
+                    {
+                        throw new MyException("Credenciales no adecuadas.");
+                    }
+                   
                 }
                 else
                 {
@@ -59,7 +68,22 @@ namespace CARS.Controllers
         // GET: Usuarios/Create
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) != TipoUsuario.Chofer)
+                {
+                    return View();
+                }
+                else
+                {
+                    throw new MyException("Credenciales no adecuadas.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         // POST: Usuarios/Create
