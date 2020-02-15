@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace CARS.Export_Excel
 {
@@ -58,19 +60,40 @@ namespace CARS.Export_Excel
             return tabla;
         }
 
-        public void ExportToExcel(List<IExportable> lista, HttpServerUtilityBase server, HttpResponseBase response, string nombreArchivo)
+        public void ExportExcel1(List<IExportable> lista, HttpResponseBase Response, string nombreArchivo)
+        {
+            DataTable dt = ToDataTable(lista);
+            var gv = new GridView();
+            gv.DataSource = dt;
+            gv.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=DemoExcel.xlsx");
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.Charset = "";
+            StringWriter objStringWriter = new StringWriter();
+            HtmlTextWriter objHtmlTextWriter = new HtmlTextWriter(objStringWriter);
+            gv.RenderControl(objHtmlTextWriter);
+            Response.Output.Write(objStringWriter.ToString());
+            Response.Flush();
+            Response.End();
+        }
+
+
+            public void ExportToExcel(List<IExportable> lista, HttpServerUtilityBase server, HttpResponseBase response, string nombreArchivo)
         {
             DataTable dt = ToDataTable(lista);
             XLWorkbook workbook = new XLWorkbook();
-
+            
             workbook.Worksheets.Add(dt, "Reporte");
 
-            string myName = server.UrlEncode(nombreArchivo + ".xlsx");
+            string myName = server.UrlEncode(nombreArchivo + ".xls");
 
             response.Clear();
             response.Buffer = true;
-            response.ContentType = "application/vnd.ms-excel";
-            response.AddHeader("content-disposition", "attachment; filename=" + myName);
+            //response.ContentType = "application/vnd.ms-excel";
+            response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            response.AddHeader("content-disposition", "attachment; filename=DemoExcel.xlsx");
             using MemoryStream memoryStream = new MemoryStream();
             workbook.SaveAs(memoryStream);
             memoryStream.Position = 0;
@@ -79,12 +102,29 @@ namespace CARS.Export_Excel
             response.End();
         }
 
+        public void ToExcel(HttpResponseBase Response, List<IExportable> lista)
+        {
+            var grid = new GridView();
+            DataTable dt = ToDataTable(lista);
+            grid.DataSource = dt;
+            grid.DataBind();
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", "attachment; filename=FileName.xls");
+            Response.ContentType = "application/excel";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+            grid.RenderControl(htw);
+            Response.Write(sw.ToString());
+            Response.End();
+        }
+
         string GetDownloadFolderPath()
         {
             return Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders", "{374DE290-123F-4565-9164-39C4925E467B}", String.Empty).ToString();
         }
 
-        private MemoryStream GetStream(XLWorkbook workbook)
+        public MemoryStream GetStream(XLWorkbook workbook)
         {
             MemoryStream ms = new MemoryStream();
             workbook.SaveAs(ms);

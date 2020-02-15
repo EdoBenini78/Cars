@@ -15,6 +15,9 @@ using System.Net;
 using ActionNameAttribute = System.Web.Mvc.ActionNameAttribute;
 using CARS.Utilities;
 using System.Data.Entity;
+using System.Data;
+using System.IO;
+using ClosedXML.Excel;
 
 namespace CARS.Controllers
 {
@@ -162,6 +165,7 @@ namespace CARS.Controllers
         }
 
         [HttpPost]
+        [HandleError(View = "Error")]
         public void ExportToExcel([FromBody] IEnumerable<string> exportTable)
         {
             try
@@ -176,8 +180,11 @@ namespace CARS.Controllers
                         foreach (var item in servicios)
                             listaExport.Add(item);
                         ExportExcel export = new ExportExcel();
-                        string nombreAArchivo = "Export_Reporte";
-                        export.ExportToExcel(listaExport, this.Server, this.Response, nombreAArchivo);
+                        string nombreArchivo = "Export_Reporte";
+                        
+                        export.ExportToExcel(listaExport, this.Server, this.Response, nombreArchivo);
+                       // export.ExportExcel1(listaExport,this.Response, nombreArchivo);
+                       // export.ToExcel(this.Response,listaExport);
                     }
                     else
                     {
