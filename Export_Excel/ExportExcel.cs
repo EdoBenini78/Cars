@@ -45,16 +45,16 @@ namespace CARS.Export_Excel
                     {
                         if (prop.PropertyType.FullName.Contains("CARS.Models"))
                         {
-                            if (prop.PropertyType.FullName.Contains("Taller"))
-                            {
-                                Taller taller = (Taller)item;
-                                valores[posicion] = taller.MiNombre();
-                            }
-                            if (prop.PropertyType.FullName.Contains("Vehiculo"))
-                            {
-                                Vehiculo vehiculo = (Vehiculo)item;
-                                valores[posicion] = vehiculo.MiNombre();
-                            }
+                            //if (prop.PropertyType.FullName.Contains("Taller"))
+                            //{
+                            //    Taller taller = (Taller)item;
+                            //    valores[posicion] = taller.MiNombre();
+                            //}
+                            //if (prop.PropertyType.FullName.Contains("Vehiculo"))
+                            //{
+                            //    Vehiculo vehiculo = (Vehiculo)item;
+                            //    valores[posicion] = vehiculo.MiNombre();
+                            //}
                         }
                         else
                         {
@@ -103,7 +103,7 @@ namespace CARS.Export_Excel
             response.Buffer = true;
             //response.ContentType = "application/vnd.ms-excel";
             response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            response.AddHeader("content-disposition", "attachment; filename=DemoExcel.xlsx");
+            response.AddHeader("content-disposition", "attachment; filename="+ myName);
             using MemoryStream memoryStream = new MemoryStream();
             workbook.SaveAs(memoryStream);
             memoryStream.Position = 0;
