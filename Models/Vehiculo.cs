@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CARS.Models
 {
-    public class Vehiculo: IEntity
+    public class Vehiculo: IEntity, IExportable
     {
         #region Properties
         public long Id { get; set; }

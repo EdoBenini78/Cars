@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CARS.Models
 {
-    public class Taller: IEntity
+    public class Taller: IEntity,IExportable
     {
         #region Properties
         public long Id { get; set; }
@@ -40,6 +40,13 @@ namespace CARS.Models
         {
             Activo = true;
             FechaIngreso = DateTime.Today;
+        }
+        #endregion
+
+        #region Metodos
+        public string MiNombre()
+        {
+            return this.Nombre;
         }
         #endregion
     }

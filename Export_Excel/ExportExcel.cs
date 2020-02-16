@@ -1,4 +1,5 @@
 ﻿using CARS.Interfaces;
+using CARS.Models;
 using ClosedXML.Excel;
 using Microsoft.Win32;
 using System;
@@ -42,9 +43,18 @@ namespace CARS.Export_Excel
                     int posicion = 0;
                     foreach (PropertyInfo prop in item.GetType().GetProperties())
                     {
-                        if (prop.PropertyType.FullName.Contains("CARS.Models")/*!(prop.GetValue(item, null) is Nullable) && prop.GetValue(item, null) != null*/)
+                        if (prop.PropertyType.FullName.Contains("CARS.Models"))
                         {
-                            //valores[posicion] = prop.GetValue(item, null).MiNombre();
+                            if (prop.PropertyType.FullName.Contains("Taller"))
+                            {
+                                Taller taller = (Taller)item;
+                                valores[posicion] = taller.MiNombre();
+                            }
+                            if (prop.PropertyType.FullName.Contains("Vehiculo"))
+                            {
+                                Vehiculo vehiculo = (Vehiculo)item;
+                                valores[posicion] = vehiculo.MiNombre();
+                            }
                         }
                         else
                         {
