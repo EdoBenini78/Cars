@@ -171,7 +171,7 @@ namespace CARS.Controllers
             try
             {
 
-                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) == TipoUsuario.Administracion)
+                if (fachada.GetUsuarioRole(Session["UserId"].ToString()) == TipoUsuario.Administracion || fachada.GetUsuarioRole(Session["UserId"].ToString()) == TipoUsuario.Director)
                 {
                     if (exportTable != null)
                     {
