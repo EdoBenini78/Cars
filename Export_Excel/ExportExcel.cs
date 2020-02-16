@@ -45,16 +45,15 @@ namespace CARS.Export_Excel
                     {
                         if (prop.PropertyType.FullName.Contains("CARS.Models"))
                         {
-                            //if (prop.PropertyType.FullName.Contains("Taller"))
-                            //{
-                            //    Taller taller = (Taller)item;
-                            //    valores[posicion] = taller.MiNombre();
-                            //}
-                            //if (prop.PropertyType.FullName.Contains("Vehiculo"))
-                            //{
-                            //    Vehiculo vehiculo = (Vehiculo)item;
-                            //    valores[posicion] = vehiculo.MiNombre();
-                            //}
+                            Servicio servicio = (Servicio)item;
+                            if (prop.PropertyType.FullName.Contains("Taller"))
+                            {                               
+                                valores[posicion] = servicio.Taller.MiNombre();
+                            }
+                            if (prop.PropertyType.FullName.Contains("Vehiculo"))
+                            {
+                                valores[posicion] = servicio.Vehiculo.MiNombre();
+                            }
                         }
                         else
                         {
