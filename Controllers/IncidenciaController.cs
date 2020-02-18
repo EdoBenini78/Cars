@@ -182,9 +182,10 @@ namespace CARS.Controllers
                         ExportExcel export = new ExportExcel();
                         string nombreArchivo = "Export_Reporte";
                         
-                        export.ExportToExcel(listaExport, this.Server, this.Response, nombreArchivo);
+                        ExportToExcel(listaExport, export, nombreArchivo);
                        // export.ExportExcel1(listaExport,this.Response, nombreArchivo);
                        // export.ToExcel(this.Response,listaExport);
+
                     }
                     else
                     {
@@ -197,6 +198,33 @@ namespace CARS.Controllers
 
                 throw ex;
             }
+        }
+
+        public HttpResponseBase ExportToExcel([FromBody]List<IExportable> lista, ExportExcel export, string nombreArchivo)
+        {
+            DataTable dt = export.ToDataTable(lista);
+            var workbook = new XLWorkbook();
+
+            workbook.Worksheets.Add(dt, "Reporte");
+
+            string myName = Server.UrlEncode(nombreArchivo + ".xlsx");
+            MemoryStream stream = GetStream(workbook);
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=" + myName);
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.BinaryWrite(stream.ToArray());
+            Response.End();
+            return Response;
+        }
+
+        public MemoryStream GetStream(XLWorkbook excelWorkbook)
+        {
+            MemoryStream fs = new MemoryStream();
+            excelWorkbook.SaveAs(fs);
+            fs.Position = 0;
+            return fs;
         }
 
         private List<Servicio> ParseoLista(IEnumerable<string> exportTable)

@@ -1,6 +1,7 @@
 ﻿using CARS.Interfaces;
 using CARS.Models;
 using ClosedXML.Excel;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -89,7 +90,7 @@ namespace CARS.Export_Excel
         }
 
 
-            public void ExportToExcel(List<IExportable> lista, HttpServerUtilityBase server, HttpResponseBase response, string nombreArchivo)
+            public HttpResponseBase ExportToExcel([FromBody]List<IExportable> lista, HttpServerUtilityBase server, HttpResponseBase response, string nombreArchivo)
         {
             DataTable dt = ToDataTable(lista);
             XLWorkbook workbook = new XLWorkbook();
@@ -100,8 +101,8 @@ namespace CARS.Export_Excel
 
             response.Clear();
             response.Buffer = true;
-            //response.ContentType = "application/vnd.ms-excel";
-            response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            response.ContentType = "application/vnd.ms-excel";
+            //response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             response.AddHeader("content-disposition", "attachment; filename="+ myName);
             using MemoryStream memoryStream = new MemoryStream();
             workbook.SaveAs(memoryStream);
@@ -109,6 +110,7 @@ namespace CARS.Export_Excel
             memoryStream.WriteTo(response.OutputStream);
             response.Flush();
             response.End();
+            return response;
         }
 
         public void ToExcel(HttpResponseBase Response, List<IExportable> lista)
