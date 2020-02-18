@@ -99,10 +99,13 @@ namespace CARS.Controllers
                     if (ModelState.IsValid)
                     {
                         Incidencia aIncidencia = fachada.GetIncidenciaByDbId(long.Parse(incidencia));
-
+                        if (aIncidencia.FechaInicio > servicio.FechaSugerida)
+                        {
+                            throw new MyException("La fecha selecionada tiene que ser mayor a " + aIncidencia.FechaInicio);
+                        }
                         fachada.CreateServicio(aIncidencia, servicio, taller);
 
-                        return RedirectToAction("Index");
+                        return RedirectToAction("VerServicios", "Servicios", new { id = aIncidencia.Id.ToString() });  
                     }
 
                     return View(servicio);
@@ -169,7 +172,8 @@ namespace CARS.Controllers
                 }
 
                 fachada.ControlStatusIncidencia(servicio);
-                return RedirectToAction("Index");
+                Incidencia aIncidencia = fachada.GetIncidenciaDeServicio(servicio);
+                return RedirectToAction("VerServicios", "Servicios", new { id = aIncidencia.Id.ToString() });
             }
             catch (Exception ex)
             {
@@ -243,7 +247,9 @@ namespace CARS.Controllers
             servicio.Estado = TipoEstado.Cancelado;
             db.Entry(servicio).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            Incidencia aIncidencia = fachada.GetIncidenciaDeServicio(servicio);
+            return RedirectToAction("VerServicios", "Servicios", new { id = aIncidencia.Id.ToString() });
+            
         }
 
         protected override void Dispose(bool disposing)

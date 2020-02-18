@@ -33,7 +33,7 @@ namespace CARS.Controllers
             {
                 if (Session["UserId"] != null)
                 {
-                    ViewBag.Vehiculo = fachada.GetVehiculoByChofer(long.Parse(Session["UserId"].ToString()));
+                    ViewBag.Vehiculo = fachada.GetVehiculos(long.Parse(Session["UserId"].ToString()));
                     return View();
                 }
                 else

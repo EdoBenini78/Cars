@@ -118,6 +118,13 @@ namespace CARS.Models
             return null;
         }
 
+        public List<Vehiculo> GetVehiculos(long aUserId)
+        {
+            List<Vehiculo> vehiculos = db.DbVehiculos.Where(v => v.Activo == true).ToList();
+            return vehiculos;
+        }
+
+
         public bool UpdateVehiculo(Vehiculo aVehiculo)
         {
             Vehiculo pVehiculo = GetVehiculoByDbId(aVehiculo.Id);
@@ -248,6 +255,13 @@ namespace CARS.Models
                 //mandar error
             }
             return incidencias;
+        }
+
+        internal Incidencia GetIncidenciaDeServicio(Servicio servicio)
+        {
+            ServicioIncidencia servicioIncidencia = db.DbServicioDeIncidencia.Include("Incidencia").Include("Servicio").Where(si => si.Servicio.Id == servicio.Id).FirstOrDefault();
+            Incidencia incidencia = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Id == servicioIncidencia.Incidencia.Id).FirstOrDefault();
+            return incidencia;
         }
 
         internal dynamic GetListaIncidencias(EstadoIncidencia estado)
