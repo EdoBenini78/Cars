@@ -98,7 +98,7 @@ namespace CARS.Controllers
         }
 
         [HttpPost]
-        public ActionResult ReporteServicios(DateTime? fechaInicio, DateTime? fechaFin, string matricula)
+        public ActionResult ReporteServicios(DateTime? fechaInicio, DateTime? fechaFin)
         {
             try
             {
@@ -132,9 +132,10 @@ namespace CARS.Controllers
             {
                 if (Session["UserId"] != null)
                 {
+                    
                     if (fachada.GetUsuarioRole(Session["UserId"].ToString()) == TipoUsuario.Administracion)
                     {
-                        List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, DateTime.Today, DateTime.Today);
+                        List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, DateTime.Now, DateTime.Now);
 
                         List<Servicio> listaServicios = new List<Servicio>();
 
