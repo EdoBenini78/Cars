@@ -97,73 +97,73 @@ namespace CARS.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult ReporteServicios(DateTime? fechaInicio, DateTime? fechaFin)
-        {
-            try
-            {
-                //Vehiculo v = fachada.GetVehiculoByMatricula(matricula);
-                List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, fechaInicio, fechaFin);
-                List<Servicio> listaServicios = new List<Servicio>();
+        //[HttpPost]
+        //public ActionResult ReporteServicios(DateTime fechaInicio, DateTime fechaFin)
+        //{
+        //    try
+        //    {
+        //        //Vehiculo v = fachada.GetVehiculoByMatricula(matricula);
+        //        List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, fechaInicio, fechaFin);
+        //        List<Servicio> listaServicios = new List<Servicio>();
 
-                foreach (Incidencia i in incidencias)
-                {
-                    List<Servicio> servicios = fachada.GetServiciosIncidencia(i.Id);
-                    if (servicios.Count() != 0)
-                        if (servicios.Count() != 0)
-                        {
-                            listaServicios.AddRange(servicios);
-                        }
-                }
+        //        foreach (Incidencia i in incidencias)
+        //        {
+        //            List<Servicio> servicios = fachada.GetServiciosIncidencia(i.Id);
+        //            if (servicios.Count() != 0)
+        //                if (servicios.Count() != 0)
+        //                {
+        //                    listaServicios.AddRange(servicios);
+        //                }
+        //        }
 
-                ViewBag.BtnFiltrar = 1;
-                return View(listaServicios);
-            }
-            catch (Exception ex)
-            {
+        //        ViewBag.BtnFiltrar = 1;
+        //        return View(listaServicios);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                throw ex;
-            }
-        }
-        [HttpGet]
-        public ActionResult ReporteServicios()
-        {
-            try
-            {
-                if (Session["UserId"] != null)
-                {
+        //        throw ex;
+        //    }
+        //}
+        //[HttpGet]
+        //public ActionResult ReporteServicios()
+        //{
+        //    try
+        //    {
+        //        if (Session["UserId"] != null)
+        //        {
                     
-                    if (fachada.GetUsuarioRole(Session["UserId"].ToString()) == TipoUsuario.Administracion)
-                    {
-                        List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, DateTime.Now, DateTime.Now);
+        //            if (fachada.GetUsuarioRole(Session["UserId"].ToString()) == TipoUsuario.Administracion)
+        //            {
+        //                List<Incidencia> incidencias = fachada.GetIncidenciasReporte(EstadoIncidencia.Finalizada, DateTime.Now, DateTime.Now);
 
-                        List<Servicio> listaServicios = new List<Servicio>();
+        //                List<Servicio> listaServicios = new List<Servicio>();
 
-                        foreach (Incidencia i in incidencias)
-                        {
-                            listaServicios.Add(fachada.GetServiciosIncidencia(i.Id));
-                        }
-                        return View(listaServicios);
-                    }
-                    else
-                    {
-                        throw new MyException("Usuario no Autorizado");
-                    }
-                }
-                else
-                {
-                    throw new MyException("Han caducado las credenciales, por favor ingreselas nuevamente");
-                }
-                //return RedirectToAction("LogIn", "LogIn");
-            }
-            catch (Exception ex)
-            {
+        //                foreach (Incidencia i in incidencias)
+        //                {
+        //                    listaServicios.Add(fachada.GetServiciosIncidencia(i.Id));
+        //                }
+        //                return View(listaServicios);
+        //            }
+        //            else
+        //            {
+        //                throw new MyException("Usuario no Autorizado");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            throw new MyException("Han caducado las credenciales, por favor ingreselas nuevamente");
+        //        }
+        //        //return RedirectToAction("LogIn", "LogIn");
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                throw ex;
-            }
+        //        throw ex;
+        //    }
 
             
-        }
+        //}
 
         [HttpPost]
         [HandleError(View = "Error")]

@@ -34,6 +34,7 @@ namespace CARS.Models
         public Incidencia()
         {
             FechaInicio = DateTime.Now;
+           
             Estado = EstadoIncidencia.Procesando;
         }
 

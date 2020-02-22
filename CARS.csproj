@@ -270,6 +270,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ExportExcelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncidenciaController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
@@ -294,6 +295,10 @@
     <Compile Include="Migrations\202002082230057_siFacturas.cs" />
     <Compile Include="Migrations\202002082230057_siFacturas.designer.cs">
       <DependentUpon>202002082230057_siFacturas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002221932502_kari.cs" />
+    <Compile Include="Migrations\202002221932502_kari.designer.cs">
+      <DependentUpon>202002221932502_kari.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DbCARS.cs" />
@@ -383,10 +388,12 @@
     <Content Include="Views\Servicios\Edit.cshtml" />
     <Content Include="Views\Servicios\Index.cshtml" />
     <Content Include="Views\LogIn\OlvideMiContrasenia.cshtml" />
-    <Content Include="Views\Incidencia\ReporteServicios.cshtml" />
+    <Content Include="Views\Incidencia\ReporteServiciosViejo.cshtml" />
     <Content Include="Views\Incidencia\Edit.cshtml" />
     <Content Include="Views\Incidencia\Details.cshtml" />
     <Content Include="Views\Incidencia\Cancelar.cshtml" />
+    <Content Include="Views\ExportExcel\Index.cshtml" />
+    <Content Include="Views\ExportExcel\ReporteServicios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -413,6 +420,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002082230057_siFacturas.resx">
       <DependentUpon>202002082230057_siFacturas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002221932502_kari.resx">
+      <DependentUpon>202002221932502_kari.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -296,50 +296,30 @@ namespace CARS.Models
         }
 
 
-        internal dynamic GetIncidenciasReporte(EstadoIncidencia estado, DateTime? fechaInicio, DateTime? fechaFin)
+        internal dynamic GetIncidenciasReporte(EstadoIncidencia estado, DateTime fechaInicio, DateTime fechaFin)
         {
             List<Incidencia> incidencias = new List<Incidencia>();
+         
 
             //if (vehiculo == null)
             //{
-                if (fechaInicio == null && fechaFin == null)
+                if (fechaInicio == DateTime.MinValue && fechaFin == DateTime.MaxValue)
                 {
                     incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado).ToList();
                 }
-                if (fechaInicio != null && fechaFin == null)
+                if (fechaInicio != DateTime.MinValue && fechaFin == DateTime.MaxValue)
                 {
                     incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio).ToList();
                 }
-                if (fechaInicio == null && fechaFin != null)
+                if (fechaInicio == DateTime.MinValue && fechaFin != DateTime.MaxValue)
                 {
                     incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaFin <= fechaFin).ToList();
                 }
-                if (fechaInicio != null && fechaFin != null)
+                if (fechaInicio != DateTime.MinValue && fechaFin != DateTime.MaxValue)
                 {
-                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio>=fechaInicio && i.FechaFin <= fechaFin).ToList();
+                    incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && DateTime.Compare(fechaInicio, i.FechaInicio)<=0 && DateTime.Compare(i.FechaInicio,fechaFin)<= 0).ToList();
                 }
-            //}
-            //else
-            //{
-            //    if (fechaInicio == null && fechaFin == null)
-            //    {
-            //        incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.Vehiculo==vehiculo).ToList();
 
-            //    }
-            //    if (fechaInicio != null && fechaFin == null)
-            //    {
-            //        incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio && i.Vehiculo == vehiculo).ToList();
-            //    }
-            //    if (fechaInicio == null && fechaFin != null)
-            //    {
-            //        incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaFin <= fechaFin && i.Vehiculo == vehiculo).ToList();
-            //    }
-            //    else if (fechaInicio != null && fechaFin != null)
-            //    {
-            //        incidencias = db.DbIncidencias.Include("Vehiculo").Include("Usuario").Where(i => i.Estado == estado && i.FechaInicio >= fechaInicio && i.FechaFin <= fechaFin && i.Vehiculo == vehiculo).ToList();
-            //    }
-            //}
-            
                                            
             return incidencias;
         }

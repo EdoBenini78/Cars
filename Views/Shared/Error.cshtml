@@ -13,29 +13,33 @@
 
         @if (Model.Exception is MyException)
         {
-            <h2>@Model.Exception.Message .</h2>
+            <h3>@Model.Exception.Message .</h3>
         }
         else
         {
-            <h2>Ha ocurrido un error fatal, estas despedido\a.</h2>
+            <h3>Ha ocurrido un error.  Consulta con personal de sistemas.</h3>
         }
     </hgroup>
     <button id="btnAceptar" onclick="RedirectTo('@Model.Exception.Message')" class="btn btn-primary">Aceptar</button>
+   
 </body>
 </html>
 <script type="text/javascript">
     function RedirectTo(msg) {
-        if (msg.includes("caducado") || msg.includes("Usuario")){
+        if (msg.includes("caducado") || msg.includes("Usuario")) {
             window.location = "@Url.Action("LogIn", "LogIn")";
-        }else if  (msg.includes("Vehiculo")){
+        } else if (msg.includes("Vehiculo")) {
             window.location = "@Url.Action("AgregarIncidencia", "Incidencia")";
-        }else if (msg.includes("Rut")) {
+        } else if (msg.includes("Rut")) {
             window.location = "@Url.Action("Index", "Home")";
-        }else if (msg.includes("incidencia")) {
+        } else if (msg.includes("incidencia")) {
             window.location = "@Url.Action("Index", "Home")";
-        }else if (msg.includes("fecha")) {
+        } else if (msg.includes("fecha")) {
             window.location = "@Url.Action("Index", "Home")";
-        else {
+        }else if (msg.includes("servicios")) {
+            window.location = "@Url.Action("ReporteServicios", "ExportExcel")";
+
+        } else {
             window.location = "@Url.Action("LogIn", "LogIn")";
         }
     };
