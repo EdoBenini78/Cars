@@ -51,11 +51,12 @@
                 @Html.DisplayNameFor(model => model.Tipo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FechaSugerida)
+                @Html.DisplayNameFor(model => model.Vehiculo.Matricula)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Hora)
+                @Html.DisplayNameFor(model => model.Taller)
             </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.FechaEntrada)
             </th>
@@ -76,33 +77,34 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tipo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaSugerida)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hora)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaEntrada)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaSalida)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Estado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumeroOrden)
-                </td>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vehiculo.Matricula)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Taller.Nombre)
+        </td>
+     
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaEntrada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaSalida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroOrden)
+        </td>
 
-            </tr>
+    </tr>
         }
 
     </table>

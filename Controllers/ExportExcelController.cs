@@ -117,8 +117,8 @@ namespace CARS.Controllers
                     {
                         DataTable table = new DataTable();
                         table.Columns.Add("Tipo", typeof(string));
-                        table.Columns.Add("Fecha Sugerida", typeof(string));
-                        table.Columns.Add("Hora", typeof(string));
+                        table.Columns.Add("Vehículo", typeof(string));
+                        table.Columns.Add("Taller", typeof(string));
                         table.Columns.Add("Fecha Entrada", typeof(string));
                         table.Columns.Add("Fecha Salida", typeof(string));
                         table.Columns.Add("Estado", typeof(string));
@@ -128,7 +128,7 @@ namespace CARS.Controllers
                         // Add Three rows with those columns filled in the DataTable.
                         foreach (Servicio s in listaServicios)
                         {
-                            table.Rows.Add(s.Tipo, s.FechaSugerida, s.Hora, s.FechaEntrada, s.FechaSalida, s.Estado, s.Descripcion, s.NumeroOrden);
+                            table.Rows.Add(s.Tipo, s.Vehiculo.Matricula,s.Taller.Nombre, s.FechaEntrada, s.FechaSalida, s.Estado, s.Descripcion, s.NumeroOrden);
                         }
 
 
@@ -139,7 +139,7 @@ namespace CARS.Controllers
                         httpResponse.Clear();
                         httpResponse.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                         //Provide you file name here
-                        httpResponse.AddHeader("content-disposition", "attachment;filename=\"Samplefile.xlsx\"");
+                        httpResponse.AddHeader("content-disposition", "attachment;filename=\"Reporte Servicios.xlsx\"");
 
                         // Flush the workbook to the Response.OutputStream
                         using (MemoryStream memoryStream = new MemoryStream())
