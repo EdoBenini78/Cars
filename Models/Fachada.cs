@@ -329,6 +329,7 @@ namespace CARS.Models
 
         internal void ControlStatusIncidencia(Servicio servicio)
         {
+            db = new DbCARS();//esto karina me dijo que podia
             List<Servicio> servicios = new List<Servicio>();
             Incidencia incidencia = db.DbServicioDeIncidencia.Include("Incidencia").Include("Servicio").Where(si => si.Servicio.Id == servicio.Id).FirstOrDefault().Incidencia;
             incidencia = db.DbIncidencias.Include("Usuario").Include("Vehiculo").Where(i => i.Id == incidencia.Id).FirstOrDefault();

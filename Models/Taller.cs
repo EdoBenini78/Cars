@@ -23,7 +23,7 @@ namespace CARS.Models
         #endregion
 
         #region Constructor
-        public Taller(string nombre, long rut, string nombreContacto, int telefono, double x, double y, string direccion)
+        public Taller(string nombre, long rut, string nombreContacto, int telefono, double longitud, double latitud, string direccion)
         {
             Nombre = nombre;
             Rut = rut;
@@ -31,9 +31,32 @@ namespace CARS.Models
             Telefono = telefono;
             Activo = true;
             FechaIngreso = DateTime.Today;
-            Longitud = x;
-            Latitud = y;
             Direccion = direccion;
+
+            //En la web hay que fijarse si toma con coma
+            if (!latitud.ToString().Contains("."))
+            {
+                string lat = latitud.ToString().Substring(0, 2) + "." + latitud.ToString().Substring(2);
+                Latitud = double.Parse(lat);
+            }
+            else
+            {
+                Latitud = latitud;
+            }
+
+            if (!longitud.ToString().Contains("."))
+            {
+                string lon = longitud.ToString().Substring(0, 2) + "." + longitud.ToString().Substring(2);
+                Longitud = double.Parse(lon);
+            }
+            else
+            {
+                Longitud = longitud;
+            }
+
+
+         
+           
         }
 
         public Taller()

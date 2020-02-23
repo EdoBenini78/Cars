@@ -84,8 +84,28 @@ namespace CARS.Controllers
                 {
                     if (db.DbTalleres.Where(t => t.Rut == taller.Rut).FirstOrDefault() == null)
                     {
-                        taller.Longitud = double.Parse(longitud.Replace(".", ","));
-                        taller.Latitud = double.Parse(latitud.ToString().Replace(".", ","));
+                        longitud.Replace(".", "");
+                        latitud.Replace(".", "");
+                        longitud.Replace(",", "");
+                        latitud.Replace(",", "");
+                        //En la web hay que fijarse si toma con coma
+                        string lat = latitud.Substring(0, 3) + "," + latitud.Substring(3);
+                        latitud = lat;
+                        string lon = longitud.Substring(0, 3) + "," + longitud.Substring(3);
+                        longitud = lon;
+                        //if (!latitud.Contains("."))
+                        //{
+                            
+                        //}
+                    
+
+                        //if (!longitud.Contains("."))
+                        //{
+                           
+                        //}
+                                                                                                                    
+                        taller.Longitud = double.Parse(longitud);
+                        taller.Latitud = double.Parse(latitud);
                         db.DbTalleres.Add(taller);
                         db.SaveChanges();
                         //success
@@ -126,7 +146,7 @@ namespace CARS.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nombre,Rut,NombreContacto,Telefono,Activo,FechaIngreso,X,Y,Direccion")] Taller taller)
+        public ActionResult Edit([Bind(Include = "Id,Nombre,Rut,NombreContacto,Telefono,Activo,FechaIngreso,Longitud,Latitud,Direccion")] Taller taller)
         {
             try
             {

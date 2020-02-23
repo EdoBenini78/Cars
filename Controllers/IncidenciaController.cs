@@ -56,8 +56,15 @@ namespace CARS.Controllers
             try
             {
                 Vehiculo aVehiculo = fachada.GetVehiculoByMatricula(matricula);
-                longitud = longitud.Replace(".", ",");
-                latitud = latitud.Replace(".", ",");
+                longitud.Replace(".", "");
+                latitud.Replace(".", "");
+                longitud.Replace(",", "");
+                latitud.Replace(",", "");
+
+                string lat = latitud.Substring(0, 3) + "," + latitud.Substring(3);
+                latitud = lat;
+                string lon = longitud.Substring(0, 3) + "," + longitud.Substring(3);
+                longitud = lon;
                 if (aVehiculo != null)
                 {
                     fachada.AgregarIncidencia(DateTime.Parse(FechaSugerida), long.Parse(km), dir, matricula, com, long.Parse(Session["UserId"].ToString()), double.Parse(longitud), double.Parse(latitud));
